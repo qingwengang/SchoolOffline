@@ -1,0 +1,134 @@
+﻿@using DoctorOffline.Entity;
+@{ 
+    SchoolContent content = (SchoolContent)ViewData["content"];
+    String[] titles = (String[])ViewData["titles"];
+}
+<link href="~/css/jquery.treeview.css" rel="stylesheet" />
+<link href="~/css/screen.css" rel="stylesheet" />
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="~/js/jquery.cookie.js"></script>
+<script src="~/js/jquery.treeview.js"></script>
+<script src="~/js/jquery.treeview.edit.js"></script>
+
+<link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+<script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="jqueryui/style.css">
+<div style="width:2400px; height:auto;float:left;">
+    <div style="width:300px; height:auto; float:left; display:inline">
+        <ul id="tree" class="filetree">
+            @Html.Raw(@ViewData["html"])
+        </ul>
+    </div>
+    <div style="width:300px; height:auto; float:left; display:inline">
+        <ul id="ulHrefs">
+            @foreach(string title in titles){
+                <li><a onclick="a('@title')">@title</a></li>
+            }
+        </ul>
+        <br />
+        <ul  id="treeType" class="filetree">
+            @Html.Raw(@ViewData["typeHtml"])
+        </ul>
+        <input type="button" value="通过" onclick="Pass();" />
+        <br />
+        <input type="button" value="对比" onclick="o();" />
+    </div>
+    <div style="width:800px; height:auto; float:left; display:inline">
+        标题：<input type="text" id="txtTitle" style="width:500px;" /><br />
+        <textarea name="content" id="container">
+            @Html.Raw(content.OutContent)
+        </textarea>
+        <br />
+        <input type="button" value="保存" onclick="Save();" />
+    </div>
+    <div style="width:800px; height:auto; float:left; display:inline">
+        标题：<input type="text" style="width:500px;" /><br />
+        <textarea name="content" id="outcontainer" style="display:none;">
+            @Html.Raw(content.OutContent)
+        </textarea>
+        <iframe id="ifw" style="width:800px;height:1000px;display:none;" src="https://www.baidu.com/s?ie=UTF-8&wd=iframe"></iframe>
+    </div>
+</div>
+<input type="hidden" id="currentMuluId" value="@ViewData["muluId"]" />
+<input type="hidden" id="currentTypeId" />
+<script src="~/editor/ueditor.config.js"></script>
+<script src="~/editor/ueditor.all.js"></script>
+<script type="text/javascript">
+    $("#tree").treeview({ collapsed: true });
+    $("#treeType").treeview({ collapsed: true });
+    $(function () {
+        var ue = UE.getEditor('container');
+        var muluId = $.getUrlParam('muluId');
+    })
+    function GetContent(muluId) {
+        $.ajax({
+            url: "/School/GetContent",
+            type: "GET",
+            data: { muluId: muluId },
+            success: function (data) {
+                var ue = UE.getEditor('container');
+                ue.setContent(data.content);
+
+                var ue1 = UE.getEditor('outcontainer');
+                ue1.setContent(data.outerContent);
+                $("#txtTitle").val(data.title);
+                $("#ulHrefs").html(data.hs);
+            }
+        })
+        $(".mulu").removeClass("selectedColor");
+        $("#" + muluId).addClass("selectedColor");
+        $("#currentMuluId").val(muluId);
+    }
+    function selectType(typeId) {
+        $(".mulutype").removeClass("selectedColor");
+        $("#type_" + typeId).addClass("selectedColor");
+        $("#currentTypeId").val(typeId);
+    }
+    function Save() {
+        var content = UE.getEditor('container').getContent();
+        var title = $("#txtTitle").val();
+        var muluId = $("#currentMuluId").val();
+        $.ajax({
+            url: "/School/SaveContent",
+            type: "POST",
+            data: { muluId: muluId,content:content,title:title },
+            success: function (data) {
+                alert(data);
+            }
+        })
+    }
+    function Pass(){
+        var muluId = $("#currentMuluId").val();
+        var typeId = $("#currentTypeId").val();
+        $.ajax({
+            url: "/School/Pass",
+            type: "POST",
+            data: { muluId: muluId,typeId:typeId},
+            success: function (data) {
+                alert(data);
+            }
+        })
+    }
+    function a(keyword) {
+        var url = "https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=0&rsv_idx=1&tn=baidu&wd=" + keyword;
+        $("#ifw").attr("src", url);
+        $("#ifw").show();
+        $("#outcontainer").hide();
+    }
+    function b(keyword) {
+        var url = "http://cn.bing.com/search?q=" + keyword;
+        $("#ifw").attr("src", url);
+        $("#ifw").show();
+        $("#outcontainer").hide();
+    }
+    function c(keyword) {
+        var url = "https://www.google.com/?gws_rd=ssl#q=" + keyword;
+        $("#ifw").attr("src", url);
+        $("#ifw").show();
+        $("#outcontainer").hide();
+    }
+    function o() {
+        $("#ifw").hide();
+        $("#outcontainer").show();
+    }
+</script>

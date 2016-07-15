@@ -1,0 +1,16 @@
+﻿body {
+}
+.navigation {
+    background: #96b97d;
+}
+.container {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.row {
+    width: 100%;
+    max-width: 1140px;
+    min-width: 755px;
+    margin: 0 auto;
+    overflow: hidden;
+}
