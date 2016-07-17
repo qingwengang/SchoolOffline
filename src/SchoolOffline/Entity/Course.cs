@@ -14,6 +14,8 @@ namespace SchoolOffline.Entity
         public string Content { get; set; }
         public int SortNum { get; set; }
 
+        public Course() { }
+
         public Course(string typeName,string muluName,string title,string content,int sortNum)
         {
             this.TypeName = typeName;

@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing.Constraints;
 
 namespace SchoolOffline
 {
@@ -72,8 +73,13 @@ namespace SchoolOffline
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                    name: "us_english_products",
+                    template: "{type}/{id}.html",
+                    defaults: new { controller = "Home", action = "Index" },
+                    constraints: new { id = new IntRouteConstraint() });
+                routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=School}/{action=Index}/{id?}");
             });
         }
     }

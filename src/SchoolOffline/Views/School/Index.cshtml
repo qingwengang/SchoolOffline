@@ -100,10 +100,12 @@
     function Pass(){
         var muluId = $("#currentMuluId").val();
         var typeId = $("#currentTypeId").val();
+        var title = $("#txtTitle").val();
+        var content = UE.getEditor('container').getContent();
         $.ajax({
             url: "/School/Pass",
             type: "POST",
-            data: { muluId: muluId,typeId:typeId},
+            data: { muluId: muluId,typeId:typeId,title:title,content:content},
             success: function (data) {
                 alert(data);
             }

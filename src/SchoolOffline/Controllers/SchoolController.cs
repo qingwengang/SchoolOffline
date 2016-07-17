@@ -120,13 +120,13 @@ namespace DoctorOffline.Controllers
             }
             return Json("success");
         }
-        public JsonResult Pass(long muluId,long typeId)
+        public JsonResult Pass(long muluId,long typeId,string title,string content)
         {
             try
             {
-                SchoolContent content = new SchoolContentService().GetByMuluId(muluId);
+                //SchoolContent content = new SchoolContentService().GetByMuluId(muluId);
                 Mulu m = new MuluService().GetByMuluId(typeId);
-                Course course = new Course(m.TypeName, m.MuluName, content.Titles, content.Content, 0);
+                Course course = new Course(m.TypeName, m.MuluName, title, content, 0);
                 new CourseService().Add(course);
                 SchoolMulu mulu = new SchoolMuluService().GetByMuluId(muluId);
                 mulu.IfPassed = 1;
