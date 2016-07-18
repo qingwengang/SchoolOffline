@@ -173,7 +173,7 @@ namespace DoctorOffline.Controllers
                 foreach (var item in courseList)
                 {
                     var httpClient = new HttpClient();
-                    var task = httpClient.GetAsync(new Uri(String.Format("http://localhost:42742/{0}/{1}.html", type, item.Id)));
+                    var task = httpClient.GetAsync(new Uri(String.Format("http://localhost:42742/Home/Index?type={0}&id={1}", type, item.Id)));
 
                     task.Result.EnsureSuccessStatusCode();
                     HttpResponseMessage response = task.Result;
@@ -191,7 +191,7 @@ namespace DoctorOffline.Controllers
             {
                 Directory.CreateDirectory(dicPath);
             }
-            FileStream fs = new FileStream(String.Format("E:\\StaticFiles\\{0}\\{1}.html", type, id), FileMode.Append);
+            FileStream fs = new FileStream(String.Format("E:\\StaticFiles\\{0}\\{1}.html", type, id), FileMode.Create);
             StreamWriter sw = new StreamWriter(fs, Encoding.UTF8);
             sw.Write(content);
             sw.Dispose();
