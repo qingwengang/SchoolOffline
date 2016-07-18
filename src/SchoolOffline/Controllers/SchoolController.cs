@@ -3,10 +3,13 @@ using DoctorOffline.Models;
 using DoctorOffline.Service;
 using Microsoft.AspNetCore.Mvc;
 using SchoolOffline.Entity;
+using SchoolOffline.Models;
 using SchoolOffline.Service;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,6 +17,8 @@ namespace DoctorOffline.Controllers
 {
     public class SchoolController : Controller
     {
+        private CourseService courseService = new CourseService();
+        private MenuService menuService = new MenuService();
         public IActionResult Index(long muluId)
         {
             if (muluId <= 0)
@@ -75,6 +80,7 @@ namespace DoctorOffline.Controllers
             ViewData["html"] = sbHtml.ToString();
             ViewData["typeHtml"] = sbType.ToString();
             ViewData["muluId"] = muluId;
+            ViewData["typeList"] = courseService.GetDistinctTypeName();
             return View();
         }
         public JsonResult GetContent(long muluId)
@@ -124,9 +130,9 @@ namespace DoctorOffline.Controllers
         {
             try
             {
-                //SchoolContent content = new SchoolContentService().GetByMuluId(muluId);
                 Mulu m = new MuluService().GetByMuluId(typeId);
-                Course course = new Course(m.TypeName, m.MuluName, title, content, 0);
+                int maxSortNum = courseService.GetMaxSortNumByMuluName(m.MuluName);
+                Course course = new Course(m.TypeName, m.MuluName, title, content, maxSortNum+1);
                 new CourseService().Add(course);
                 SchoolMulu mulu = new SchoolMuluService().GetByMuluId(muluId);
                 mulu.IfPassed = 1;
@@ -137,6 +143,126 @@ namespace DoctorOffline.Controllers
                 return Json("fail");
             }
             return Json("success");
+        }
+
+        public JsonResult GetSortModelByMuluName(long muluId)
+        {
+            List<CourseSortModel> courseList = new CourseService().GetCourseSortModelByMuluName(muluId);
+            return Json(courseList);
+        }
+
+        public string InitStaticPageAll()
+        {
+            List<string> types = new MenuService().GetDistinct("select DISTINCT typename as col  from menu");
+            foreach (var item in types)
+            {
+                InitStaticPageByTypeName(item);
+            }
+            return "success";
+        }
+
+        public string InitStaticPageByTypeName(string type)
+        {
+            if (type == "ALL")
+            {
+                string s=InitStaticPageAll();
+            }
+            else
+            {
+                List<Course> courseList = new CourseService().GetCourseByTypeName(type);
+                foreach (var item in courseList)
+                {
+                    var httpClient = new HttpClient();
+                    var task = httpClient.GetAsync(new Uri(String.Format("http://localhost:42742/{0}/{1}.html", type, item.Id)));
+
+                    task.Result.EnsureSuccessStatusCode();
+                    HttpResponseMessage response = task.Result;
+                    var result = response.Content.ReadAsStringAsync();
+                    string responseBodyAsText = result.Result;
+                    Write(type, item.Id, responseBodyAsText);
+                }
+            }
+            return "success";
+        }
+        public void Write(string type, long id, string content)
+        {
+            String dicPath = String.Format("E:\\StaticFiles\\{0}", type);
+            if (!Directory.Exists(dicPath))
+            {
+                Directory.CreateDirectory(dicPath);
+            }
+            FileStream fs = new FileStream(String.Format("E:\\StaticFiles\\{0}\\{1}.html", type, id), FileMode.Append);
+            StreamWriter sw = new StreamWriter(fs, Encoding.UTF8);
+            sw.Write(content);
+            sw.Dispose();
+            fs.Dispose();
+        }
+        public string InitMenu(string type)
+        {
+            if (type == "ALL")
+            {
+                InitMenuAll();
+            }else
+            {
+                List<Course> courseList = new CourseService().GetCourseByTypeName(type);
+                StringBuilder sbHtml = new StringBuilder();
+                foreach (Course course in courseList)
+                {
+
+                    sbHtml.Append(String.Format("<a target=\"_top\" title=\"{0}\" href=\"{1}.html\">{0}</a>", course.Title, course.Id));
+                }
+                string menuContent = sbHtml.ToString();
+                Menu menu = new MenuService().GetMenuByTypeName(type);
+                if (menu == null)
+                {
+                    menu = new Menu();
+                    menu.TypeName = type;
+                    menu.Content = menuContent;
+                    menuService.Add(menu);
+                }
+                else
+                {
+                    if (menuContent != menu.Content)
+                    {
+                        menu.Content = menuContent;
+                        menuService.Update(menu);
+                    }
+                }
+            }
+            return "success";
+        }
+        public string setSortNum(int sortNum,long currentCourseId)
+        {
+            Course course = courseService.GetById(currentCourseId);
+            course.SortNum = sortNum;
+            courseService.Update(course);
+            return "success";
+        }
+        public void InitMenuAll()
+        {
+            List<String> types = new BaseSchoolService().GetDistinct("select DISTINCT typename as col from course ");
+            foreach(string type in types)
+            {
+                string s=InitMenu(type);
+            }
+        }
+        public string InitAllOnline(string type)
+        {
+            string result = string.Empty;
+            if (type == "ALL")
+            {
+                InitMenuAll();
+                InitStaticPageAll();
+            }
+            else
+            {
+                result=InitMenu(type);
+                if (result == "success")
+                {
+                    result= InitStaticPageByTypeName(type);
+                }
+            }
+            return "success";
         }
     }
 }

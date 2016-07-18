@@ -2,6 +2,7 @@
 @{ 
     SchoolContent content = (SchoolContent)ViewData["content"];
     String[] titles = (String[])ViewData["titles"];
+    List<String> typeList = (List<String>)ViewData["typeList"];
 }
 <link href="~/css/jquery.treeview.css" rel="stylesheet" />
 <link href="~/css/screen.css" rel="stylesheet" />
@@ -18,6 +19,23 @@
         <ul id="tree" class="filetree">
             @Html.Raw(@ViewData["html"])
         </ul>
+        <br />
+        <select id="sel">
+            @foreach (var item in typeList)
+            {
+                <option value="@item">@item</option>
+            }
+            <option value="ALL">ALL</option>
+        </select>
+        <br />
+        <input type="button" value="静态页面初始化" onclick="InitStaticPage();" /><br />
+        <input type="button" value="菜单初始化" onclick="InitMenu();" />
+        <input type="button" value="一切初始化" onclick="InitAllOnline();" />
+        <br />
+        <ul id="muluList"></ul>
+        <br/>
+        <input type="text" id="txtSortNum" />
+        <input type="button" value="设置sortnum" onclick="setSortNum();" />
     </div>
     <div style="width:300px; height:auto; float:left; display:inline">
         <ul id="ulHrefs">
@@ -51,6 +69,7 @@
 </div>
 <input type="hidden" id="currentMuluId" value="@ViewData["muluId"]" />
 <input type="hidden" id="currentTypeId" />
+<input type="hidden" id="currentCourseId" />
 <script src="~/editor/ueditor.config.js"></script>
 <script src="~/editor/ueditor.all.js"></script>
 <script type="text/javascript">
@@ -83,6 +102,24 @@
         $(".mulutype").removeClass("selectedColor");
         $("#type_" + typeId).addClass("selectedColor");
         $("#currentTypeId").val(typeId);
+        $.ajax({
+            url: "/School/GetSortModelByMuluName",
+            type: "GET",
+            cache:false,
+            data: { muluId: typeId },
+            success: function (data) {
+                var html = "";
+                for(var i=0;i<data.length;i++){
+                    html += "<li id='sortmulu_"+data[i].id+"' class='sortMulu ' onClick=setCurrentCourseId("+data[i].id+");>" + data[i].title + "_" + data[i].sortNum + "</li>";
+                }
+                $("#muluList").html(html);
+            }
+        })
+    }
+    function setCurrentCourseId(currentSortMuluId) {
+        $("#currentCourseId").val(currentSortMuluId);
+        $(".sortMulu").removeClass("selectedColor");
+        $("#sortmulu_" + currentSortMuluId).addClass("selectedColor");
     }
     function Save() {
         var content = UE.getEditor('container').getContent();
@@ -108,6 +145,55 @@
             data: { muluId: muluId,typeId:typeId,title:title,content:content},
             success: function (data) {
                 alert(data);
+            }
+        })
+    }
+    function InitStaticPage() {
+        var selectType = $("#sel").val();
+        $.ajax({
+            url: "/School/InitStaticPageByTypeName",
+            type: "GET",
+            data: { type:selectType },
+            success: function (data) {
+                alert(data);
+            }
+        })
+    }
+    function InitMenu() {
+        var selectType = $("#sel").val();
+        $.ajax({
+            url: "/School/InitMenu",
+            type: "GET",
+            data: { type: selectType },
+            success: function (data) {
+                alert(data);
+            }
+        })
+    }
+    function InitAllOnline() {
+        var selectType = $("#sel").val();
+        $.ajax({
+            url: "/School/InitAllOnline",
+            type: "GET",
+            data: { type: selectType },
+            success: function (data) {
+                alert(data);
+            }
+        })
+    }
+    function setSortNum() {
+        var sortNum = $("#txtSortNum").val();
+        var currentCourseId = $("#currentCourseId").val();
+        $.ajax({
+            url: "/School/setSortNum",
+            type: "GET",
+            data: { sortNum: sortNum, currentCourseId:currentCourseId },
+            success: function (data) {
+                alert(data);
+                if (data == "success") {
+                    var typeid=$("#currentTypeId").val();
+                    selectType(typeid);
+                }
             }
         })
     }
