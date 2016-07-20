@@ -43,7 +43,7 @@ namespace SchoolOffline.Service
         public int GetMaxSortNumByMuluName(string muluName)
         {
             int result = 0;
-            string sql = String.Format("select max(sortnum) as col from course where muluname='{0}'", muluName);
+            string sql = String.Format("select ifnull(max(sortnum),0) as col from course where muluname='{0}'", muluName);
             var muluList = GetDistinct(sql);
             if(muluList!=null && muluList.Count > 0)
             {

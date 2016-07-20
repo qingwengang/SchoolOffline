@@ -19,6 +19,8 @@ namespace DoctorOffline.Controllers
     {
         private CourseService courseService = new CourseService();
         private MenuService menuService = new MenuService();
+        private TiyContentService tiyService = new TiyContentService();
+        private SchoolMuluService schoolMuluService = new SchoolMuluService();
         public IActionResult Index(long muluId)
         {
             if (muluId <= 0)
@@ -44,7 +46,7 @@ namespace DoctorOffline.Controllers
                     sbHtml.Append("<ul>");
                     foreach (var mulu in muluList.Where(x => x.Type1 == type))
                     {
-                        sbHtml.AppendFormat("<li><span id='{1}' class='mulu {2}' onclick='GetContent({1})'>{0}</span></li>", mulu.Name,mulu.Id,mulu.IfPassed==1?"green":"");
+                        sbHtml.AppendFormat("<li><span id='{1}' class='mulu {2}' onclick='GetContent({1})'>{0}</span></li>", mulu.Name,mulu.Id,mulu.IfPassed==1?"green": mulu.IfPassed == 2?"blue":"");
                     }
                     sbHtml.Append("</ul>");
                 }
@@ -126,6 +128,13 @@ namespace DoctorOffline.Controllers
             }
             return Json("success");
         }
+        public string Complete(long muluId)
+        {
+            SchoolMulu schoolMulu = schoolMuluService.GetByMuluId(muluId);
+            schoolMulu.IfPassed = 2;
+            schoolMuluService.Update(schoolMulu);
+            return "success";
+        }
         public JsonResult Pass(long muluId,long typeId,string title,string content)
         {
             try
@@ -144,6 +153,7 @@ namespace DoctorOffline.Controllers
             }
             return Json("success");
         }
+        
 
         public JsonResult GetSortModelByMuluName(long muluId)
         {
@@ -206,9 +216,14 @@ namespace DoctorOffline.Controllers
             {
                 List<Course> courseList = new CourseService().GetCourseByTypeName(type);
                 StringBuilder sbHtml = new StringBuilder();
+                string muluName = String.Empty;
                 foreach (Course course in courseList)
                 {
-
+                    if (muluName != course.MuluName)
+                    {
+                        muluName = course.MuluName;
+                        sbHtml.AppendFormat("<h2 class=\"left\"><span class=\"left_h2\">{0}</span></h2>", muluName);
+                    }
                     sbHtml.Append(String.Format("<a target=\"_top\" title=\"{0}\" href=\"{1}.html\">{0}</a>", course.Title, course.Id));
                 }
                 string menuContent = sbHtml.ToString();
@@ -261,6 +276,53 @@ namespace DoctorOffline.Controllers
                 {
                     result= InitStaticPageByTypeName(type);
                 }
+            }
+            return "success";
+        }
+
+        public IActionResult TIYEdit(string courseTitle)
+        {
+            var tiyList = tiyService.GetByCourseTitle(courseTitle);
+            ViewData["tiyList"] = tiyList;
+            ViewData["html"]= @"<html><body>fdsfsfsdfds</body></html>";
+            return View();
+        }
+        public IActionResult EditCourse(long id)
+        {
+            Course course = courseService.GetById(id);
+            ViewData["course"] = course;
+            return View();
+        }
+        public string UpdateCourse(long id,string title,string typename,string muluname,string content,int sortnum)
+        {
+            Course course = new Course(typename, muluname, title, content, sortnum);
+            course.Id = id;
+            courseService.Update(course);
+            return "success";
+        }
+        public JsonResult GetCourse(long id)
+        {
+            Course course = courseService.GetById(id);
+            return Json(course);
+        }
+        public JsonResult GetTiyContentById(long id)
+        {
+            var content = tiyService.GetById(id);
+            return Json(content);
+        }
+        public string SaveTiyContent(long id,string title,string coursetitle,string content)
+        {
+            if (id == 0)
+            {
+                TiyContent tiycontent = new TiyContent(title, coursetitle, content);
+                var newid=tiyService.Add(tiycontent);
+                return string.Format("/Home/DIY/{0}.html",newid);
+            }
+            else
+            {
+                TiyContent tiycontent = new TiyContent(title, coursetitle, content);
+                tiycontent.Id = id;
+                tiyService.Update(tiycontent);
             }
             return "success";
         }

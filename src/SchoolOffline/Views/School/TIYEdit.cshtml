@@ -1,0 +1,94 @@
+﻿@using SchoolOffline.Entity;
+@{ 
+    var tiyList = (List<TiyContent>)ViewData["tiyList"];
+}
+
+    <link href="~/css/jquery.treeview.css" rel="stylesheet" />
+    <link href="~/css/screen.css" rel="stylesheet" />
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="~/js/jquery.cookie.js"></script>
+    <script src="~/js/jquery.treeview.js"></script>
+    <script src="~/js/jquery.treeview.edit.js"></script>
+
+    <link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+    <script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="jqueryui/style.css">
+
+<div style="width:2400px; height:auto;float:left;">
+    <div style="width:300px; height:auto; float:left; display:inline">
+        <ul id="ulTiy">
+            @foreach(var item in tiyList)
+            {
+                <li><a onclick="getContent(@item.Id)">@item.Title</a></li>
+            }
+        </ul>
+    </div>
+    <div style="width:800px; height:auto; float:left; display:inline">
+        title:<input type="text" step="width:400px" id="txtTitle" /><br />
+        CourseTitle:<input type="text" step="width:400px" id="txtCourseTitle" /><br />
+        <textarea name="content" id="container"></textarea>
+        <br />
+        <input type="button" onclick="update()" value="修改" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="button" onclick="create()" value="新增" />
+        <input type="button" onclick="init()" value="初始化"/>
+        <br />
+        <input type="text" step="width:400px" id="txtUrl"/>
+    </div>
+</div>
+<input type="hidden" id="currentTiyId" />
+
+<script src="~/editor/ueditor.config.js"></script>
+<script src="~/editor/ueditor.all.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var ue = UE.getEditor('container');
+    })
+    function getContent(id) {
+        $("#currentTiyId").val(id);
+        $.ajax({
+            url: "/School/GetTiyContentById",
+            type: "GET",
+            data: { id:id },
+            success: function (data) {
+                var ue = UE.getEditor('container');
+                ue.setContent(data.content);
+                $("#txtUrl").val("/DIY/" + id + ".html");
+                $("#txtTitle").val(data.title);
+                $("#txtCourseTitle").val(data.courseTitle);
+            }
+        })
+    }
+    function update() {
+        var id = $("#currentTiyId").val();
+        var title = $("#txtTitle").val();
+        var courseTitle = $("#txtCourseTitle").val();
+        var content=UE.getEditor('container').getContent();
+        $.ajax({
+            url: "/School/SaveTiyContent",
+            type: "GET",
+            data: { id: id, title: title, coursetitle:courseTitle,content: content},
+            success: function (data) {
+                alert(data);
+                $("#txtUrl").val("/DIY/" + id + ".html");
+            }
+        })
+    }
+    function create() {
+        var title = $("#txtTitle").val();
+        var courseTitle = $("#txtCourseTitle").val();
+        var content = UE.getEditor('container').getContent();
+        $.ajax({
+            url: "/School/SaveTiyContent",
+            type: "GET",
+            data: { id: 0, title: title, coursetitle: courseTitle, content: content },
+            success: function (data) {
+                alert(data);
+                $("#txtUrl").val("/DIY/" + data + ".html");
+            }
+        })
+    }
+    function init() {
+        var ue = UE.getEditor('container');
+        ue.setContent("aaaaa");
+    }
+</script>

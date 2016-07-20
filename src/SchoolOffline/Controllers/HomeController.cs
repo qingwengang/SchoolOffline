@@ -17,13 +17,29 @@ namespace SchoolOffline.Controllers
     {
         private MenuService menuService = new MenuService();
         private CourseService courseService = new CourseService();
+        private TiyContentService tiycontentService = new TiyContentService();
         public IActionResult Index(string type,long id)
         {
+            if (type == "DIY")
+            {
+                return RedirectToAction("DIY", new { id = id });
+            }
             Course course = new CourseService().GetById(id);
             ViewData["content"] = course.Content;
             Menu menu = new MenuService().GetMenuByTypeName(course.TypeName);
             ViewData["menuHtml"] = menu.Content;
-            
+            return View();
+        }
+        public IActionResult TIY(long id)
+        {
+            ViewData["Message"] = "Your application description page.";
+
+            return View();
+        }
+
+        public IActionResult DIY(long id)
+        {
+            ViewData["tiyContent"] = tiycontentService.GetById(id);
             return View();
         }
 

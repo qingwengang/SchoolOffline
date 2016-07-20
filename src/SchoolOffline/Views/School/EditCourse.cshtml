@@ -1,0 +1,69 @@
+﻿@using SchoolOffline.Entity;
+@{
+    var course = (Course)ViewData["course"];
+}
+<html>
+<head>
+    <link href="~/css/jquery.treeview.css" rel="stylesheet" />
+    <link href="~/css/screen.css" rel="stylesheet" />
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="~/js/jquery.cookie.js"></script>
+    <script src="~/js/jquery.treeview.js"></script>
+    <script src="~/js/jquery.treeview.edit.js"></script>
+
+    <link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+    <script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="jqueryui/style.css">
+
+</head>
+<body>
+    <div style="width:2400px; height:auto;float:left;">
+        <div style="width:800px; height:auto; float:left; display:inline">
+            title:<input type="text" step="width:400px" id="txtTitle" value="@course.Title" /><br />
+            typename:<input type="text" step="width:400px" id="txttypename" value="@course.TypeName" /><br />
+            muluname:<input type="text" step="width:400px" id="txtmuluname" value="@course.MuluName"/><br />
+            sortnum:<input type="text" step="width:400px" id="txtSortNum" value="@course.SortNum" /><br />
+            <textarea name="content" id="container">@course.Content</textarea>
+            <br />
+            <input type="button" onclick="update()" value="修改" />
+        </div>
+    </div>
+    <input type="hidden" id="currentId" value="@course.Id" />
+</body>
+</html>
+<script src="~/editor/ueditor.config.js"></script>
+<script src="~/editor/ueditor.all.js"></script>
+<script type="text/javascript">
+    var ue = UE.getEditor('container');
+    function update() {
+        var id = $("#currentId").val();
+        var title = $("#txtTitle").val();
+        var typename = $("#txttypename").val();
+        var muluname = $("#txtmuluname").val();
+        var sortnum = $("#txtSortNum").val();
+        var content = UE.getEditor('container').getContent();
+        $.ajax({
+            url: "/School/UpdateCourse",
+            type: "POST",
+            data: { id: id ,title:title,typename:typename,muluname:muluname,sortnum:sortnum,content:content},
+            success: function (data) {
+                alert(data);
+            }
+        })
+    }
+    function getContent(id) {
+        $.ajax({
+            url: "/School/GetCourse",
+            type: "GET",
+            data: { id: id },
+            success: function (data) {
+                $("#txtTitle").val(data.title);
+                var ue = UE.getEditor('container');
+                alert(data.content);
+               
+                ue.setContent("lfdjslfjsljfls");
+                alert('end');
+            }
+        })
+    }
+</script>

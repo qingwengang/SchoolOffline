@@ -1,0 +1,88 @@
+﻿@using SchoolOffline.Entity;
+@{ 
+    var tiyContent = (TiyContent)ViewData["tiyContent"];
+}
+<html lang="zh-cn">
+<head>
+    <meta charset="gb2312">
+    <meta name="robots" content="all">
+    <meta name="author" content="w3school.com.cn">
+    <link rel="stylesheet" type="text/css" href="http://www.w3school.com.cn/tiy/tc.css">
+    <title>W3School在线测试工具 V2</title>
+</head>
+<body id="editor">
+    <div id="wrapper">
+        <div id="header">
+            <h1>W3School TIY</h1>
+        </div>
+            <div id="butt">
+                <input type="button" value="提交代码" onclick="submitTryit()">
+            </div>
+
+            <div id="CodeArea">
+                <h2>编辑您的代码：</h2>
+                <textarea id="TestCode" wrap="logical">
+@Html.Raw(tiyContent.Content)
+                </textarea>
+            </div>
+        <input type="hidden" id="bt" name="bt">
+    <div id="result">
+        <h2>查看结果:</h2>
+        <div id="iframewrapper"><iframe frameborder="0" id="iframeResult"></iframe></div>
+    </div>
+
+    <div id="footer">
+        <p>请在上面的文本框中编辑您的代码，然后单击提交按钮测试结果。<a href="/index.html" title="W3School 在线教程">w3school.com.cn</a></p>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+function submitTryit()
+{
+    var text = document.getElementById("TestCode").value;
+    var patternHtml = /<html[^>]*>((.|[\n\r])*)<\/html>/im
+    var patternHead = /<head[^>]*>((.|[\n\r])*)<\/head>/im
+    var array_matches_head = patternHead.exec(text);
+    var patternBody = /<body[^>]*>((.|[\n\r])*)<\/body>/im;
+
+    var array_matches_body = patternBody.exec(text);
+    var basepath_flag = 1;
+    var basepath = '';
+    if (basepath_flag) {
+        basepath = '<base href="http://www.runoob.com/try/demo_source/" target="_blank">';
+    }
+    if (array_matches_head) {
+        text = text.replace('<head>', '<head>' + basepath);
+    } else if (patternHtml) {
+        text = text.replace('<html>', '<head>' + basepath + '</head>');
+    } else if (array_matches_body) {
+        text = text.replace('<body>', '<body>' + basepath);
+    } else {
+        text = basepath + text;
+    }
+    var ifr = document.createElement("iframe");
+    ifr.setAttribute("frameborder", "0");
+    ifr.setAttribute("id", "iframeResult");
+    document.getElementById("iframewrapper").innerHTML = "";
+    document.getElementById("iframewrapper").appendChild(ifr);
+
+    var ifrw = (ifr.contentWindow) ? ifr.contentWindow : (ifr.contentDocument.document) ? ifr.contentDocument.document : ifr.contentDocument;
+    ifrw.document.open();
+    ifrw.document.write(text);
+    ifrw.document.close();
+}
+
+function validateForm()
+{
+var code=document.getElementById("code").value;
+if (code.length>5000)
+	{
+	document.getElementById("code").value="<h1>Error</h1>";
+	}
+}
+</script>
+
+
+</body>
+</html>

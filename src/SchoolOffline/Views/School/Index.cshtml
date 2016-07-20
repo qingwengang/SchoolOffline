@@ -14,6 +14,21 @@
 <link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
 <script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="jqueryui/style.css">
+<style type="text/css">
+    .fixed_div {
+        position: fixed;
+        left: 300px;
+        top: 20px;
+        width: 300px;
+    }
+    .right_div {
+        position: fixed;
+        top: 20px;
+    }
+</style>
+
+
+
 <div style="width:2400px; height:auto;float:left;">
     <div style="width:300px; height:auto; float:left; display:inline">
         <ul id="tree" class="filetree">
@@ -37,34 +52,42 @@
         <input type="text" id="txtSortNum" />
         <input type="button" value="设置sortnum" onclick="setSortNum();" />
     </div>
-    <div style="width:300px; height:auto; float:left; display:inline">
+    <div id="middleDiv"  style="width:300px;top:0px; height:500px; float:left; display:inline">
+        
+    </div>
+    <div class="fixed_div">
         <ul id="ulHrefs">
-            @foreach(string title in titles){
+            @foreach (string title in titles)
+            {
                 <li><a onclick="a('@title')">@title</a></li>
             }
         </ul>
         <br />
-        <ul  id="treeType" class="filetree">
+        <ul id="treeType" class="filetree">
             @Html.Raw(@ViewData["typeHtml"])
         </ul>
-        <input type="button" value="通过" onclick="Pass();" />
+        <input type="button" value="推送" onclick="Pass();" />
         <br />
-        <input type="button" value="对比" onclick="o();" />
+        <input type="button" value="对比" onclick="compare();" />
+        <br />
+        <a href="/School/TiyEdit?courseTitle=HTML%20教程">添加实例</a>
     </div>
-    <div style="width:800px; height:auto; float:left; display:inline">
+    <div style="width:800px; height:1000px; float:left; display:inline">
         标题：<input type="text" id="txtTitle" style="width:500px;" /><br />
         <textarea name="content" id="container">
-            @Html.Raw(content.OutContent)
+            
         </textarea>
         <br />
-        <input type="button" value="保存" onclick="Save();" />
+        <input type="button" value="保存" onclick="Save();" />&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="button" value="完成" onclick="Complete();" />
+        
     </div>
-    <div style="width:800px; height:auto; float:left; display:inline">
+    <div class="right_div" style="width:800px; height:auto; float:left; display:inline">
         标题：<input type="text" style="width:500px;" /><br />
         <textarea name="content" id="outcontainer" style="display:none;">
-            @Html.Raw(content.OutContent)
+            
         </textarea>
-        <iframe id="ifw" style="width:800px;height:1000px;display:none;" src="https://www.baidu.com/s?ie=UTF-8&wd=iframe"></iframe>
+        <iframe id="ifw" style="width:800px;height:900px;display:none;" src="https://www.baidu.com/s?ie=UTF-8&wd=iframe"></iframe>
     </div>
 </div>
 <input type="hidden" id="currentMuluId" value="@ViewData["muluId"]" />
@@ -77,7 +100,6 @@
     $("#treeType").treeview({ collapsed: true });
     $(function () {
         var ue = UE.getEditor('container');
-        var muluId = $.getUrlParam('muluId');
     })
     function GetContent(muluId) {
         $.ajax({
@@ -87,7 +109,6 @@
             success: function (data) {
                 var ue = UE.getEditor('container');
                 ue.setContent(data.content);
-
                 var ue1 = UE.getEditor('outcontainer');
                 ue1.setContent(data.outerContent);
                 $("#txtTitle").val(data.title);
@@ -110,7 +131,7 @@
             success: function (data) {
                 var html = "";
                 for(var i=0;i<data.length;i++){
-                    html += "<li id='sortmulu_"+data[i].id+"' class='sortMulu ' onClick=setCurrentCourseId("+data[i].id+");>" + data[i].title + "_" + data[i].sortNum + "</li>";
+                    html += "<li id='sortmulu_" + data[i].id + "' class='sortMulu ' onClick=setCurrentCourseId(" + data[i].id + ");>" + data[i].title + "_" + data[i].sortNum + "&nbsp;&nbsp;&nbsp;<a targt=_blank href='/School/EditCourse?id=" + data[i].id + "'>修改</a></li>";
                 }
                 $("#muluList").html(html);
             }
@@ -129,6 +150,17 @@
             url: "/School/SaveContent",
             type: "POST",
             data: { muluId: muluId,content:content,title:title },
+            success: function (data) {
+                alert(data);
+            }
+        })
+    }
+    function Complete() {
+        var muluId = $("#currentMuluId").val();
+        $.ajax({
+            url: "/School/Complete",
+            type: "POST",
+            data: { muluId: muluId},
             success: function (data) {
                 alert(data);
             }
@@ -211,11 +243,9 @@
     }
     function c(keyword) {
         var url = "https://www.google.com/?gws_rd=ssl#q=" + keyword;
-        $("#ifw").attr("src", url);
-        $("#ifw").show();
-        $("#outcontainer").hide();
+        window.open(url);
     }
-    function o() {
+    function compare() {
         $("#ifw").hide();
         $("#outcontainer").show();
     }
