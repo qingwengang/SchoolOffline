@@ -29,10 +29,24 @@
         <textarea name="content" id="container"></textarea>
         <br />
         <input type="button" onclick="update()" value="修改" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <input type="button" onclick="create()" value="新增" />
-        <input type="button" onclick="init()" value="初始化"/>
+        <input type="button" onclick="create()" value="新增" /><a href="/DIY/1.html" target="_blank" title="在线测试">在线测试</a>
         <br />
         <input type="text" step="width:400px" id="txtUrl"/>
+        <br />
+        <textarea id="txtInitCode" style="width:400px;height:300px">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;霹雳猿(www.piliyuan.com)&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;这里是标题的内容&lt;/h1&gt;
+&lt;p&gt;这里是段落的内容&lt;/p&gt;
+&lt;a href="http://www.piliyuan.com"&gt;这是一个链接,点击试试！&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
     </div>
 </div>
 <input type="hidden" id="currentTiyId" />
@@ -42,6 +56,7 @@
 <script type="text/javascript">
     $(function () {
         var ue = UE.getEditor('container');
+        
     })
     function getContent(id) {
         $("#currentTiyId").val(id);
@@ -51,7 +66,8 @@
             data: { id:id },
             success: function (data) {
                 var ue = UE.getEditor('container');
-                ue.setContent(data.content);
+                //ue.setContent(data.content);
+                ue.setContent("<p>fldskfk</p>");
                 $("#txtUrl").val("/DIY/" + id + ".html");
                 $("#txtTitle").val(data.title);
                 $("#txtCourseTitle").val(data.courseTitle);
@@ -87,8 +103,5 @@
             }
         })
     }
-    function init() {
-        var ue = UE.getEditor('container');
-        ue.setContent("aaaaa");
-    }
+    
 </script>

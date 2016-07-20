@@ -27,7 +27,7 @@ CREATE TABLE `course` (
   `Content` longtext,
   `SortNum` int(11) default NULL,
   PRIMARY KEY  (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of course
@@ -44,7 +44,7 @@ CREATE TABLE `menu` (
   `TypeName` varchar(30) default NULL,
   `Content` text,
   PRIMARY KEY  (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of menu
@@ -61,7 +61,7 @@ CREATE TABLE `mulu` (
   `MuluName` varchar(50) default NULL,
   `SortNum` int(11) default NULL,
   PRIMARY KEY  (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of mulu
@@ -83,7 +83,7 @@ CREATE TABLE `schoolcontent` (
   `Content` longtext,
   `Titles` varchar(500) default NULL,
   PRIMARY KEY  (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=364 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of schoolcontent
@@ -466,7 +466,7 @@ CREATE TABLE `schoolmulu` (
   `SpiderFlag` int(11) default '0',
   `IfPassed` int(11) default '0',
   PRIMARY KEY  (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=367 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of schoolmulu
@@ -848,7 +848,7 @@ CREATE TABLE `tiycontent` (
   `Content` text,
   `CourseTitle` varchar(50) default NULL,
   PRIMARY KEY  (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tiycontent
