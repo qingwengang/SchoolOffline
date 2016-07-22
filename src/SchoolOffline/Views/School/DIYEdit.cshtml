@@ -1,0 +1,155 @@
+﻿@using SchoolOffline.Entity;
+@{
+    var tiyList = (List<TiyContent>)ViewData["tiyList"];
+}
+<html lang="zh-cn">
+<head>
+    <meta charset="gb2312">
+    <meta name="robots" content="all">
+    <meta name="author" content="w3school.com.cn">
+    <link rel="stylesheet" type="text/css" href="http://www.w3school.com.cn/tiy/tc.css">
+    <title>W3School在线测试工具 V2</title>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+<body id="editor">
+    <div id="wrapper">
+        <div id="header">
+            <h1>W3School TIY</h1>
+        </div>
+        <div id="butt">
+            <input type="button" value="提交代码" onclick="submitTryit()">
+            &nbsp;&nbsp;&nbsp;<input type="button" onclick="Create()" value="新增" />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;<input type="button" onclick="Update()" value="保存" />
+        </div>
+        <div id="CodeArea">
+            <h2>编辑您的代码：</h2>
+            <textarea id="TestCode" wrap="logical">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;霹雳猿(www.piliyuan.com)&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+        </div>
+        <input type="hidden" id="bt" name="bt">
+        <div id="result">
+            <h2>查看结果:</h2>
+            <div id="iframewrapper"><iframe frameborder="0" id="iframeResult"></iframe></div>
+        </div>
+        <br />
+        title:<input type="text" step="width:400px" id="txtTitle" /><br />
+        CourseTitle:<input type="text" step="width:400px" id="txtCourseTitle" /><br />
+        URL:<input type="text" step="width:400px" id="txtUrl" />
+        <br />
+        <select id="sel">
+            <option value="HTML">HTML</option>
+            <option value="CSS">CSS</option>
+        </select>
+        <br />
+        <div style="width:300px; height:auto; float:left; display:inline">
+            <ul id="ulTiy">
+                @foreach (var item in tiyList)
+                {
+                    <li><a onclick="getContent(@item.Id)">@item.Title</a></li>
+                }
+            </ul>
+        </div>
+    </div>
+<input type="hidden" id="currentTiyId" />
+<script type="text/javascript">
+function submitTryit()
+{
+    var text = document.getElementById("TestCode").value;
+    var patternHtml = /<html[^>]*>((.|[\n\r])*)<\/html>/im
+    var patternHead = /<head[^>]*>((.|[\n\r])*)<\/head>/im
+    var array_matches_head = patternHead.exec(text);
+    var patternBody = /<body[^>]*>((.|[\n\r])*)<\/body>/im;
+
+    var array_matches_body = patternBody.exec(text);
+    var basepath_flag = 1;
+    var basepath = '';
+    if (basepath_flag) {
+        basepath = '<base href="http://www.runoob.com/try/demo_source/" target="_blank">';
+    }
+    if (array_matches_head) {
+        text = text.replace('<head>', '<head>' + basepath);
+    } else if (patternHtml) {
+        text = text.replace('<html>', '<head>' + basepath + '</head>');
+    } else if (array_matches_body) {
+        text = text.replace('<body>', '<body>' + basepath);
+    } else {
+        text = basepath + text;
+    }
+    var ifr = document.createElement("iframe");
+    ifr.setAttribute("frameborder", "0");
+    ifr.setAttribute("id", "iframeResult");
+    document.getElementById("iframewrapper").innerHTML = "";
+    document.getElementById("iframewrapper").appendChild(ifr);
+
+    var ifrw = (ifr.contentWindow) ? ifr.contentWindow : (ifr.contentDocument.document) ? ifr.contentDocument.document : ifr.contentDocument;
+    ifrw.document.open();
+    ifrw.document.write(text);
+    ifrw.document.close();
+}
+
+function validateForm()
+{
+var code=document.getElementById("code").value;
+if (code.length>5000)
+	{
+	document.getElementById("code").value="<h1>Error</h1>";
+	}
+}
+function Create() {
+    var code = $("#TestCode").val();
+    var title = $("#txtTitle").val();
+    var courseTitle = $("#txtCourseTitle").val();
+    var type = $("#sel").val();
+    $.ajax({
+        url: "/School/SaveTiyContent",
+        type: "POST",
+        data: { id: 0, title: title, coursetitle: courseTitle, content: code,type:type },
+        success: function (data) {
+            alert(data);
+            $("#txtUrl").val(data);
+        }
+    })
+}
+function Update() {
+    var id = $("#currentTiyId").val();
+    var code = $("#TestCode").val();
+    var title = $("#txtTitle").val();
+    var courseTitle = $("#txtCourseTitle").val();
+    var type = $("#sel").val();
+    $.ajax({
+        url: "/School/SaveTiyContent",
+        type: "POST",
+        data: { id: id, title: title, coursetitle: courseTitle, content: code, type: type },
+        success: function (data) {
+            alert(data);
+            $("#txtUrl").val("/DIY/" + id + ".html");
+        }
+    })
+}
+function getContent(id) {
+    $("#currentTiyId").val(id);
+    $.ajax({
+        url: "/School/GetTiyContentById",
+        type: "GET",
+        data: { id: id },
+        success: function (data) {
+            $("#txtUrl").val("/DIY/" + id + ".html");
+            $("#txtTitle").val(data.title);
+            $("#txtCourseTitle").val(data.courseTitle);
+            $("#TestCode").val(data.content);
+        }
+    })
+}
+</script>
+</body>
+</html>

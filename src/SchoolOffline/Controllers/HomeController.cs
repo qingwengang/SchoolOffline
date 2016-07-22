@@ -30,12 +30,6 @@ namespace SchoolOffline.Controllers
             ViewData["menuHtml"] = menu.Content;
             return View();
         }
-        public IActionResult TIY(long id)
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
 
         public IActionResult DIY(long id)
         {

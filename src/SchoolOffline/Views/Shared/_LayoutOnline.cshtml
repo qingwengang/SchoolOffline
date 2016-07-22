@@ -2,9 +2,70 @@
 
 <html>
 <head>
-    <link href="~/css/style.css" rel="stylesheet" />
-    @*<link rel="stylesheet" href="http://www.runoob.com/wp-content/themes/runoob/style.css?v=1.02" type="text/css" media="all">*@
+    <link href="../css/style.css" rel="stylesheet" />
+    <script src="../editor/ueditor.parse.js"></script>
+    <link rel="stylesheet" href="http://www.runoob.com/wp-content/themes/runoob/style.css?v=1.02" type="text/css" media="all">
     <link rel="stylesheet" href="http://apps.bdimg.com/libs/fontawesome/4.2.0/css/font-awesome.min.css" media="all">
+    <script src="../editor/third-party/SyntaxHighlighter/shCore.js"></script>
+    <link href="../editor/third-party/SyntaxHighlighter/shCoreDefault.css" rel="stylesheet" />
+    <style id="table">
+        #preview table.noBorderTable td, #preview table.noBorderTable th, #preview table.noBorderTable caption {
+            border: 1px dashed #ddd !important;
+        }
+
+        #preview table.sortEnabled tr.firstRow th, #preview table.sortEnabled tr.firstRow td {
+            padding-right: 20px;
+            background-repeat: no-repeat;
+            background-position: center right;
+            background-image: url(../../themes/default/images/sortable.png);
+        }
+
+            #preview table.sortEnabled tr.firstRow th:hover, #preview table.sortEnabled tr.firstRow td:hover {
+                background-color: #EEE;
+            }
+
+        #preview table {
+            margin-bottom: 10px;
+            border-collapse: collapse;
+            display: table;
+        }
+
+        #preview td, #preview th {
+            background: white;
+            padding: 5px 10px;
+            border: 1px solid #DDD;
+        }
+
+        #preview caption {
+            border: 1px dashed #DDD;
+            border-bottom: 0;
+            padding: 3px;
+            text-align: center;
+        }
+
+        #preview th {
+            border-top: 1px solid #BBB;
+            background: #F7F7F7;
+        }
+
+        #preview table tr.firstRow th {
+            border-top: 2px solid #BBB;
+            background: #F7F7F7;
+        }
+
+        #preview tr.ue-table-interlace-color-single td {
+            background: #fcfcfc;
+        }
+
+        #preview tr.ue-table-interlace-color-double td {
+            background: #f7faff;
+        }
+
+        #preview td p {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
 </head>
 
 <body>
@@ -51,3 +112,11 @@
     <div id="footer" class="mar-t50"> <div class="w3cschoolcc-block"> <div class="w3cschoolcc cf"> <dl> <dt> 在线实例 </dt> <dd> ·<a href="html-examples.html">HTML 实例</a> </dd> <dd> ·<a href="/css/css-examples.html">CSS 实例</a> </dd> <dd> ·<a href="/js/js-examples.html">JavaScript 实例</a> </dd> <dd> ·<a href="/ajx/ajax-examples.html">Ajax 实例</a> </dd> <dd> ·<a href="/jquery/jquery-examples.html">jQuery 实例</a> </dd> <dd> ·<a href="/xml/xml-examples.html">XML 实例</a> </dd> <dd> ·<a href="/java/java-examples.html">Java 实例</a> </dd> </dl> <dl> <dt> 字符集&amp;工具 </dt> <dd> · <a href="/charsets/html-charsets.html">HTML 字符集设置</a> </dd> <dd> · <a href="/tags/html-ascii.html">HTML ASCII 字符集</a> </dd> <dd> · <a href="/tags/ref-entities.html">HTML ISO-8859-1</a> </dd> <dd> · <a href="/tags/ref-symbols.html">HTML 实体符号</a> </dd> <dd> · <a href="/tags/html-colorpicker.html">HTML 拾色器</a> </dd> <dd> · <a href="/jsontool">JSON 格式化工具</a> </dd> </dl> <dl> <dt> 最新更新 </dt> <dd> · <a href="http://www.runoob.com/java/java-scanner-class.html" title="Java Scanner 类">Java Scanner 类</a> </dd> <dd> · <a href="http://www.runoob.com/docker/docker-resources.html" title="Docker 资源汇总">Docker 资源汇总</a> </dd> <dd> · <a href="http://www.runoob.com/docker/docker-version-command.html" title="Docker version 命令">Docker version ...</a> </dd> <dd> · <a href="http://www.runoob.com/docker/docker-info-command.html" title="Docker info 命令">Docker info 命令</a> </dd> <dd> · <a href="http://www.runoob.com/docker/docker-import-command.html" title="Docker import 命令">Docker import 命令</a> </dd> <dd> · <a href="http://www.runoob.com/docker/docker-save-command.html" title="Docker save 命令">Docker save 命令</a> </dd> <dd> · <a href="http://www.runoob.com/docker/docker-history-command.html" title="Docker history 命令">Docker history ...</a> </dd> </dl> <dl> <dt> 站点信息 </dt> <dd> · <a target="_blank" href="//mail.qq.com/cgi-bin/qm_share?t=qm_mailme&amp;email=ssbDyoOAgfLU3crf09venNHd3w" rel="external nofollow">意见反馈</a> </dd> <dd> · <a href="/disclaimer">免责声明</a> </dd> <dd> · <a href="/aboutus">关于我们</a> </dd> <dd> · <a href="/archives">文章归档</a> </dd> </dl> <div class="search-share"> <div class="app-download"> <div> <strong>关注微信</strong> </div> </div> <div class="share"> <img width="150" height="150" src="http://www.runoob.com/wp-content/themes/w3cschool.cc/assets/img/qrcode.jpg"> </div> </div> </div> </div> <div class="w-1000 copyright"> Copyright © 2013-2016 <strong><a href="http://www.runoob.com/" target="_blank">菜鸟教程</a></strong>&nbsp; <strong><a href="http://www.runoob.com/" target="_blank">runoob.com</a></strong> All Rights Reserved. 备案号：闽ICP备15012807号-1 </div> </div>
 </body>
 </html>
+<script type="text/javascript">
+    uParse('.content',{
+        'highlightJsUrl': '../editor/third-party/SyntaxHighlighter/shCore.js',
+        'highlightCssUrl': '../editor/third-party/SyntaxHighlighter/shCoreDefault.css'
+    })
+
+    //alert('end')
+</script>

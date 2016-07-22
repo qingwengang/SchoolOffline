@@ -11,12 +11,14 @@ namespace SchoolOffline.Entity
         public string Title { get; set; }
         public string Content { get; set; }
         public string CourseTitle { get; set; }
+        public string Type { get; set; }
         public TiyContent() { }
-        public TiyContent(string title,string courseTitle,string content)
+        public TiyContent(string title,string courseTitle,string content,string type)
         {
             this.Title = title;
             this.CourseTitle = courseTitle;
             this.Content = content;
+            this.Type = type;
         }
     }
 }

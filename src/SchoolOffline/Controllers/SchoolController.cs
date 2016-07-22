@@ -21,6 +21,7 @@ namespace DoctorOffline.Controllers
         private MenuService menuService = new MenuService();
         private TiyContentService tiyService = new TiyContentService();
         private SchoolMuluService schoolMuluService = new SchoolMuluService();
+        private TiyContentService tiycontentService = new TiyContentService();
         public IActionResult Index(long muluId)
         {
             if (muluId <= 0)
@@ -283,8 +284,12 @@ namespace DoctorOffline.Controllers
         public IActionResult TIYEdit(string courseTitle)
         {
             var tiyList = tiyService.GetByCourseTitle(courseTitle);
+            return View();
+        }
+        public IActionResult DIYEdit(string type)
+        {
+            var tiyList = tiyService.GetByCourseTitle(type);
             ViewData["tiyList"] = tiyList;
-            ViewData["html"]= @"<html><body>fdsfsfsdfds</body></html>";
             return View();
         }
         public IActionResult EditCourse(long id)
@@ -310,21 +315,23 @@ namespace DoctorOffline.Controllers
             var content = tiyService.GetById(id);
             return Json(content);
         }
-        public string SaveTiyContent(long id,string title,string coursetitle,string content)
+        public string SaveTiyContent(long id,string title,string coursetitle,string content,string type)
         {
             if (id == 0)
             {
-                TiyContent tiycontent = new TiyContent(title, coursetitle, content);
+                TiyContent tiycontent = new TiyContent(title, coursetitle, content,type);
                 var newid=tiyService.Add(tiycontent);
                 return string.Format("/Home/DIY/{0}.html",newid);
             }
             else
             {
-                TiyContent tiycontent = new TiyContent(title, coursetitle, content);
+                TiyContent tiycontent = new TiyContent(title, coursetitle, content,type);
                 tiycontent.Id = id;
                 tiyService.Update(tiycontent);
             }
             return "success";
         }
+        
+
     }
 }
