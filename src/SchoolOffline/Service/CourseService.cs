@@ -65,5 +65,10 @@ namespace SchoolOffline.Service
                                 where id = {5}", course.TypeName, course.MuluName, course.Title, course.Content, course.SortNum,course.Id);
             con.Execute(sql);
         }
+        public List<CourseSortModel> GetBySql(string sql)
+        {
+            MySqlConnection con = GetConnection();
+            return con.Query<CourseSortModel>(sql).ToList<CourseSortModel>();
+        }
     }
 }

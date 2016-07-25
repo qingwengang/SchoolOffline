@@ -26,9 +26,6 @@
         top: 20px;
     }
 </style>
-
-
-
 <div style="width:2400px; height:auto;float:left;">
     <div style="width:300px; height:auto; float:left; display:inline">
         <ul id="tree" class="filetree">
@@ -40,6 +37,8 @@
             {
                 <option value="@item">@item</option>
             }
+            <option value="DIY">DIY</option>
+            <option value="tuijian">tuijian</option>
             <option value="ALL">ALL</option>
         </select>
         <br />
@@ -86,12 +85,13 @@
         
     </div>
     <div class="right_div" style="width:800px; height:auto; float:left; display:inline">
-        标题：<input type="text" style="width:500px;" /><br />
-        <textarea name="content" id="outcontainer" style="display:none;">
-        </textarea>
+        
         <iframe id="ifw" style="width:800px;height:900px;display:none;" src="https://www.baidu.com/s?ie=UTF-8&wd=iframe"></iframe>
     </div>
-</div>
+    <div style="width:800px; height:auto; float:left; display:inline">
+        标题：<input type="text" style="width:500px;" /><br />
+        <textarea name="content" id="outcontainer" style="display:none;"></textarea>
+    </div>
 <input type="hidden" id="currentMuluId" value="@ViewData["muluId"]" />
 <input type="hidden" id="currentTypeId" />
 <input type="hidden" id="currentCourseId" />

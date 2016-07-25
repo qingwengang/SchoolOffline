@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using MySql.Data.MySqlClient;
+using SchoolOffline.Configs;
 using SchoolOffline.Entity.DO;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace DoctorOffline.Service
     {
         public MySqlConnection GetConnection()
         {
-            MySqlConnection con = new MySqlConnection("Data Source=127.0.0.1;Initial Catalog=schoolproduct;Persist Security Info=True;User ID=root;Password=ganggang");
+            MySqlConnection con = new MySqlConnection(OnlineConfig.dbUrl);
             return con;
         }
 

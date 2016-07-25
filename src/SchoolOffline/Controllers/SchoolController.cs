@@ -17,11 +17,14 @@ namespace DoctorOffline.Controllers
 {
     public class SchoolController : Controller
     {
+        #region 初始化service
         private CourseService courseService = new CourseService();
         private MenuService menuService = new MenuService();
         private TiyContentService tiyService = new TiyContentService();
         private SchoolMuluService schoolMuluService = new SchoolMuluService();
         private TiyContentService tiycontentService = new TiyContentService();
+        #endregion
+        #region 核心操作部分
         public IActionResult Index(long muluId)
         {
             if (muluId <= 0)
@@ -154,14 +157,13 @@ namespace DoctorOffline.Controllers
             }
             return Json("success");
         }
-        
-
         public JsonResult GetSortModelByMuluName(long muluId)
         {
             List<CourseSortModel> courseList = new CourseService().GetCourseSortModelByMuluName(muluId);
             return Json(courseList);
         }
-
+        #endregion
+        #region 前台页面初始化
         public string InitStaticPageAll()
         {
             List<string> types = new MenuService().GetDistinct("select DISTINCT typename as col  from menu");
@@ -169,9 +171,10 @@ namespace DoctorOffline.Controllers
             {
                 InitStaticPageByTypeName(item);
             }
+            InitDIYPage();
             return "success";
         }
-
+       
         public string InitStaticPageByTypeName(string type)
         {
             if (type == "ALL")
@@ -180,20 +183,42 @@ namespace DoctorOffline.Controllers
             }
             else
             {
-                List<Course> courseList = new CourseService().GetCourseByTypeName(type);
-                foreach (var item in courseList)
+                if (type == "DIY")
                 {
-                    var httpClient = new HttpClient();
-                    var task = httpClient.GetAsync(new Uri(String.Format("http://localhost:42742/Home/Index?type={0}&id={1}", type, item.Id)));
+                    InitDIYPage();
+                }else
+                {
+                    List<Course> courseList = new CourseService().GetCourseByTypeName(type);
+                    foreach (var item in courseList)
+                    {
+                        var httpClient = new HttpClient();
+                        var task = httpClient.GetAsync(new Uri(String.Format("http://localhost:42742/Home/Index?type={0}&id={1}", type, item.Id)));
 
-                    task.Result.EnsureSuccessStatusCode();
-                    HttpResponseMessage response = task.Result;
-                    var result = response.Content.ReadAsStringAsync();
-                    string responseBodyAsText = result.Result;
-                    Write(type, item.Id, responseBodyAsText);
+                        task.Result.EnsureSuccessStatusCode();
+                        HttpResponseMessage response = task.Result;
+                        var result = response.Content.ReadAsStringAsync();
+                        string responseBodyAsText = result.Result;
+                        Write(type, item.Id, responseBodyAsText);
+                    }
                 }
+                
             }
             return "success";
+        }
+        public void InitDIYPage()
+        {
+            var tiyContentList = tiycontentService.GetAll();
+            var idList = tiycontentService.GetDistinct("select id as col from tiycontent");
+            foreach(var item in idList)
+            {
+                var httpClient = new HttpClient();
+                var task = httpClient.GetAsync(new Uri(String.Format("http://localhost:42742/Home/DIY?id={0}", item)));
+                task.Result.EnsureSuccessStatusCode();
+                HttpResponseMessage response = task.Result;
+                var result = response.Content.ReadAsStringAsync();
+                string responseBodyAsText = result.Result;
+                Write("DIY", long.Parse(item), responseBodyAsText);
+            }
         }
         public void Write(string type, long id, string content)
         {
@@ -215,19 +240,27 @@ namespace DoctorOffline.Controllers
                 InitMenuAll();
             }else
             {
-                List<Course> courseList = new CourseService().GetCourseByTypeName(type);
-                StringBuilder sbHtml = new StringBuilder();
-                string muluName = String.Empty;
-                foreach (Course course in courseList)
+                string menuContent = string.Empty;
+                if (type == "tuijian")
                 {
-                    if (muluName != course.MuluName)
-                    {
-                        muluName = course.MuluName;
-                        sbHtml.AppendFormat("<h2 class=\"left\"><span class=\"left_h2\">{0}</span></h2>", muluName);
-                    }
-                    sbHtml.Append(String.Format("<a target=\"_top\" title=\"{0}\" href=\"{1}.html\">{0}</a>", course.Title, course.Id));
+                    menuContent = InitTuijian();
                 }
-                string menuContent = sbHtml.ToString();
+                else
+                {
+                    List<Course> courseList = new CourseService().GetCourseByTypeName(type);
+                    StringBuilder sbHtml = new StringBuilder();
+                    string muluName = String.Empty;
+                    foreach (Course course in courseList)
+                    {
+                        if (muluName != course.MuluName)
+                        {
+                            muluName = course.MuluName;
+                            sbHtml.AppendFormat("<h2 class=\"left\"><span class=\"left_h2\">{0}</span></h2>", muluName);
+                        }
+                        sbHtml.Append(String.Format("<a target=\"_top\" title=\"{0}\" href=\"{1}.html\">{0}</a>", course.Title, course.Id));
+                    }
+                    menuContent = sbHtml.ToString();
+                }
                 Menu menu = new MenuService().GetMenuByTypeName(type);
                 if (menu == null)
                 {
@@ -247,6 +280,24 @@ namespace DoctorOffline.Controllers
             }
             return "success";
         }
+        public string InitTuijian()
+        {
+            List<string> types = new BaseSchoolService().GetDistinct("select distinct typename as col from course ORDER BY id desc LIMIT 0,5");
+            StringBuilder sbHtml = new StringBuilder();
+            foreach (string type in types)
+            {
+                string sql = string.Format("select title,id,SortNum from course where TypeName='{0}' ORDER BY id desc LIMIT 0,5", type);
+                List<CourseSortModel> courseModels = courseService.GetBySql(sql);
+                sbHtml.Append("<dl>");
+                sbHtml.AppendFormat("<dt>{0}</dt>", type + "最新课程");
+                foreach(var item in courseModels)
+                {
+                    sbHtml.AppendFormat("<dd>·<a href = \"/{0}/{1}.html\"> {2} </a ></dd > ",item.Id,item.Id,item.Title);
+                }
+                sbHtml.Append("</dl>");
+            }
+            return sbHtml.ToString();
+        }
         public string setSortNum(int sortNum,long currentCourseId)
         {
             Course course = courseService.GetById(currentCourseId);
@@ -261,6 +312,7 @@ namespace DoctorOffline.Controllers
             {
                 string s=InitMenu(type);
             }
+            InitMenu("tuijian");
         }
         public string InitAllOnline(string type)
         {
@@ -280,7 +332,8 @@ namespace DoctorOffline.Controllers
             }
             return "success";
         }
-
+        #endregion
+        #region 课程或测试内容编辑
         public IActionResult TIYEdit(string courseTitle)
         {
             var tiyList = tiyService.GetByCourseTitle(courseTitle);
@@ -331,7 +384,6 @@ namespace DoctorOffline.Controllers
             }
             return "success";
         }
-        
-
+        #endregion
     }
 }

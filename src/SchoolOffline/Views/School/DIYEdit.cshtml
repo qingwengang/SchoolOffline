@@ -9,7 +9,9 @@
     <meta name="author" content="w3school.com.cn">
     <link rel="stylesheet" type="text/css" href="http://www.w3school.com.cn/tiy/tc.css">
     <title>W3School在线测试工具 V2</title>
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    @*<script src="http://code.jquery.com/jquery-latest.js"></script>*@
+    <script type="text/javascript" src="http://www.daimajiayuan.com/templets/skins/js/jquery-1.8.1.min.js"></script>
+    <script src="http://www.daimajiayuan.com/member/templets/js/jquery.zclip.min.js"></script> 
 </head>
 <body id="editor">
     <div id="wrapper">
@@ -62,6 +64,12 @@
     </div>
 <input type="hidden" id="currentTiyId" />
 <script type="text/javascript">
+    $('#copyBtn').zclip({
+        path: "ZeroClipboard.swf",
+        copy: function () {
+            return $('#link').val();
+        }
+    });
 function submitTryit()
 {
     var text = document.getElementById("TestCode").value;

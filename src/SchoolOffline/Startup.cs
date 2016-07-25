@@ -73,6 +73,11 @@ namespace SchoolOffline
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                    name: "diy",
+                    template: "DIY/{id}.html",
+                    defaults: new { controller = "Home", action = "DIY" },
+                    constraints: new { id = new IntRouteConstraint() });
+                routes.MapRoute(
                     name: "us_english_products",
                     template: "{type}/{id}.html",
                     defaults: new { controller = "Home", action = "Index" },

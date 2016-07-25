@@ -17,6 +17,12 @@ namespace SchoolOffline.Service
             var sql = string.Format("select * from tiycontent where type='{0}'", type);
             return con.Query<TiyContent>(sql).ToList<TiyContent>(); 
         }
+        public List<TiyContent> GetAll()
+        {
+            MySqlConnection con = GetConnection();
+            var sql = string.Format("select * from tiycontent");
+            return con.Query<TiyContent>(sql).ToList<TiyContent>();
+        }
         public TiyContent GetById(long id)
         {
             MySqlConnection con = GetConnection();
