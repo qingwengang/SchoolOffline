@@ -14,8 +14,8 @@ namespace SchoolOffline.Service
         public void Add(Course course)
         {
             MySqlConnection con = GetConnection();
-            con.Execute(String.Format(@"insert into course (typename,muluname,title,content,sortnum)
-                                    values('{0}','{1}','{2}','{3}',{4})",course.TypeName,course.MuluName,course.Title,course.Content,course.SortNum));
+            con.Execute(String.Format(@"insert into course (typename,muluname,title,content,sortnum,outerid)
+                                    values('{0}','{1}','{2}','{3}',{4},{5})",course.TypeName,course.MuluName,course.Title,course.Content,course.SortNum,course.OuterId));
         }
 
         public Course GetById(long id)
@@ -29,10 +29,16 @@ namespace SchoolOffline.Service
             }
             return null;
         }
+        public List<Course> QueryBySql(string sql)
+        {
+            MySqlConnection con = GetConnection();
+            var muluList = con.Query<Course>(sql).ToList<Course>();
+            return muluList;
+        }
         public List<Course> GetCourseByTypeName(string typeName)
         {
             MySqlConnection con = GetConnection();
-            string sql = String.Format("select title,course.MuluName,course.id,'' as TypeName,'' as Content,course.SortNum from course inner join mulu on course.MuluName=mulu.MuluName where mulu.typename='{0}'  order by mulu.SortNum,course.SortNum", typeName);
+            string sql = String.Format("select title,course.MuluName,course.id,'' as TypeName,'' as Content,course.SortNum,course.outerid from course inner join mulu on course.MuluName=mulu.MuluName where mulu.typename='{0}'  order by mulu.SortNum,course.SortNum", typeName);
             var muluList = con.Query<Course>(sql).ToList<Course>();
             return muluList;
         }

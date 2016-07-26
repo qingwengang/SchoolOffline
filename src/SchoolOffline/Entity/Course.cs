@@ -13,6 +13,7 @@ namespace SchoolOffline.Entity
         public string Title { get; set; }
         public string Content { get; set; }
         public int SortNum { get; set; }
+        public long OuterId { get; set; }
 
         public Course() { }
 

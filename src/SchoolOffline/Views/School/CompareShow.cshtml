@@ -1,0 +1,64 @@
+﻿
+
+<link href="~/css/jquery.treeview.css" rel="stylesheet" />
+<link href="~/css/screen.css" rel="stylesheet" />
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="~/js/jquery.cookie.js"></script>
+<script src="~/js/jquery.treeview.js"></script>
+<script src="~/js/jquery.treeview.edit.js"></script>
+
+<link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+<script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="jqueryui/style.css">
+<style type="text/css">
+    .fixed_div {
+        position: fixed;
+        left: 300px;
+        top: 20px;
+        width: 300px;
+    }
+
+    .right_div {
+        position: fixed;
+        top: 20px;
+    }
+</style>
+<div style="width:2400px; height:auto;float:left;">
+    <div style="width:800px; height:1000px; float:left; display:inline">
+        标题：<input type="text" id="txtTitle" style="width:500px;" /><br />
+        <textarea name="content" id="container"></textarea>
+        <input type="button" value="fldsjldfjds" onclick="dui()" />
+
+    </div>
+    <div style="width:800px; height:auto; float:left; display:inline">
+        标题：<input type="text" style="width:500px;" /><br />
+        <textarea name="content" id="outcontainer"></textarea>
+    </div>
+</div>
+<br />
+
+<script src="~/editor/ueditor.config.js"></script>
+<script src="~/editor/ueditor.all.js"></script>
+<script type="text/javascript">
+    var ue = UE.getEditor('container');
+    var ue1 = UE.getEditor('outcontainer');
+    function dui() {
+        var ue = UE.getEditor('container');
+        var ue1 = UE.getEditor('outcontainer');
+        $.ajax({
+            url: "/School/GetContent",
+            type: "GET",
+            data: { muluId: @ViewData["muluId"] },
+            success: function (data) {
+                var ue = UE.getEditor('container');
+                ue.setContent(data.content);
+                var ue1 = UE.getEditor('outcontainer');
+                ue1.setContent(data.outerContent);
+                $("#txtTitle").val(data.title);
+                $("#ulHrefs").html(data.hs);
+            }
+        })
+
+    }
+    
+</script>

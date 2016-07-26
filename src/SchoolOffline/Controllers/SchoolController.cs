@@ -23,6 +23,7 @@ namespace DoctorOffline.Controllers
         private TiyContentService tiyService = new TiyContentService();
         private SchoolMuluService schoolMuluService = new SchoolMuluService();
         private TiyContentService tiycontentService = new TiyContentService();
+        private SchoolContentService contentService = new SchoolContentService();
         #endregion
         #region 核心操作部分
         public IActionResult Index(long muluId)
@@ -143,9 +144,15 @@ namespace DoctorOffline.Controllers
         {
             try
             {
+                List<Course> courseList = courseService.QueryBySql("select * from course where outerid=" + muluId);
+                if(courseList!=null && courseList.Count > 0)
+                {
+                    return Json("已经推送过了");
+                }
                 Mulu m = new MuluService().GetByMuluId(typeId);
                 int maxSortNum = courseService.GetMaxSortNumByMuluName(m.MuluName);
                 Course course = new Course(m.TypeName, m.MuluName, title, content, maxSortNum+1);
+                course.OuterId = muluId;
                 new CourseService().Add(course);
                 SchoolMulu mulu = new SchoolMuluService().GetByMuluId(muluId);
                 mulu.IfPassed = 1;
@@ -161,6 +168,26 @@ namespace DoctorOffline.Controllers
         {
             List<CourseSortModel> courseList = new CourseService().GetCourseSortModelByMuluName(muluId);
             return Json(courseList);
+        }
+
+        public IActionResult CompareShow(long muluId)
+        {
+            ViewData["muluId"] = muluId;
+            return View();
+        }
+        public string AddMulu(string type1,string name,string content)
+        {
+            SchoolMulu mulu = new SchoolMulu
+            {
+                Name = name,
+                Type1 = type1
+            };
+            long muluId=schoolMuluService.Add(mulu);
+            SchoolContent scontent = new SchoolContent();
+            scontent.MuluId = muluId;
+            scontent.Content = content;
+            contentService.Add(scontent);
+            return "success";
         }
         #endregion
         #region 前台页面初始化

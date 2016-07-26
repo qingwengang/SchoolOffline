@@ -27,7 +27,7 @@
     }
 </style>
 <div style="width:2400px; height:auto;float:left;">
-    <div style="width:300px; height:auto; float:left; display:inline">
+    <div style="width:200px; height:auto; float:left; display:inline">
         <ul id="tree" class="filetree">
             @Html.Raw(@ViewData["html"])
         </ul>
@@ -74,23 +74,32 @@
         <input type="button" value="保存" onclick="Save();" />&nbsp;&nbsp;&nbsp;&nbsp;
         <input type="button" value="完成" onclick="Complete();" />
     </div>
-    <div style="width:800px; height:1000px; float:left; display:inline">
+    <div style="width:700px; height:1000px; float:left; display:inline">
         标题：<input type="text" id="txtTitle" style="width:500px;" /><br />
+        <div>
+            <select id="selAddType">
+                <option value="HTML 教程">HTML 教程</option>
+                <option value="CSS 教程">CSS 教程</option>
+                <option value="Javascript 教程">Javascript 教程</option>
+                <option value="jQuery 教程">jQuery 教程</option>
+                <option value="MySQL 教程">MySQL 教程</option>
+                <option value="Java 教程">Java 教程</option>
+                <option value="C# 教程">C# 教程</option>
+                <option value="数据结构与算法">数据结构与算法</option>
+            </select>
+            Name:<input type="text" id="txtAddName" style="width:400px;" />
+            <input type="button" onclick="AddMulu();" value="添加"/>
+       </div>
         <textarea name="content" id="container">
-            
         </textarea>
         <br />
         <input type="button" value="保存" onclick="Save();" />&nbsp;&nbsp;&nbsp;&nbsp;
         <input type="button" value="完成" onclick="Complete();" />
-        
     </div>
     <div class="right_div" style="width:800px; height:auto; float:left; display:inline">
-        
+        标题：<input type="text" id="txtSearch" style="width:500px;" /><br />
+        <input type="button" value="百度" onclick="search('baidu')" />&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="bing" onclick="search('bing')" />
         <iframe id="ifw" style="width:800px;height:900px;display:none;" src="https://www.baidu.com/s?ie=UTF-8&wd=iframe"></iframe>
-    </div>
-    <div style="width:800px; height:auto; float:left; display:inline">
-        标题：<input type="text" style="width:500px;" /><br />
-        <textarea name="content" id="outcontainer" style="display:none;"></textarea>
     </div>
 <input type="hidden" id="currentMuluId" value="@ViewData["muluId"]" />
 <input type="hidden" id="currentTypeId" />
@@ -100,19 +109,14 @@
 <script type="text/javascript">
     $("#tree").treeview({ collapsed: true });
     $("#treeType").treeview({ collapsed: true });
-    $(function () {
-        var ue = UE.getEditor('container');
-    })
+    var ue = UE.getEditor('container');
     function GetContent(muluId) {
         $.ajax({
             url: "/School/GetContent",
             type: "GET",
             data: { muluId: muluId },
             success: function (data) {
-                var ue = UE.getEditor('container');
                 ue.setContent(data.content);
-                var ue1 = UE.getEditor('outcontainer');
-                ue1.setContent(data.outerContent);
                 $("#txtTitle").val(data.title);
                 $("#ulHrefs").html(data.hs);
             }
@@ -120,6 +124,19 @@
         $(".mulu").removeClass("selectedColor");
         $("#" + muluId).addClass("selectedColor");
         $("#currentMuluId").val(muluId);
+    }
+    function AddMulu() {
+        var type1 = $("#selAddType").val();
+        var name = $("#txtAddName").val();
+        var content = UE.getEditor('container').getContent();
+        $.ajax({
+            url: "/School/AddMulu",
+            type: "POST",
+            data: { type1: type1, content: content, name: name },
+            success: function (data) {
+                alert(data);
+            }
+        })
     }
     function selectType(typeId) {
         $(".mulutype").removeClass("selectedColor");
@@ -235,20 +252,24 @@
         var url = "https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=0&rsv_idx=1&tn=baidu&wd=" + keyword;
         $("#ifw").attr("src", url);
         $("#ifw").show();
-        $("#outcontainer").hide();
     }
     function b(keyword) {
         var url = "http://cn.bing.com/search?q=" + keyword;
         $("#ifw").attr("src", url);
         $("#ifw").show();
-        $("#outcontainer").hide();
     }
     function c(keyword) {
         var url = "https://www.google.com/?gws_rd=ssl#q=" + keyword;
         window.open(url);
     }
     function compare() {
-        $("#ifw").hide();
-        $("#outcontainer").show();
+        var muluId = $("#currentMuluId").val();
+        window.open("/School/CompareShow?muluId=" + muluId);
+    }
+    function search(searchType) {
+        var searchText = $("#txtSearch").val();
+        var url = searchType == "baidu" ? "https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=0&rsv_idx=1&tn=baidu&wd=" + searchText : "http://cn.bing.com/search?q=" + searchText;
+        $("#ifw").attr("src", url);
+        $("#ifw").show();
     }
 </script>

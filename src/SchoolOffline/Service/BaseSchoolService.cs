@@ -27,5 +27,17 @@ namespace DoctorOffline.Service
             }
             return result;
         }
+        public string QueryOne(string sql)
+        {
+            List<string> result = new List<string>();
+            MySqlConnection con = GetConnection();
+            var muluList = con.Query<DistinctDo>(sql).ToList<DistinctDo>();
+            string resultString = string.Empty;
+            if(muluList!=null && muluList.Count > 0)
+            {
+                resultString = muluList[0].col;
+            }
+            return resultString;
+        }
     }
 }

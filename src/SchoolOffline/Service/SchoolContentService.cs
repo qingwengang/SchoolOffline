@@ -27,5 +27,13 @@ namespace DoctorOffline.Service
             String sql = String.Format("update schoolcontent set content='{0}',titles='{2}' where muluid={1}", schoolContent.Content, schoolContent.MuluId,schoolContent.Titles);
             con.Execute(sql);
         }
+        public void Add(SchoolContent content)
+        {
+            MySqlConnection con = GetConnection();
+            string sql = string.Format(@"INSERT into schoolcontent (muluid,outcontent,content,titles)
+                                values ({0},'{1}','{2}','{3}')", content.MuluId, content.OutContent, content.Content, content.Titles);
+            con.Execute(sql);
+        }
+
     }
 }

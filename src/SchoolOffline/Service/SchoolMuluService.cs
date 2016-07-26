@@ -35,5 +35,16 @@ namespace DoctorOffline.Service
             String sql = String.Format("update schoolmulu set ifpassed={0} where id={1}", mulu.IfPassed, mulu.Id);
             con.Execute(sql);
         }
+        public long Add(SchoolMulu mulu)
+        {
+            MySqlConnection con = GetConnection();
+            String sql = string.Format(@"insert into schoolmulu (name,sort,outurl,type1,type2,spiderflag,ifpassed)VALUES
+                                    ('{0}', 0, '', '{1}', '', 1, 0)", mulu.Name, mulu.Type1);
+            con.Execute(sql);
+            string maxIdString = QueryOne("select max(id) as col from schoolmulu");
+            long result = 0;
+            long.TryParse(maxIdString, out result);
+            return result;
+        }
     }
 }
