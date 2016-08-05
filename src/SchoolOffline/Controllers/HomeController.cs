@@ -40,6 +40,7 @@ namespace SchoolOffline.Controllers
             sbCanonical.AppendFormat("{0}/{1}/{2}.html", OnlineConfig.HomeUrl, course.TypeName, course.Id);
             ViewBag.bb = sbDesc.ToString();
             ViewBag.canonical = sbCanonical.ToString();
+            ViewData["pageId"] = id;
             return View();
         }
         /// <summary>
@@ -55,7 +56,7 @@ namespace SchoolOffline.Controllers
         
         public IActionResult Error()
         {
-            return View();
+            return Index("HTML", 1);
         }
     }
 }

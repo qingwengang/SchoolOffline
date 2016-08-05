@@ -14,6 +14,7 @@
     @*<link rel="stylesheet" href="http://www.runoob.com/wp-content/themes/runoob/style.css?v=1.02" type="text/css" media="all">*@
     <link rel="stylesheet" href="http://apps.bdimg.com/libs/fontawesome/4.2.0/css/font-awesome.min.css" media="all">
     <link href="//cdn.bootcss.com/SyntaxHighlighter/3.0.83/styles/shCoreDefault.css" rel="stylesheet" />
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="//cdn.bootcss.com/SyntaxHighlighter/3.0.83/scripts/shCore.js"></script>
     <script src="//cdn.bootcss.com/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.js"></script>
     <script src="//cdn.bootcss.com/SyntaxHighlighter/3.0.83/scripts/shBrushXml.js"></script>
@@ -75,6 +76,9 @@
             margin: 0;
             padding: 0;
         }
+        .selected{
+            font-weight: bold; color: rgb(255, 255, 255); background-color: rgb(150, 185, 125);
+        }
     </style>
 </head>
 <body>
@@ -112,4 +116,5 @@
         </div>
     <div class="w-1000 copyright"> Copyright © 2016 <strong><a href="http://www.piliyuan.com/" target="_blank">霹雳猿教程</a></strong>&nbsp; <strong><a href="http://www.piliyuan.com/" target="_blank">piliyuan.com</a></strong> All Rights Reserved. 备案号：闽ICP备15012807号-1 </div> </div>
 </body>
+@RenderSection("scripts", required: false)
 </html>

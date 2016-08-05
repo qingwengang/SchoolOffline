@@ -24,6 +24,7 @@ namespace DoctorOffline.Controllers
         private SchoolMuluService schoolMuluService = new SchoolMuluService();
         private TiyContentService tiycontentService = new TiyContentService();
         private SchoolContentService contentService = new SchoolContentService();
+        private SchoolMuluService muluService = new SchoolMuluService();
         #endregion
         #region 核心操作部分
         public IActionResult Index(long muluId)
@@ -94,6 +95,7 @@ namespace DoctorOffline.Controllers
         {
             SchoolContentModel model = new SchoolContentModel();
             SchoolContent content = new SchoolContentService().GetByMuluId(muluId);
+            SchoolMulu mulu = muluService.GetByMuluId(muluId);
             model.outerContent = content.OutContent;
             if (content != null)
             {
@@ -109,7 +111,7 @@ namespace DoctorOffline.Controllers
             {
                 model.content = "";
             }
-            model.title = content.Titles;
+            model.title = mulu.Name;
             StringBuilder sbLis = new StringBuilder();
             String[] titles = content.Titles.Split('|');
             foreach(var title in titles)
@@ -284,7 +286,7 @@ namespace DoctorOffline.Controllers
                             muluName = course.MuluName;
                             sbHtml.AppendFormat("<h2 class=\"left\"><span class=\"left_h2\">{0}</span></h2>", muluName);
                         }
-                        sbHtml.Append(String.Format("<a target=\"_top\" title=\"{0}\" href=\"{1}.html\">{0}</a>", course.Title, course.Id));
+                        sbHtml.Append(String.Format("<a target=\"_top\" title=\"{0}\" id=\"{1}\" href=\"{1}.html\">{0}</a>", course.Title, course.Id));
                     }
                     menuContent = sbHtml.ToString();
                 }

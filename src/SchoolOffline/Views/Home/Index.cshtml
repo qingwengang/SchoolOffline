@@ -41,3 +41,13 @@
         </div>
     </div>
 </div>
+<input type="hidden" id="pageId" value="@ViewData["pageId"]" />
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var id = $("#pageId").val();
+            $("#" + id).addClass("selected");
+        })
+        
+    </script>
+}
