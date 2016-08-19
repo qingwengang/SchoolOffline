@@ -14,7 +14,7 @@ namespace SchoolOffline.Service
         public List<Mulu> GetAll()
         {
             MySqlConnection con = GetConnection();
-            String sql = "select * from Mulu";
+            String sql = "select * from Mulu order by TypeName,SortNum";
             var muluList = con.Query<Mulu>(sql).ToList<Mulu>();
             return muluList;
         }
@@ -29,6 +29,10 @@ namespace SchoolOffline.Service
             }
             return null;
         }
-        
+        public void AddMulu(Mulu mulu)
+        {
+            MySqlConnection con = GetConnection();
+            con.Execute(String.Format(@"insert into mulu (typename,muluname,sortnum) values('{0}','{1}',{2})",mulu.TypeName,mulu.MuluName,mulu.SortNum));
+        }
     }
 }

@@ -1,0 +1,175 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutOffline.cshtml";
+}
+<h3 class="page-title">
+    目录编辑 <small>目录编辑</small>
+</h3>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <div class="tabbable-line boxless tabbable-reversed">
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_0">
+                    <div class="portlet box green">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-gift"></i>目录编辑
+                            </div>
+                            <div class="tools">
+                                <a href="javascript:;" class="collapse" data-original-title="" title="">
+                                </a>
+                                <a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title="">
+                                </a>
+                                <a href="javascript:;" class="reload" data-original-title="" title="">
+                                </a>
+                                <a href="javascript:;" class="remove" data-original-title="" title="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="portlet-body form">
+                            <!-- BEGIN FORM-->
+                            <form action="#" class="form-horizontal">
+                                <div class="form-actions">
+                                    <div class="row">
+                                        <label class="col-md-3 control-label">TYPENAME</label>
+                                        <div class="col-md-4">
+                                            <select id="delType" class="form-control" name="select">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-body">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">TYPENAME</label>
+                                        <div class="col-md-4">
+                                            <input type="text" id="txtTypeName" class="form-control input-circle" placeholder="Enter text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-body">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">MuluName</label>
+                                        <div class="col-md-4">
+                                            <input type="text" id="txtMuluName" class="form-control input-circle" placeholder="Enter text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-body">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">SortNum</label>
+                                        <div class="col-md-4">
+                                            <input type="text" id="txtSortNum" class="form-control input-circle" placeholder="Enter text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <div class="row">
+                                        <div class="col-md-offset-3 col-md-9">
+                                            <input type="button" value="提交添加" onclick="Add();" class="btn btn-circle green" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <!-- END FORM-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <!-- BEGIN SAMPLE TABLE PORTLET-->
+        <div class="portlet box red">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-cogs"></i>列表
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse" data-original-title="" title="">
+                    </a>
+                    <a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title="">
+                    </a>
+                    <a href="javascript:;" class="reload" data-original-title="" title="">
+                    </a>
+                    <a href="javascript:;" class="remove" data-original-title="" title="">
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-scrollable">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    typename
+                                </th>
+                                <th>
+                                    muluname
+                                </th>
+                                <th>
+                                    sortnum
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbMulu">
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- END SAMPLE TABLE PORTLET-->
+    </div>
+    
+</div>
+@section Scripts{
+<script type="text/javascript">
+    function init() {
+        $.ajax({
+            type: "post",
+            url: "GetMuluType",
+            dataType: "json",
+            success: function (data) {
+                var optionStr = "<option value=\"Other\" selected>其他</option>";
+                $.each(data, function (n, value) { optionStr += "<option value=\""+value+"\">" + value + "</option>" });
+                $("#delType").html(optionStr);
+                
+            }
+        })
+        getMulu();
+    }
+    function getMulu() {
+        $.ajax({
+            type: "post",
+            url: "GetMulu",
+            dataType: "json",
+            success: function (data) {
+                var tableHtml = "";
+                $.each(data, function (n, value) { tableHtml += "<tr><td>" + value.typeName + "</td><td>" + value.muluName + "</td><td>" + value.sortNum + "</td></tr>" })
+                $("#tbMulu").html(tableHtml);
+            }
+        })
+    }
+    function Add() {
+        var selType = $("#delType").val();
+        var typeName = $("#txtTypeName").val();
+        var muluName = $("#txtMuluName").val();
+        var sortNum = $("#txtSortNum").val();
+        if (selType != "Other") {
+            typeName = selType;
+        }
+        $.ajax({
+            type: "post",
+            url: "AddMulu",
+            data:{typeName:typeName,muluName:muluName,sortNum:sortNum},
+            success: function (data) {
+                alert(data);
+                init();
+            }
+        })
+    }
+    init();
+</script>
+}

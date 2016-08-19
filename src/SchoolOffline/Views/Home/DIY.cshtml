@@ -6,33 +6,32 @@
 <head>
     <meta charset="gb2312">
     <meta name="robots" content="all">
-    <meta name="author" content="w3school.com.cn">
+    <meta name="author" content="piliyuan.com">
     <link rel="stylesheet" type="text/css" href="http://www.w3school.com.cn/tiy/tc.css">
-    <title>W3School在线测试工具 V2</title>
+    <title>霹雳猿在线测试</title>
 </head>
 <body id="editor">
     <div id="wrapper">
         <div id="header">
-            <h1>W3School TIY</h1>
+            <h1>霹雳猿TIY</h1>
         </div>
-            <div id="butt">
-                <input type="button" value="提交代码" onclick="submitTryit()">
-            </div>
+        <div id="butt">
+            <input type="button" value="运行代码" onclick="submitTryit()">
+        </div>
 
-            <div id="CodeArea">
-                <h2>编辑您的代码：</h2>
-                <textarea id="TestCode" wrap="logical">
-@Html.Raw(tiyContent.Content)
-                </textarea>
-            </div>
+        <div id="CodeArea">
+            <h2>此处为代码编辑框：</h2>
+            <textarea id="TestCode" wrap="logical">@Html.Raw(tiyContent.Content)
+            </textarea>
+        </div>
         <input type="hidden" id="bt" name="bt">
     <div id="result">
         <h2>查看结果:</h2>
         <div id="iframewrapper"><iframe frameborder="0" id="iframeResult"></iframe></div>
     </div>
-
+    
     <div id="footer">
-        <p>请在上面的文本框中编辑您的代码，然后单击提交按钮测试结果。<a href="/index.html" title="W3School 在线教程">w3school.com.cn</a></p>
+        <p>在线测试说明：您可以在左侧的编辑框中编辑您的代码，编辑后直接点击上方的“运行代码”按钮即可在右侧看到代码的运行结果！<a href="/index.html" title="霹雳猿教程">www.piliyuan.com</a></p>
     </div>
 
 </div>
@@ -82,7 +81,5 @@ if (code.length>5000)
 	}
 }
 </script>
-
-
 </body>
 </html>

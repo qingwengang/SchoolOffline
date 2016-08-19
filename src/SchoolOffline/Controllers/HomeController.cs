@@ -11,6 +11,7 @@ using System.Net.Http;
 using System.Net;
 using System.IO;
 using SchoolOffline.Configs;
+using SchoolOffline.Util;
 
 namespace SchoolOffline.Controllers
 {
@@ -33,6 +34,8 @@ namespace SchoolOffline.Controllers
             ViewData["menuHtml"] = menu.Content;
             Menu menutuijian = new MenuService().GetMenuByTypeName("tuijian");
             ViewData["tuijianmenuHtml"] = menutuijian.Content;
+            ViewData["lastPageHref"] = OnlinePageHelper.GeneratPageHref(type, course.LastPage);
+            ViewData["nextPageHref"] = OnlinePageHelper.GeneratPageHref(type, course.NextPage);
             ViewBag.aa = course.Title;
             StringBuilder sbDesc = new StringBuilder();
             sbDesc.Append(course.Title).Append(",").Append(course.MuluName).Append(",").Append(course.TypeName).Append(",").Append("霹雳猿教程");

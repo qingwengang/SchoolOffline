@@ -83,6 +83,11 @@ namespace SchoolOffline
                     defaults: new { controller = "Home", action = "Index" },
                     constraints: new { id = new IntRouteConstraint() });
                 routes.MapRoute(
+                    name:"index",
+                    template:"{action}.html",
+                    defaults: new { controller = "SuperPage"}
+                    );
+                routes.MapRoute(
                     name: "default",
                     template: "{controller=School}/{action=Index}/{id?}");
             });

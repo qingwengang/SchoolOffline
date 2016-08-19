@@ -27,7 +27,7 @@
     }
 </style>
 <div style="width:2400px; height:auto;float:left;">
-    <div style="width:200px; height:auto; float:left; display:inline">
+    <div style="width:200px; height:950px; float:left; display:inline;overflow: scroll">
         <ul id="tree" class="filetree">
             @Html.Raw(@ViewData["html"])
         </ul>
@@ -45,16 +45,14 @@
         <input type="button" value="静态页面初始化" onclick="InitStaticPage();" /><br />
         <input type="button" value="菜单初始化" onclick="InitMenu();" />
         <input type="button" value="一切初始化" onclick="InitAllOnline();" />
+        <input type="button" value="页面导航初始化" onclick="InitPageHref();"/>
         <br />
         <ul id="muluList"></ul>
         <br/>
         <input type="text" id="txtSortNum" />
         <input type="button" value="设置sortnum" onclick="setSortNum();" />
     </div>
-    <div id="middleDiv"  style="width:300px;top:0px; height:500px; float:left; display:inline">
-        
-    </div>
-    <div class="fixed_div">
+    <div id="middleDiv"  style="width:300px;top:0px; height:950px; float:left; display:inline;overflow: scroll">
         <ul id="ulHrefs">
             @foreach (string title in titles)
             {
@@ -69,12 +67,15 @@
         <br />
         <input type="button" value="对比" onclick="compare();" />
         <br />
-        <a href="/School/DiyEdit" target="_blank">添加实例</a><br />
-        <a href="/DIY/1.html" target="_blank">DIY</a><br />
+        <a href="/School/DiyEdit" target="_blank">添加DIY实例</a><br />
+        <a href="/DIY/1.html" target="_blank">DIY</a>&nbsp;&nbsp;&nbsp;<a href="/Mulu/Index" target="_blank">目录编辑</a><br />
         <input type="button" value="保存" onclick="Save();" />&nbsp;&nbsp;&nbsp;&nbsp;
         <input type="button" value="完成" onclick="Complete();" />
     </div>
-    <div style="width:700px; height:1000px; float:left; display:inline">
+    @*<div class="fixed_div">
+        
+    </div>*@
+    <div style="width:700px; height:900px; float:left; display:inline">
         标题：<input type="text" id="txtTitle" style="width:500px;" /><br />
         <div>
             <select id="selAddType">
@@ -96,7 +97,7 @@
         <input type="button" value="保存" onclick="Save();" />&nbsp;&nbsp;&nbsp;&nbsp;
         <input type="button" value="完成" onclick="Complete();" />
     </div>
-    <div class="right_div" style="width:800px; height:auto; float:left; display:inline">
+    <div  style="width:800px; height:auto; float:left; display:inline;overflow: scroll">
         标题：<input type="text" id="txtSearch" style="width:500px;" /><br />
         <input type="button" value="百度" onclick="search('baidu')" />&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="bing" onclick="search('bing')" />
         <iframe id="ifw" style="width:800px;height:900px;display:none;" src="https://www.baidu.com/s?ie=UTF-8&wd=iframe"></iframe>
@@ -124,6 +125,7 @@
         $(".mulu").removeClass("selectedColor");
         $("#" + muluId).addClass("selectedColor");
         $("#currentMuluId").val(muluId);
+        UE.getEditor('container').setHeight(750)
     }
     function AddMulu() {
         var type1 = $("#selAddType").val();
@@ -210,6 +212,17 @@
             }
         })
     }
+    function InitPageHref() {
+        var selectType = $("#sel").val();
+        $.ajax({
+            url: "/OnlinePageManage/InitPageHref",
+            type: "GET",
+            data: { type: selectType },
+            success: function (data) {
+                alert(data);
+            }
+        })
+    }
     function InitMenu() {
         var selectType = $("#sel").val();
         $.ajax({
@@ -261,6 +274,11 @@
     function c(keyword) {
         var url = "https://www.google.com/?gws_rd=ssl#q=" + keyword;
         window.open(url);
+    }
+    function s360(keyword) {
+        var url = "https://www.so.com/s?q=" + keyword;
+        $("#ifw").attr("src", url);
+        $("#ifw").show();
     }
     function compare() {
         var muluId = $("#currentMuluId").val();

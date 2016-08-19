@@ -38,7 +38,7 @@ namespace SchoolOffline.Service
         public List<Course> GetCourseByTypeName(string typeName)
         {
             MySqlConnection con = GetConnection();
-            string sql = String.Format("select title,course.MuluName,course.id,'' as TypeName,'' as Content,course.SortNum,course.outerid from course inner join mulu on course.MuluName=mulu.MuluName where mulu.typename='{0}'  order by mulu.SortNum,course.SortNum", typeName);
+            string sql = String.Format("select title,course.MuluName,course.id,'' as TypeName,'' as Content,course.SortNum,course.outerid,lastpage,nextpage from course inner join mulu on course.MuluName=mulu.MuluName where mulu.typename='{0}'  order by mulu.SortNum,course.SortNum", typeName);
             var muluList = con.Query<Course>(sql).ToList<Course>();
             return muluList;
         }
@@ -69,6 +69,13 @@ namespace SchoolOffline.Service
             MySqlConnection con = GetConnection();
             string sql = string.Format(@"update course set typename='{0}',MuluName='{1}',Title='{2}',Content='{3}',SortNum='{4}'
                                 where id = {5}", course.TypeName, course.MuluName, course.Title, course.Content, course.SortNum,course.Id);
+            con.Execute(sql);
+        }
+        public void UpdatePageHref(Course course)
+        {
+            MySqlConnection con = GetConnection();
+            string sql = string.Format(@"update course set lastpage='{0}',nextpage='{1}'
+                                where id = {2}", course.LastPage,course.NextPage, course.Id);
             con.Execute(sql);
         }
         public List<CourseSortModel> GetBySql(string sql)

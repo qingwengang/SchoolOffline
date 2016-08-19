@@ -116,7 +116,7 @@ namespace DoctorOffline.Controllers
             String[] titles = content.Titles.Split('|');
             foreach(var title in titles)
             {
-                sbLis.AppendFormat("<li><a onclick=\"a('{0}')\">{0}</a><a onclick=\"b('{0}')\">bing</a>|<a onclick=\"c('{0}')\">google</a></li>", title);
+                sbLis.AppendFormat("<li><a onclick=\"a('{0}')\">{0}</a><a onclick=\"b('{0}')\">bing</a>|<a onclick=\"s360('{0}')\">360</a>|<a onclick=\"c('{0}')\">google</a></li>", title);
             }
             model.hs = sbLis.ToString();
             return Json(model);
@@ -363,11 +363,6 @@ namespace DoctorOffline.Controllers
         }
         #endregion
         #region 课程或测试内容编辑
-        public IActionResult TIYEdit(string courseTitle)
-        {
-            var tiyList = tiyService.GetByCourseTitle(courseTitle);
-            return View();
-        }
         public IActionResult DIYEdit(string type)
         {
             var tiyList = tiyService.GetByCourseTitle(type);
