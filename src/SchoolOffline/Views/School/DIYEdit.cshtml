@@ -47,7 +47,7 @@
         <br />
         title:<input type="text" style="width:400px" id="txtTitle" /><br />
         CourseTitle:<input type="text" style="width:400px" id="txtCourseTitle" /><br />
-        URL:<input type="text" style="width:400px" id="txtUrl" />&nbsp;&nbsp;&nbsp;链接：<input type="text" style="width:1000px" id="txtHref" />
+        URL:<input type="text" style="width:400px" id="txtUrl" />
         <br />
         <select id="sel">
             <option value="HTML">HTML</option>
@@ -63,9 +63,17 @@
                 }
             </ul>
         </div>
+        <div style="width:600px; height:auto; float:left; display:inline">
+            <textarea name="content" id="container"></textarea>
+        </div>
     </div>
+    <br />
+    
 <input type="hidden" id="currentTiyId" />
+<script src="~/editor/ueditor.config.js"></script>
+<script src="~/editor/ueditor.all.js"></script>
 <script type="text/javascript">
+    var ue = UE.getEditor('container');
     $('#copyBtn').zclip({
         path: "ZeroClipboard.swf",
         copy: function () {
@@ -154,10 +162,11 @@ function getContent(id) {
         data: { id: id },
         success: function (data) {
             $("#txtUrl").val("/DIY/" + id + ".html");
-            $("#txtHref").val("<a target=\"_blank\" href=\"/DIY/"+id+".html\" class=\"tryitbtn\">在线测试 »</a>")
             $("#txtTitle").val(data.title);
             $("#txtCourseTitle").val(data.courseTitle);
             $("#TestCode").val(data.content);
+            var ue = UE.getEditor('container');
+            ue.setContent("<a target=\"_blank\" href=\"/DIY/" + id + ".html\" class=\"tryitbtn\">在线测试 »</a>");
         }
     })
 }

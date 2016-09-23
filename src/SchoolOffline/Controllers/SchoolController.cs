@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using SchoolOffline.Entity;
 using SchoolOffline.Models;
 using SchoolOffline.Service;
+using SchoolOffline.Util;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -201,7 +202,22 @@ namespace DoctorOffline.Controllers
                 InitStaticPageByTypeName(item);
             }
             InitDIYPage();
+            InitStaticPageSuper();
+            FileTool.RenameStaticFolder();
             return "success";
+        }
+        /// <summary>
+        /// 给首页等其他页面静态化
+        /// </summary>
+        /// <returns></returns>
+        public void InitStaticPageSuper()
+        {
+            string[] pageNames = { "Index", "About" };
+            foreach(string item in pageNames){
+                string url = String.Format("http://localhost:42742/SuperPage/{0}", item);
+                string responseBodyAsText = HttpTool.GetHtmlContent(url);
+                FileTool.Write(item, responseBodyAsText);
+            }
         }
        
         public string InitStaticPageByTypeName(string type)
@@ -220,17 +236,11 @@ namespace DoctorOffline.Controllers
                     List<Course> courseList = new CourseService().GetCourseByTypeName(type);
                     foreach (var item in courseList)
                     {
-                        var httpClient = new HttpClient();
-                        var task = httpClient.GetAsync(new Uri(String.Format("http://localhost:42742/Home/Index?type={0}&id={1}", type, item.Id)));
-
-                        task.Result.EnsureSuccessStatusCode();
-                        HttpResponseMessage response = task.Result;
-                        var result = response.Content.ReadAsStringAsync();
-                        string responseBodyAsText = result.Result;
-                        Write(type, item.Id, responseBodyAsText);
+                        string url = String.Format("http://localhost:42742/Home/Index?type={0}&id={1}", type, item.Id);
+                        string responseBodyAsText = HttpTool.GetHtmlContent(url);
+                        FileTool.Write(type, item.Id, responseBodyAsText);
                     }
                 }
-                
             }
             return "success";
         }
@@ -240,28 +250,12 @@ namespace DoctorOffline.Controllers
             var idList = tiycontentService.GetDistinct("select id as col from tiycontent");
             foreach(var item in idList)
             {
-                var httpClient = new HttpClient();
-                var task = httpClient.GetAsync(new Uri(String.Format("http://localhost:42742/Home/DIY?id={0}", item)));
-                task.Result.EnsureSuccessStatusCode();
-                HttpResponseMessage response = task.Result;
-                var result = response.Content.ReadAsStringAsync();
-                string responseBodyAsText = result.Result;
-                Write("DIY", long.Parse(item), responseBodyAsText);
+                string url = String.Format("http://localhost:42742/Home/DIY?id={0}", item);
+                string responseBodyAsText = HttpTool.GetHtmlContent(url);
+                FileTool.Write("DIY", long.Parse(item), responseBodyAsText);
             }
         }
-        public void Write(string type, long id, string content)
-        {
-            String dicPath = String.Format("E:\\StaticFiles\\{0}", type);
-            if (!Directory.Exists(dicPath))
-            {
-                Directory.CreateDirectory(dicPath);
-            }
-            FileStream fs = new FileStream(String.Format("E:\\StaticFiles\\{0}\\{1}.html", type, id), FileMode.Create);
-            StreamWriter sw = new StreamWriter(fs, Encoding.UTF8);
-            sw.Write(content);
-            sw.Dispose();
-            fs.Dispose();
-        }
+        
         public string InitMenu(string type)
         {
             if (type == "ALL")

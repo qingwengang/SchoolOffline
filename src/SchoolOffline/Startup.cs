@@ -90,6 +90,7 @@ namespace SchoolOffline
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=School}/{action=Index}/{id?}");
+
             });
         }
     }
