@@ -85,12 +85,10 @@ namespace SchoolOffline
                 routes.MapRoute(
                     name:"index",
                     template:"{action}.html",
-                    defaults: new { controller = "SuperPage"}
-                    );
+                    defaults: new { controller = "SuperPage"});
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=School}/{action=Index}/{id?}");
-
             });
         }
     }
