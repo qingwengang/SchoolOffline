@@ -31,7 +31,7 @@ namespace SchoolOffline.Controllers
             Course course = new CourseService().GetById(id);
             ViewData["content"] = course.Content;
             Menu menu = new MenuService().GetMenuByTypeName(course.TypeName);
-            ViewData["menuHtml"] = menu.Content;
+            ViewData["menuHtml"] = menu!=null?menu.Content:"";
             Menu menutuijian = new MenuService().GetMenuByTypeName("tuijian");
             ViewData["tuijianmenuHtml"] = menutuijian.Content;
             ViewData["lastPageHref"] = OnlinePageHelper.GeneratPageHref(type, course.LastPage);

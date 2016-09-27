@@ -307,14 +307,22 @@ namespace DoctorOffline.Controllers
         }
         public string InitTuijian()
         {
-            List<string> types = new BaseSchoolService().GetDistinct("select distinct typename as col from course ORDER BY id desc LIMIT 0,5");
+            List<string> types = new BaseSchoolService().GetDistinct("select distinct typename as col from course where typename!='AboutUs' ORDER BY id desc LIMIT 0,4");
+            types.Add("AboutUs");
             StringBuilder sbHtml = new StringBuilder();
             foreach (string type in types)
             {
                 string sql = string.Format("select title,id,SortNum from course where TypeName='{0}' ORDER BY id desc LIMIT 0,5", type);
                 List<CourseSortModel> courseModels = courseService.GetBySql(sql);
                 sbHtml.Append("<dl>");
-                sbHtml.AppendFormat("<dt>{0}</dt>", type + "最新课程");
+                if (type != "AboutUs")
+                {
+                    sbHtml.AppendFormat("<dt>{0}</dt>", type + "最新课程");
+                }else
+                {
+                    sbHtml.Append("关于我们");
+                }
+                
                 foreach(var item in courseModels)
                 {
                     sbHtml.AppendFormat("<dd>·<a href = \"/{0}/{1}.html\"> {2} </a ></dd > ",item.Id,item.Id,item.Title);

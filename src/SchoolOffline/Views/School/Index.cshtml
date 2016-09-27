@@ -64,6 +64,7 @@
             @Html.Raw(@ViewData["typeHtml"])
         </ul>
         <input type="button" value="推送" onclick="Pass();" />
+        <input type="button" value="无条件推送" onclick="PassNoReason();" />
         <br />
         <input type="button" value="对比" onclick="compare();" />
         <br />
@@ -77,20 +78,6 @@
     </div>*@
     <div style="width:700px; height:900px; float:left; display:inline">
         标题：<input type="text" id="txtTitle" style="width:500px;" /><br />
-        <div>
-            <select id="selAddType">
-                <option value="HTML 教程">HTML 教程</option>
-                <option value="CSS 教程">CSS 教程</option>
-                <option value="Javascript 教程">Javascript 教程</option>
-                <option value="jQuery 教程">jQuery 教程</option>
-                <option value="MySQL 教程">MySQL 教程</option>
-                <option value="Java 教程">Java 教程</option>
-                <option value="C# 教程">C# 教程</option>
-                <option value="数据结构与算法">数据结构与算法</option>
-            </select>
-            Name:<input type="text" id="txtAddName" style="width:400px;" />
-            <input type="button" onclick="AddMulu();" value="添加"/>
-       </div>
         <textarea name="content" id="container">
         </textarea>
         <br />
@@ -193,9 +180,22 @@
         var title = $("#txtTitle").val();
         var content = UE.getEditor('container').getContent();
         $.ajax({
-            url: "/School/Pass",
+            url: "/Course/Pass",
             type: "POST",
             data: { muluId: muluId,typeId:typeId,title:title,content:content},
+            success: function (data) {
+                alert(data);
+            }
+        })
+    }
+    function PassNoReason() {
+        var typeId = $("#currentTypeId").val();
+        var title = $("#txtTitle").val();
+        var content = UE.getEditor('container').getContent();
+        $.ajax({
+            url: "/Course/Pass",
+            type: "POST",
+            data: { muluId: 0, typeId: typeId, title: title, content: content },
             success: function (data) {
                 alert(data);
             }
