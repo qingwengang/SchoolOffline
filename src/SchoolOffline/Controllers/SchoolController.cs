@@ -2,6 +2,7 @@
 using DoctorOffline.Models;
 using DoctorOffline.Service;
 using Microsoft.AspNetCore.Mvc;
+using SchoolOffline.Configs;
 using SchoolOffline.Entity;
 using SchoolOffline.Models;
 using SchoolOffline.Service;
@@ -45,6 +46,7 @@ namespace DoctorOffline.Controllers
                     types.Add(mulu.Type1);
                 }
             }
+
             foreach(String type in types)
             {
                 sbHtml.AppendFormat("<li><span>{0}</span>", type);
@@ -214,7 +216,7 @@ namespace DoctorOffline.Controllers
         {
             string[] pageNames = { "Index", "About" };
             foreach(string item in pageNames){
-                string url = String.Format("http://localhost:42742/SuperPage/{0}", item);
+                string url = String.Format(OnlineConfig.pageUrl+"SuperPage/{0}", item);
                 string responseBodyAsText = HttpTool.GetHtmlContent(url);
                 FileTool.Write(item, responseBodyAsText);
             }
@@ -236,7 +238,7 @@ namespace DoctorOffline.Controllers
                     List<Course> courseList = new CourseService().GetCourseByTypeName(type);
                     foreach (var item in courseList)
                     {
-                        string url = String.Format("http://localhost:42742/Home/Index?type={0}&id={1}", type, item.Id);
+                        string url = String.Format(OnlineConfig.pageUrl+"Home/Index?type={0}&id={1}", type, item.Id);
                         string responseBodyAsText = HttpTool.GetHtmlContent(url);
                         FileTool.Write(type, item.Id, responseBodyAsText);
                     }
@@ -250,7 +252,7 @@ namespace DoctorOffline.Controllers
             var idList = tiycontentService.GetDistinct("select id as col from tiycontent");
             foreach(var item in idList)
             {
-                string url = String.Format("http://localhost:42742/Home/DIY?id={0}", item);
+                string url = String.Format(OnlineConfig.pageUrl + "Home/DIY?id={0}", item);
                 string responseBodyAsText = HttpTool.GetHtmlContent(url);
                 FileTool.Write("DIY", long.Parse(item), responseBodyAsText);
             }
