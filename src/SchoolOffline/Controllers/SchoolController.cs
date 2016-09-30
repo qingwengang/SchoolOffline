@@ -2,6 +2,7 @@
 using DoctorOffline.Models;
 using DoctorOffline.Service;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using SchoolOffline.Configs;
 using SchoolOffline.Entity;
 using SchoolOffline.Models;
@@ -27,7 +28,12 @@ namespace DoctorOffline.Controllers
         private TiyContentService tiycontentService = new TiyContentService();
         private SchoolContentService contentService = new SchoolContentService();
         private SchoolMuluService muluService = new SchoolMuluService();
+        public ApplicationConfiguration config;
         #endregion
+        public SchoolController(IOptions<ApplicationConfiguration> option)
+        {
+            config = option.Value;
+        }
         #region 核心操作部分
         public IActionResult Index(long muluId)
         {
@@ -195,177 +201,7 @@ namespace DoctorOffline.Controllers
             return "success";
         }
         #endregion
-        #region 前台页面初始化
-        public string InitStaticPageAll()
-        {
-            List<string> types = new MenuService().GetDistinct("select DISTINCT typename as col  from menu");
-            foreach (var item in types)
-            {
-                InitStaticPageByTypeName(item);
-            }
-            InitDIYPage();
-            InitStaticPageSuper();
-            FileTool.RenameStaticFolder();
-            return "success";
-        }
-        /// <summary>
-        /// 给首页等其他页面静态化
-        /// </summary>
-        /// <returns></returns>
-        public void InitStaticPageSuper()
-        {
-            string[] pageNames = { "Index", "About" };
-            foreach(string item in pageNames){
-                string url = String.Format(OnlineConfig.pageUrl+"SuperPage/{0}", item);
-                string responseBodyAsText = HttpTool.GetHtmlContent(url);
-                FileTool.Write(item, responseBodyAsText);
-            }
-        }
-       
-        public string InitStaticPageByTypeName(string type)
-        {
-            if (type == "ALL")
-            {
-                string s=InitStaticPageAll();
-            }
-            else
-            {
-                if (type == "DIY")
-                {
-                    InitDIYPage();
-                }else
-                {
-                    List<Course> courseList = new CourseService().GetCourseByTypeName(type);
-                    foreach (var item in courseList)
-                    {
-                        string url = String.Format(OnlineConfig.pageUrl+"Home/Index?type={0}&id={1}", type, item.Id);
-                        string responseBodyAsText = HttpTool.GetHtmlContent(url);
-                        FileTool.Write(type, item.Id, responseBodyAsText);
-                    }
-                }
-            }
-            return "success";
-        }
-        public void InitDIYPage()
-        {
-            var tiyContentList = tiycontentService.GetAll();
-            var idList = tiycontentService.GetDistinct("select id as col from tiycontent");
-            foreach(var item in idList)
-            {
-                string url = String.Format(OnlineConfig.pageUrl + "Home/DIY?id={0}", item);
-                string responseBodyAsText = HttpTool.GetHtmlContent(url);
-                FileTool.Write("DIY", long.Parse(item), responseBodyAsText);
-            }
-        }
-        
-        public string InitMenu(string type)
-        {
-            if (type == "ALL")
-            {
-                InitMenuAll();
-            }else
-            {
-                string menuContent = string.Empty;
-                if (type == "tuijian")
-                {
-                    menuContent = InitTuijian();
-                }
-                else
-                {
-                    List<Course> courseList = new CourseService().GetCourseByTypeName(type);
-                    StringBuilder sbHtml = new StringBuilder();
-                    string muluName = String.Empty;
-                    foreach (Course course in courseList)
-                    {
-                        if (muluName != course.MuluName)
-                        {
-                            muluName = course.MuluName;
-                            sbHtml.AppendFormat("<h2 class=\"left\"><span class=\"left_h2\">{0}</span></h2>", muluName);
-                        }
-                        sbHtml.Append(String.Format("<a target=\"_top\" title=\"{0}\" id=\"{1}\" href=\"{1}.html\">{0}</a>", course.Title, course.Id));
-                    }
-                    menuContent = sbHtml.ToString();
-                }
-                Menu menu = new MenuService().GetMenuByTypeName(type);
-                if (menu == null)
-                {
-                    menu = new Menu();
-                    menu.TypeName = type;
-                    menu.Content = menuContent;
-                    menuService.Add(menu);
-                }
-                else
-                {
-                    if (menuContent != menu.Content)
-                    {
-                        menu.Content = menuContent;
-                        menuService.Update(menu);
-                    }
-                }
-            }
-            return "success";
-        }
-        public string InitTuijian()
-        {
-            List<string> types = new BaseSchoolService().GetDistinct("select distinct typename as col from course where typename!='AboutUs' ORDER BY id desc LIMIT 0,4");
-            types.Add("AboutUs");
-            StringBuilder sbHtml = new StringBuilder();
-            foreach (string type in types)
-            {
-                string sql = string.Format("select title,id,SortNum from course where TypeName='{0}' ORDER BY id desc LIMIT 0,5", type);
-                List<CourseSortModel> courseModels = courseService.GetBySql(sql);
-                sbHtml.Append("<dl>");
-                if (type != "AboutUs")
-                {
-                    sbHtml.AppendFormat("<dt>{0}</dt>", type + "最新课程");
-                }else
-                {
-                    sbHtml.Append("关于我们");
-                }
-                
-                foreach(var item in courseModels)
-                {
-                    sbHtml.AppendFormat("<dd>·<a href = \"/{0}/{1}.html\"> {2} </a ></dd > ",item.Id,item.Id,item.Title);
-                }
-                sbHtml.Append("</dl>");
-            }
-            return sbHtml.ToString();
-        }
-        public string setSortNum(int sortNum,long currentCourseId)
-        {
-            Course course = courseService.GetById(currentCourseId);
-            course.SortNum = sortNum;
-            courseService.Update(course);
-            return "success";
-        }
-        public void InitMenuAll()
-        {
-            List<String> types = new BaseSchoolService().GetDistinct("select DISTINCT typename as col from course ");
-            foreach(string type in types)
-            {
-                string s=InitMenu(type);
-            }
-            InitMenu("tuijian");
-        }
-        public string InitAllOnline(string type)
-        {
-            string result = string.Empty;
-            if (type == "ALL")
-            {
-                InitMenuAll();
-                InitStaticPageAll();
-            }
-            else
-            {
-                result=InitMenu(type);
-                if (result == "success")
-                {
-                    result= InitStaticPageByTypeName(type);
-                }
-            }
-            return "success";
-        }
-        #endregion
+
         #region 课程或测试内容编辑
         public IActionResult DIYEdit(string type)
         {

@@ -636,16 +636,17 @@ span.deprecated {
 	padding-bottom:16px
 }
 .sidebar-box .cate-items a {
-	color:#999;
+	color:#f50404;
 	background-color:#f6f6f6;
 	float:left;
-	width:31.3333%;
+	width:48%;
 	margin:0 1% 1% 0;
 	padding:0;
 	font-size:12px;
 	height:29px;
 	line-height:29px;
-	overflow:hidden
+	overflow:hidden;
+    text-align:left;
 }
 .sidebar-box.about-author .article-body {
 	padding:0
@@ -1627,7 +1628,7 @@ a.download {
 }
 .archive-list-item .post-intro {
 	float:right;
-	width:70%
+	width:98%
 }
 .archive-gallery .archive-list-item img.gallery-image {
 	float:left;

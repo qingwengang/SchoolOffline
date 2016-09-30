@@ -34,6 +34,5 @@ namespace DoctorOffline.Service
                                 values ({0},'{1}','{2}','{3}')", content.MuluId, content.OutContent, content.Content, content.Titles);
             con.Execute(sql);
         }
-
     }
 }

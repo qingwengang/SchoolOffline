@@ -1,0 +1,55 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<link href="~/css/jquery.treeview.css" rel="stylesheet" />
+<link href="~/css/screen.css" rel="stylesheet" />
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="~/js/jquery.cookie.js"></script>
+<script src="~/js/jquery.treeview.js"></script>
+<script src="~/js/jquery.treeview.edit.js"></script>
+
+<link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+<script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="jqueryui/style.css">
+<div style="width:2400px; height:auto;float:left;">
+    <div style="width:200px; height:950px; float:left; display:inline;overflow: scroll">
+        <ul id="tree" class="filetree">
+            @Html.Raw(@ViewData["html"])
+        </ul>
+    </div>
+    <div id="middleDiv" style="width:1200px;top:0px; height:950px; float:left; display:inline;overflow: scroll">
+        type:<select id="selAddType">
+            <option value="HTML">HTML</option>
+            <option value="JavaScript">JavaScript</option>
+            </select>
+        <br />
+        Title:<input type="text" id="txtTitle" /><br />
+        Desc:<input type="text" id="txtDesc" /><br />
+        <textarea name="content" id="container"></textarea>
+        <br />
+        <br />
+        <input type="button" value="新增" onclick="CreateQuestion()" />
+    </div>
+</div>
+<script src="~/editor/ueditor.config.js"></script>
+<script src="~/editor/ueditor.all.js"></script>
+<script type="text/javascript">
+    $("#tree").treeview({ collapsed: true });
+    var ue = UE.getEditor('container');
+    function CreateQuestion() {
+        var type = $("#selAddType").val();
+        var title = $("#txtTitle").val();
+        var desc = $("#txtDesc").val();
+        var content = UE.getEditor('container').getContent();
+        $.ajax({
+            url: "/QuestionAdmin/CreateQuestion",
+            type: "POST",
+            data: { type:type,title:title,desc:desc,content:content },
+            success: function (data) {
+                alert(data);
+            }
+        })
+    }
+</script>

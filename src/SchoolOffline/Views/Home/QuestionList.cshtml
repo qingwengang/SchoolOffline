@@ -1,0 +1,34 @@
+﻿@model QuestionPageModel
+@using SchoolOffline.Models;
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "_LayoutQuestion";
+}
+
+<div class="col middle-column big-middle-column">
+
+    @foreach (var item in Model.questionList)
+    {
+        <div class="archive-list">
+            <div class="archive-list-item">
+                <div class="post-intro">
+                    <h2><a href="/Question/@item.Id/1.html" rel="bookmark" title="@item.Title">@item.Title</a> <i class="fa fa-external-link"></i></h2>
+                    <p>
+                        @item.Des
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="article">
+        <div class="archive-list-item">
+            <div id="wp_page_numbers">
+                <ul>
+                    @Html.Raw(ViewData["url"])
+                </ul>
+                <div style="float: none; clear: both;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,30 @@
+﻿@model QuestionModel
+@using SchoolOffline.Models;
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "_LayoutQuestion";
+}
+<div class="col middle-column big-middle-column">
+    <div class="article">
+        <div class="article-heading">
+            <h2>这里是标题</h2>				<h3><em>分类</em> <a href="/w3cnote/w3cnote_genre/net-2" title="互联网">互联网</a> </h3>
+        </div>
+        <div class="article-body">
+            <div class="article-intro">
+                @Html.Raw(Model.questionContent.Content)
+            </div>
+        </div>
+    </div>
+
+    <div class="article">
+        <div class="archive-list-item">
+            <div id="wp_page_numbers">
+                <ul>
+                    @Html.Raw(ViewData["url"])
+                </ul>
+                <div style="float: none; clear: both;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+        

@@ -11,14 +11,14 @@ namespace SchoolOffline.Util
     {
         private static string staticPath= "E:\\StaticFiles";
         private static string staticPathNew = "E:\\StaticFilesNew";
-        public static void Write(string type, long id, string content)
+        public static void Write(string type, long id, string content,string rootFolderName="")
         {
-            String dicPath = String.Format("{0}\\{1}",staticPathNew, type);
+            String dicPath = String.Format("{0}\\{2}{1}",staticPathNew, type,string.IsNullOrEmpty(rootFolderName)?"":rootFolderName+"\\");
             if (!Directory.Exists(dicPath))
             {
                 Directory.CreateDirectory(dicPath);
             }
-            FileStream fs = new FileStream(String.Format("{0}\\{1}\\{2}.html", staticPathNew,type, id), FileMode.Create);
+            FileStream fs = new FileStream(String.Format("{0}\\{1}.html", dicPath, id), FileMode.Create);
             StreamWriter sw = new StreamWriter(fs, Encoding.UTF8);
             sw.Write(content);
             sw.Dispose();
@@ -59,6 +59,14 @@ namespace SchoolOffline.Util
                 string sNewDirectory = Path.Combine(directoryName, sNewDirectoryName);
                 Directory.Move(sDirectory, sNewDirectory);
             }
+        }
+        public static void WriteLog(string logPath, string content)
+        {
+            FileStream fs = new FileStream(logPath, FileMode.Append);
+            StreamWriter sw = new StreamWriter(fs, Encoding.GetEncoding("UTF-8"));
+            sw.Write(content);
+            sw.Dispose();
+            fs.Dispose();
         }
     }
 }

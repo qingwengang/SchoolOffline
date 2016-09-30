@@ -11,6 +11,7 @@ using Microsoft.Extensions.FileProviders;
 using System.IO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing.Constraints;
+using SchoolOffline.Configs;
 
 namespace SchoolOffline
 {
@@ -39,7 +40,7 @@ namespace SchoolOffline
         {
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
-
+            services.Configure<ApplicationConfiguration>(Configuration.GetSection("ApplicationConfiguration"));
             services.AddMvc();
         }
 
@@ -78,6 +79,16 @@ namespace SchoolOffline
                     defaults: new { controller = "Home", action = "DIY" },
                     constraints: new { id = new IntRouteConstraint() });
                 routes.MapRoute(
+                    name: "questionlist",
+                    template: "QuestionList/{type}/{page}.html",
+                    defaults: new { controller = "Home", action = "QuestionList" },
+                    constraints: new { page = new IntRouteConstraint() });
+                routes.MapRoute(
+                    name: "question",
+                    template: "Question/{rootId}/{pageId}.html",
+                    defaults: new { controller = "Home", action = "Question" },
+                    constraints: new { pageId = new IntRouteConstraint() });
+                routes.MapRoute(
                     name: "us_english_products",
                     template: "{type}/{id}.html",
                     defaults: new { controller = "Home", action = "Index" },
@@ -88,7 +99,7 @@ namespace SchoolOffline
                     defaults: new { controller = "SuperPage"});
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=School}/{action=Index}/{id?}");
+                    template: "{controller=SuperPage}/{action=Index}");
             });
         }
     }

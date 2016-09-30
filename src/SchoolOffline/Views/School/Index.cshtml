@@ -204,7 +204,7 @@
     function InitStaticPage() {
         var selectType = $("#sel").val();
         $.ajax({
-            url: "/School/InitStaticPageByTypeName",
+            url: "/Init/InitStaticPageByTypeName",
             type: "GET",
             data: { type:selectType },
             success: function (data) {
@@ -215,7 +215,7 @@
     function InitPageHref() {
         var selectType = $("#sel").val();
         $.ajax({
-            url: "/OnlinePageManage/InitPageHref",
+            url: "/Init/InitPageHref",
             type: "GET",
             data: { type: selectType },
             success: function (data) {
@@ -226,7 +226,7 @@
     function InitMenu() {
         var selectType = $("#sel").val();
         $.ajax({
-            url: "/School/InitMenu",
+            url: "/Init/InitMenu",
             type: "GET",
             data: { type: selectType },
             success: function (data) {
@@ -237,7 +237,7 @@
     function InitAllOnline() {
         var selectType = $("#sel").val();
         $.ajax({
-            url: "/School/InitAllOnline",
+            url: "/Init/InitAllOnline",
             type: "GET",
             data: { type: selectType },
             success: function (data) {
