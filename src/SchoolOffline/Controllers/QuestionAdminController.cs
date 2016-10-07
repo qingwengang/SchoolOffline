@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using SchoolOffline.Service;
 using SchoolOffline.Entity;
 using System.Text;
+using SchoolOffline.Models;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -19,7 +20,7 @@ namespace SchoolOffline.Controllers
         public IActionResult Index()
         {
             StringBuilder sbHtml = new StringBuilder();
-            List<Question> questionList = questionService.QueryBySql("select type,title from question order  by type ,CreateTime desc");
+            List<Question> questionList = questionService.QueryBySql("select type,title,id from question order  by type ,CreateTime desc");
             List<string> typeList = new List<string>();
             foreach(var item in questionList)
             {
@@ -30,13 +31,13 @@ namespace SchoolOffline.Controllers
             }
             foreach(var type in typeList)
             {
-                sbHtml.AppendFormat("<li><span>{0}</span>", type);
+                sbHtml.AppendFormat("<li><span>{0}</span>&nbsp;&nbsp;<a target='_blank' href='/QuestionList/{0}/1.html'>Online</a>", type);
                 if (questionList.Where(x => x.Type == type).Count() > 0)
                 {
                     sbHtml.Append("<ul>");
                     foreach (var question in questionList.Where(x => x.Type == type))
                     {
-                        sbHtml.AppendFormat("<li><span id='{1}' class='mulu' onclick='GetContent({1})'>{0}</span></li>", question.Title,question.Id);
+                        sbHtml.AppendFormat("<li><span id='{1}' class='mulu' onclick='GetContent({1})'>{0}</span><a target='_blank' href='/Question/{1}/1.html'>online</a></li>", question.Title,question.Id);
                     }
                     sbHtml.Append("</ul>");
                 }
@@ -60,6 +61,17 @@ namespace SchoolOffline.Controllers
                 }        
             }
             return Json("success");
+        }
+        public JsonResult GetQuestionDetail(long rootId)
+        {
+            OffQuestionModel model = new OffQuestionModel();
+            StringBuilder sbcontent = new StringBuilder();
+            var question = questionService.QueryBySql(string.Format("select * from question where id={0}", rootId)).FirstOrDefault();
+            var contentList = questionContentServie.QueryBySql(string.Format("select * from questioncontent where rootid={0} order by pageid",rootId));
+            contentList.ForEach(x => sbcontent.Append(x.Content).Append("<hr>"));
+            model.question = question;
+            model.content = sbcontent.ToString();
+            return Json(model);
         }
     }
 }

@@ -29,6 +29,9 @@
 <div style="width:2400px; height:auto;float:left;">
     <div style="width:200px; height:950px; float:left; display:inline;overflow: scroll">
         <ul id="tree" class="filetree">
+            <span id="1" class="mulu blue selectedColor"">已推送</span>
+            <span id="1" class="mulu green selectedColor"">已修改</span>
+            <br />
             @Html.Raw(@ViewData["html"])
         </ul>
         <br />
@@ -53,25 +56,26 @@
         <input type="button" value="设置sortnum" onclick="setSortNum();" />
     </div>
     <div id="middleDiv"  style="width:300px;top:0px; height:950px; float:left; display:inline;overflow: scroll">
-        <ul id="ulHrefs">
-            @foreach (string title in titles)
-            {
-                <li><a onclick="a('@title')">@title</a></li>
-            }
-        </ul>
-        <br />
+        <ul id="ulHrefs"></ul>
+        <hr />
+        <input type="button" value="修改Online Course数据" onclick="Update();" />
+        <input type="button" value="对比" onclick="compare();" /><br />
+        <input type="button" value="保存" onclick="Save();" />&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="button" value="完成" onclick="Complete();" />
+        <hr />
         <ul id="treeType" class="filetree">
             @Html.Raw(@ViewData["typeHtml"])
         </ul>
         <input type="button" value="推送" onclick="Pass();" />
         <input type="button" value="无条件推送" onclick="PassNoReason();" />
         <br />
-        <input type="button" value="对比" onclick="compare();" />
-        <br />
-        <a href="/School/DiyEdit" target="_blank">添加DIY实例</a><br />
+        
+        
+        <hr />
+        <a href="/HTML/1.html" target="_blank">Online页面</a>
+        <a href="/School/DIYEdit?type=HTML" target="_blank">添加DIY实例</a><br />
         <a href="/DIY/1.html" target="_blank">DIY</a>&nbsp;&nbsp;&nbsp;<a href="/Mulu/Index" target="_blank">目录编辑</a><br />
-        <input type="button" value="保存" onclick="Save();" />&nbsp;&nbsp;&nbsp;&nbsp;
-        <input type="button" value="完成" onclick="Complete();" />
+        <a href="/QuestionAdmin" target="_blank">添加笔试题</a>
     </div>
     @*<div class="fixed_div">
         
@@ -82,7 +86,7 @@
         </textarea>
         <br />
         <input type="button" value="保存" onclick="Save();" />&nbsp;&nbsp;&nbsp;&nbsp;
-        <input type="button" value="完成" onclick="Complete();" />
+        @*<input type="button" value="完成" onclick="Complete();" />*@
     </div>
     <div  style="width:800px; height:auto; float:left; display:inline;overflow: scroll">
         标题：<input type="text" id="txtSearch" style="width:500px;" /><br />
@@ -183,6 +187,20 @@
             url: "/Course/Pass",
             type: "POST",
             data: { muluId: muluId,typeId:typeId,title:title,content:content},
+            success: function (data) {
+                alert(data);
+            }
+        })
+    }
+    function Update() {
+        var muluId = $("#currentMuluId").val();
+        var typeId = $("#currentTypeId").val();
+        var title = $("#txtTitle").val();
+        var content = UE.getEditor('container').getContent();
+        $.ajax({
+            url: "/Course/Update",
+            type: "POST",
+            data: { muluId: muluId, typeId: typeId, title: title, content: content },
             success: function (data) {
                 alert(data);
             }

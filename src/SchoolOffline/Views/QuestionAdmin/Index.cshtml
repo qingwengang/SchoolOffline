@@ -52,4 +52,19 @@
             }
         })
     }
+    function GetContent(questionId) {
+        $(".mulu").removeClass("selectedColor");
+        $("#" + questionId).addClass("selectedColor");
+        $.ajax({
+            url: "/QuestionAdmin/GetQuestionDetail",
+            type: "GET",
+            data: { rootId: questionId },
+            success: function (data) {
+                ue.setContent(data.content);
+                $("#selAddType").val(data.question.type);
+                $("#txtTitle").val(data.question.title);
+                $("#txtDesc").val(data.question.des);
+            }
+        })
+    }
 </script>

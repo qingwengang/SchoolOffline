@@ -24,17 +24,17 @@
     }
 </style>
 <div style="width:2400px; height:auto;float:left;">
-    <div style="width:800px; height:1000px; float:left; display:inline">
-        标题：<input type="text" id="txtTitle" style="width:500px;" /><br />
-        <textarea name="content" id="container"></textarea>
-        <input type="button" value="fldsjldfjds" onclick="dui()" />
-
+        <div style="width:800px; height:1000px; float:left; display:inline;overflow: scroll">
+            标题：<input type="text" id="txtTitle" style="width:500px;" /><br />
+            <textarea name="content" id="container"></textarea>
+            <input type="button" value="fldsjldfjds" onclick="dui()" />
+            <input type="button" value="修改" onclick="Save()" />
+        </div>
+        <div style="width:800px; height:1000px; float:left; display:inline;overflow: scroll">
+            标题：<input type="text" style="width:500px;" /><br />
+            <textarea name="content" id="outcontainer"></textarea>
+        </div>
     </div>
-    <div style="width:800px; height:auto; float:left; display:inline">
-        标题：<input type="text" style="width:500px;" /><br />
-        <textarea name="content" id="outcontainer"></textarea>
-    </div>
-</div>
 <br />
 
 <script src="~/editor/ueditor.config.js"></script>
@@ -59,6 +59,18 @@
             }
         })
 
+    }
+    function Save() {
+        var content = UE.getEditor('container').getContent();
+        var title = $("#txtTitle").val();
+        $.ajax({
+            url: "/School/SaveContent",
+            type: "POST",
+            data: { muluId: @ViewData["muluId"],content:content,title:title },
+            success: function (data) {
+                alert(data);
+            }
+        })
     }
     
 </script>

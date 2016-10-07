@@ -61,5 +61,17 @@ namespace SchoolOffline.Controllers
             }
             return Json("success");
         }
+        public JsonResult Update(long muluId, long typeId, string title, string content)
+        {
+            List<Course> courseList = courseService.QueryBySql("select * from course where outerid=" + muluId);
+            if (courseList != null && courseList.Count > 0)
+            {
+                var course = courseList.FirstOrDefault();
+                course.Content = content;
+                courseService.Update(course);
+                return Json("success");
+            }
+            return Json("fial");
+        }
     }
 }
