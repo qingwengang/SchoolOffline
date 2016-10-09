@@ -1,282 +1,222 @@
-﻿<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta property="qc:admins" content="465267610762567726375">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>菜鸟教程 - 学的不仅是技术，更是梦想！</title>
+﻿@{
+    Layout = "_LayoutOnline";
+}
+@section Header{
+    <title>霹雳猿教程 - 成就你的IT人生！</title>
+    <link rel="canonical" href="www.piliyuan.com">
     <meta name="keywords" content="w3cschool,HTML,CSS,PHP,DOM,JavaScript,jQuery,XML,AJAX,ASP.NET,W3C,MySQL,SQL,jquery mobile,bootstrap,Python,jquery easyui,jquery ui,angularjs">
-    <meta name="description" content="菜鸟教程(www.runoob.com)提供了最全的编程技术基础教程, 介绍了HTML、CSS、Javascript、Python，Java，Ruby，C，PHP , MySQL等各种编程语言的基础知识。 同时本站中也提供了大量的在线实例，通过实例，您可以更好的学习编程。..">
-    <link rel="shortcut icon" href="http://www.runoob.com/favicon.ico" mce_href="http://www.runoob.com/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="http://www.runoob.com/wp-content/themes/runoob/style.css?v=1.02" type="text/css" media="all">
-    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/fontawesome/4.2.0/css/font-awesome.min.css" media="all">
-    <script src="http://cdn.static.runoob.com/libs/jquery/1.8.1/jquery.min.js"></script>
-    <!--[if lt IE 9]>
-       <script src="http://cdn.static.runoob.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
-    <![endif]-->
-    <meta name="apple-mobile-web-app-title" content="霹雳猿教程">
-    <link rel="stylesheet" type="text/css" href="http://www.runoob.com/wp-content/themes/runoob/assets/js/hl/prettify.css">
-</head>
-<body>
-    <!--  头部 -->
-    <div class="container logo-search">
-        <div class="col search row-search-mobile">
-        </div>
-        <div class="row">
-            <div class="col logo">
-                <h1><a href="/">霹雳猿编程教程 -- 最专业的编程技术教程网站！</a></h1>
+    <meta name="description" content="霹雳猿教程(www.piliyuan.com)提供了最全的编程技术基础教程, 介绍了HTML、CSS、Javascript、Python，Java，Ruby，C，PHP , MySQL等各种编程语言的基础知识。 帮助您成就您的IT梦想！">
+}
+<div class="container main">
+    <div class="row">
+        <div class="col left-column" id="main-left-cloumn">
+            <div class="tab" id="cate0"><i class="fa fa-reorder"></i> 全部教程</div>
+            <div class="sidebar-box gallery-list">
+                <div class="design" id="cate1">
+                    <div class="navto-nav"><i class="fa fa-external-link"></i> HTML/CSS教程</div>
+                </div>
+                <div class="design" id="cate2">
+                    <div class="navto-nav"><i class="fa fa-external-link"></i> JavaScript教程</div>
+                </div>
+                <div class="design" id="cate3">
+                    <div class="navto-nav"><i class="fa fa-external-link"></i> 服务器端编程教程</div>
+                </div>
+                <div class="design" id="cate4">
+                    <div class="navto-nav"><i class="fa fa-external-link"></i> JavaEE教程</div>
+                </div>
+                <div class="design" id="cate5">
+                    <div class="navto-nav"><i class="fa fa-external-link"></i> 数据库教程</div>
+                </div>
             </div>
+        </div>
+        <div class="col middle-column-home">
+            <div class="codelist codelist-desktop cate1">
+
+                <h2><i class="fa fa-list"></i> HTML / CSS</h2>
+                <a class="item-top item-1" href="/HTML/1.html">
+                    <h4>HTML/HTML5教程</h4>
+                    <img class="codeicon codeicon-36" height="36" width="36" src="http://static.runoob.com/images/icon/html.png">
+                    <strong>HTML，书写网页代码的一种规范，一种标准。</strong>
+                </a>
+                <a class="item-top item-1" href="/CSS/8.html">
+                    <h4>CSS/CSS3教程</h4>
+                    <img class="codeicon codeicon-36" height="36" width="36" src="http://static.runoob.com/images/icon/css.png">
+                    <strong>HTML的样式表</strong>
+                </a>
+                <a class="item-top item-1" href="/QuestionList/HTML/1.html">
+                    <h4>HTML/CSS笔试题库</h4>
+                    <img class="codeicon codeicon-36" height="36" width="36" src="http://static.runoob.com/images/icon/html.png">
+                    <strong>收录各大IT公司的HTML/CSS笔试题！</strong>
+                </a>
+            </div>
+            <div class="codelist codelist-desktop cate2">
+                <h2><i class="fa fa-list"></i> JavaScript</h2>
+                <a class="item-top item-1" href="/Javascript/10.html">
+                    <h4>JavaScript教程</h4>
+                    <img class="codeicon codeicon-36" height="36" width="36" src="http://static.runoob.com/images/icon/js.png">
+                    <strong>广泛用于客户端的脚本语言</strong>
+                </a>
+                <a class="item-top item-1" href="http://www.runoob.com/jquery/jquery-tutorial.html">
+                    <h4>jQuery教程</h4>
+                    <img class="codeicon codeicon-36" height="36" width="36" src="http://static.runoob.com/images/icon/jquery.png">
+                    <strong>jQuery 是一个 JavaScript 库</strong>
+                </a>
+                <a class="item-top item-1" href="/QuestionList/JavaScript/1.html">
+                    <h4>JavaScript笔试题库</h4>
+                    <img class="codeicon codeicon-36" height="36" width="36" src="http://static.runoob.com/images/icon/js.png">
+                    <strong>收录各大IT公司的JS笔试题！</strong>
+                </a>
+            </div>
+            <div class="codelist codelist-desktop cate3">
+                <h2><i class="fa fa-list"></i> 各编程语言教程</h2>
+                <a class="item-top item-1" href="/Javascript/10.html">
+                    <h4>Java语言教程</h4>
+                    <img class="codeicon codeicon-36" height="36" width="36" src="http://static.runoob.com/images/icon/js.png">
+                    <strong>目前最流行的服务器端编程语言</strong>
+                </a>
+                <a class="item-top item-1" href="http://www.runoob.com/jquery/jquery-tutorial.html">
+                    <h4>C语言教程</h4>
+                    <img class="codeicon codeicon-36" height="36" width="36" src="http://static.runoob.com/images/icon/jquery.png">
+                    <strong></strong>
+                </a>
+                <a class="item-top item-1" href="/QuestionList/JavaScript/1.html">
+                    <h4>C++教程</h4>
+                    <img class="codeicon codeicon-36" height="36" width="36" src="http://static.runoob.com/images/icon/js.png">
+                    <strong>收录各大IT公司的JS笔试题！</strong>
+                </a>
+                <a class="item-top item-1" href="/QuestionList/JavaScript/1.html">
+                    <h4>C#教程</h4>
+                    <img class="codeicon codeicon-36" height="36" width="36" src="http://static.runoob.com/images/icon/js.png">
+                    <strong>收录各大IT公司的JS笔试题！</strong>
+                </a>
+            </div>
+            <div class="codelist codelist-desktop cate4">
+                <h2><i class="fa fa-list"></i> JavaEE教程</h2>
+                <a class="item-top item-1" href="/Javascript/10.html">
+                    <h4>JSP/Servlet基础教程</h4>
+                    <img class="codeicon codeicon-36" height="36" width="36" src="http://static.runoob.com/images/icon/js.png">
+                    <strong>目前最流行的服务器端编程语言</strong>
+                </a>
+                <a class="item-top item-1" href="http://www.runoob.com/jquery/jquery-tutorial.html">
+                    <h4>Struts教程</h4>
+                    <img class="codeicon codeicon-36" height="36" width="36" src="http://static.runoob.com/images/icon/jquery.png">
+                    <strong></strong>
+                </a>
+                <a class="item-top item-1" href="http://www.runoob.com/jquery/jquery-tutorial.html">
+                    <h4>Hibernate教程</h4>
+                    <img class="codeicon codeicon-36" height="36" width="36" src="http://static.runoob.com/images/icon/jquery.png">
+                    <strong></strong>
+                </a>
+                <a class="item-top item-1" href="http://www.runoob.com/jquery/jquery-tutorial.html">
+                    <h4>Spring教程</h4>
+                    <img class="codeicon codeicon-36" height="36" width="36" src="http://static.runoob.com/images/icon/jquery.png">
+                    <strong></strong>
+                </a>
+                <a class="item-top item-1" href="http://www.runoob.com/jquery/jquery-tutorial.html">
+                    <h4>Java笔试题库</h4>
+                    <img class="codeicon codeicon-36" height="36" width="36" src="http://static.runoob.com/images/icon/jquery.png">
+                    <strong></strong>
+                </a>
+            </div>
+            <div class="codelist codelist-desktop cate5">
+                <h2><i class="fa fa-list"></i> 数据库教程</h2>
+                <a class="item-top item-1" href="/Javascript/10.html">
+                    <h4>SQL语言教程</h4>
+                    <img class="codeicon codeicon-36" height="36" width="36" src="http://static.runoob.com/images/icon/js.png">
+                    <strong>目前最流行的服务器端编程语言</strong>
+                </a>
+                <a class="item-top item-1" href="http://www.runoob.com/jquery/jquery-tutorial.html">
+                    <h4>MySQL教程</h4>
+                    <img class="codeicon codeicon-36" height="36" width="36" src="http://static.runoob.com/images/icon/jquery.png">
+                    <strong></strong>
+                </a>
+            </div>
+            <div class="codelist codelist-mobile">
+
+                <h2><i class="fa fa-list"></i> HTML / CSS</h2>
+
+
+                <a class="item-top item-1" href="/HTML/1.html">
+                    <h4>HTML</h4>
+                </a>
+
+                <a class="item-top item-1" href="/HTML/1.html">
+                    <h4>HTML5</h4>
+                </a>
+
+                <a class="item-top item-1" href="http://www.runoob.com/css/css-tutorial.html">
+                    <h4>CSS</h4>
+                </a>
+
+                <a class="item-top item-1" href="http://www.runoob.com/css3/css3-tutorial.html">
+                    <h4>CSS3</h4>
+                </a>
+
+                <a class="item-top item-1" href="http://www.runoob.com/bootstrap/bootstrap-tutorial.html">
+                    <h4>Bootstrap</h4>
+                </a>
+
+                <a class="item-top item-1" href="http://www.runoob.com/foundation/foundation-tutorial.html">
+                    <h4>Foundation</h4>
+                </a>
+            </div>
+            <div class="codelist codelist-mobile">
+
+                <h2><i class="fa fa-list"></i> JavaScript</h2>
+
+
+                <a class="item-top item-1" href="http://www.runoob.com/js/js-tutorial.html">
+                    <h4>JavaScript</h4>
+                </a>
+
+                <a class="item-top item-1" href="http://www.runoob.com/htmldom/htmldom-tutorial.html">
+                    <h4>HTML DOM</h4>
+                </a>
+
+                <a class="item-top item-1" href="http://www.runoob.com/jquery/jquery-tutorial.html">
+                    <h4>jQuery</h4>
+                </a>
+
+                <a class="item-top item-1" href="http://www.runoob.com/angularjs/angularjs-tutorial.html">
+                    <h4>AngularJS</h4>
+                </a>
+
+                <a class="item-top item-1" href="http://www.runoob.com/react/react-tutorial.html">
+                    <h4>React</h4>
+                </a>
+
+                <a class="item-top item-1" href="http://www.runoob.com/jqueryui/jqueryui-tutorial.html">
+                    <h4>jQuery UI</h4>
+                </a>
+
+                <a class="item-top item-1" href="http://www.runoob.com/jeasyui/jqueryeasyui-tutorial.html">
+                    <h4>jQuery EasyUI</h4>
+                </a>
+
+                <a class="item-top item-1" href="http://www.runoob.com/nodejs/nodejs-tutorial.html">
+                    <h4>Node.js</h4>
+                </a>
+
+                <a class="item-top item-1" href="http://www.runoob.com/ajax/ajax-tutorial.html">
+                    <h4>AJAX</h4>
+                </a>
+
+                <a class="item-top item-1" href="http://www.runoob.com/json/json-tutorial.html">
+                    <h4>JSON</h4>
+                </a>
+
+                <a class="item-top item-1" href="http://www.runoob.com/highcharts/highcharts-tutorial.html">
+                    <h4>Highcharts</h4>
+                </a>
+
+                <a class="item-top item-1" href="http://www.runoob.com/googleapi/google-maps-basic.html">
+                    <h4>Google 地图</h4>
+                </a>
+            </div>
+
         </div>
     </div>
-    <!-- 导航栏 -->
-    <div class="container navigation">
-        <div class="row">
-            <div class="col nav">
-                <ul id="index-nav">
-                    <li><a href="http://www.runoob.com/" data-id="index" title="菜鸟教程" class="current">首页</a></li>
-                    <li><a href="http://www.runoob.com/w3cnote/" target="_blank" data-id="note" title="菜鸟笔记">菜鸟笔记</a></li>
-                    <li><a href="http://c.runoob.com/" target="_blank" data-id="tool" title="不止于工具">菜鸟工具</a></li>
-                    <li><a href="javascript:void(0);" data-id="manual" title="参考手册">参考手册</a></li>
-                    <li><a href="javascript:void(0);" data-id="quiz" title="测验/考试">测验/考试</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="container sub-navigation sub-navigation-articles" style="display:none">
-        <div class="row">
-            <div class="col nav-sub">
-                <ul id="tool"> <li class="cat-item"><a target="_blank" href="try/bootstrap/layoutit/">Bootstrap 编辑器</a></li> <li class="cat-item"><a target="_blank" href="http://c.runoob.com/compile/1">PHP 在线工具</a></li> <li class="cat-item"><a target="_blank" href="http://c.runoob.com/compile/6">Python 在线工具</a></li> <li class="cat-item"><a target="_blank" href="http://c.runoob.com/compile/13">Ruby 在线工具</a></li> <li class="cat-item"><a target="_blank" href="http://c.runoob.com/compile/18">Bashe Shell</a></li> <li class="cat-item"><a target="_blank" href="http://c.runoob.com/compile/11">C 在线工具</a></li> <li class="cat-item"><a target="_blank" href="http://c.runoob.com/compile/12">C++ 在线工具</a></li><li><a target="_blank" href="http://c.runoob.com/compile/20">Swift 在线工具</a></li>  <li class="cat-item"><a target="_blank" href="http://c.runoob.com/">更多……</a></li> </ul>
-                <ul id="manual"> <li class="cat-item"><a href="tags/html-reference.html" target="_blank">HTML 手册</a></li> <li class="cat-item"><a href="jsref/jsref-tutorial.html" target="_blank">Javascript </a></li> <li class="cat-item"><a href="cssref/css-reference.html" target="_blank">CSS 1,2,3</a></li> <li class="cat-item"><a href="manual/zeptojs.html">Zepto 中文手册</a></li> <li class="cat-item"><a href="manual/Flat-UI/">Flat UI</a></li> <li class="cat-item"><a href="manual/PostgreSQL/">PostgreSQL 手册</a></li> </ul>
-                <ul id="quiz"> <li class="cat-item"><a target="_top" title="HTML 测验" href="quiz/html-quiz.html">HTML 测验</a></li> <li class="cat-item"><a target="_top" title="HTML5 测验" href="quiz/html5-quiz.html">HTML5 测验</a></li> <li class="cat-item"><a target="_top" title="XHTML 测验" href="quiz/xhtml-quiz.html">XHTML 测验</a></li> <li class="cat-item"><a target="_top" title="CSS 测验" href="quiz/css-quiz.html">CSS 测验</a></li> <li class="cat-item"><a target="_top" title="JavaScript 测验" href="quiz/javascript-quiz.html">JavaScript 测验</a></li> <li class="cat-item"><a target="_top" title="jQuery 测验" href="quiz/jquery-quiz.html">jQuery 测验</a></li> <li class="cat-item"><a target="_top" title="XML 测验" href="quiz/xml-quiz.html">XML 测验</a></li> <li class="cat-item"><a target="_top" title="ASP 测验" href="quiz/asp-quiz.html">ASP 测验</a></li> <li class="cat-item"><a target="_top" title="PHP 测验" href="quiz/php-quiz.html">PHP 测验</a></li> <li class="cat-item"><a target="_top" title="SQL 测验" href="quiz/sql-quiz.html">SQL 测验</a></li> </ul>
-            </div>
-        </div>
-    </div>
-    <!--  内容  -->
-    <div class="container main">
-
-        <div class="row">
-            <div class="col left-column" id="main-left-cloumn">
-                <div class="tab" id="cate0"><i class="fa fa-reorder"></i> 全部教程</div>
-                <div class="sidebar-box gallery-list">
-                    <div class="design" id="cate1">
-                        <div class="navto-nav"><i class="fa fa-external-link"></i> HTML/CSS教程</div>
-                    </div>
-                    <div class="design" id="cate2">
-                        <div class="navto-nav"><i class="fa fa-external-link"></i> JavaScript教程</div>
-                    </div>
-                    <div class="design" id="cate3">
-                        <div class="navto-nav"><i class="fa fa-external-link"></i> 服务器端编程教程</div>
-                    </div>
-                    <div class="design" id="cate4">
-                        <div class="navto-nav"><i class="fa fa-external-link"></i> JavaEE教程</div>
-                    </div>
-                    <div class="design" id="cate5">
-                        <div class="navto-nav"><i class="fa fa-external-link"></i> 数据库教程</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col middle-column-home">
-                <div class="codelist codelist-desktop cate1">
-
-                    <h2><i class="fa fa-list"></i> HTML / CSS</h2>
-                    <a class="item-top item-1" href="/HTML/1.html">
-                        <h4>HTML/HTML5教程</h4>
-                        <img class="codeicon codeicon-36" height="36" width="36" src="http://static.runoob.com/images/icon/html.png">
-                        <strong>HTML，书写网页代码的一种规范，一种标准。</strong>
-                    </a>
-                    <a class="item-top item-1" href="/CSS/8.html">
-                        <h4>CSS/CSS3教程</h4>
-                        <img class="codeicon codeicon-36" height="36" width="36" src="http://static.runoob.com/images/icon/css.png">
-                        <strong>HTML的样式表</strong>
-                    </a>
-                    <a class="item-top item-1" href="/QuestionList/HTML/1.html">
-                        <h4>HTML/CSS笔试题库</h4>
-                        <img class="codeicon codeicon-36" height="36" width="36" src="http://static.runoob.com/images/icon/html.png">
-                        <strong>收录各大IT公司的HTML/CSS笔试题！</strong>
-                    </a>
-                </div>
-                <div class="codelist codelist-desktop cate2">
-                    <h2><i class="fa fa-list"></i> JavaScript</h2>
-                    <a class="item-top item-1" href="/Javascript/10.html">
-                        <h4>JavaScript教程</h4>
-                        <img class="codeicon codeicon-36" height="36" width="36" src="http://static.runoob.com/images/icon/js.png">
-                        <strong>广泛用于客户端的脚本语言</strong>
-                    </a>
-                    <a class="item-top item-1" href="http://www.runoob.com/jquery/jquery-tutorial.html">
-                        <h4>jQuery教程</h4>
-                        <img class="codeicon codeicon-36" height="36" width="36" src="http://static.runoob.com/images/icon/jquery.png">
-                        <strong>jQuery 是一个 JavaScript 库</strong>
-                    </a>
-                    <a class="item-top item-1" href="/QuestionList/JavaScript/1.html">
-                        <h4>JavaScript笔试题库</h4>
-                        <img class="codeicon codeicon-36" height="36" width="36" src="http://static.runoob.com/images/icon/js.png">
-                        <strong>收录各大IT公司的JS笔试题！</strong>
-                    </a>
-                </div>
-                <div class="codelist codelist-desktop cate3">
-                    <h2><i class="fa fa-list"></i> 各编程语言教程</h2>
-                    <a class="item-top item-1" href="/Javascript/10.html">
-                        <h4>Java语言教程</h4>
-                        <img class="codeicon codeicon-36" height="36" width="36" src="http://static.runoob.com/images/icon/js.png">
-                        <strong>目前最流行的服务器端编程语言</strong>
-                    </a>
-                    <a class="item-top item-1" href="http://www.runoob.com/jquery/jquery-tutorial.html">
-                        <h4>C语言教程</h4>
-                        <img class="codeicon codeicon-36" height="36" width="36" src="http://static.runoob.com/images/icon/jquery.png">
-                        <strong></strong>
-                    </a>
-                    <a class="item-top item-1" href="/QuestionList/JavaScript/1.html">
-                        <h4>C++教程</h4>
-                        <img class="codeicon codeicon-36" height="36" width="36" src="http://static.runoob.com/images/icon/js.png">
-                        <strong>收录各大IT公司的JS笔试题！</strong>
-                    </a>
-                    <a class="item-top item-1" href="/QuestionList/JavaScript/1.html">
-                        <h4>C#教程</h4>
-                        <img class="codeicon codeicon-36" height="36" width="36" src="http://static.runoob.com/images/icon/js.png">
-                        <strong>收录各大IT公司的JS笔试题！</strong>
-                    </a>
-                </div>
-                <div class="codelist codelist-desktop cate4">
-                    <h2><i class="fa fa-list"></i> JavaEE教程</h2>
-                    <a class="item-top item-1" href="/Javascript/10.html">
-                        <h4>JSP/Servlet基础教程</h4>
-                        <img class="codeicon codeicon-36" height="36" width="36" src="http://static.runoob.com/images/icon/js.png">
-                        <strong>目前最流行的服务器端编程语言</strong>
-                    </a>
-                    <a class="item-top item-1" href="http://www.runoob.com/jquery/jquery-tutorial.html">
-                        <h4>Struts教程</h4>
-                        <img class="codeicon codeicon-36" height="36" width="36" src="http://static.runoob.com/images/icon/jquery.png">
-                        <strong></strong>
-                    </a>
-                    <a class="item-top item-1" href="http://www.runoob.com/jquery/jquery-tutorial.html">
-                        <h4>Hibernate教程</h4>
-                        <img class="codeicon codeicon-36" height="36" width="36" src="http://static.runoob.com/images/icon/jquery.png">
-                        <strong></strong>
-                    </a>
-                    <a class="item-top item-1" href="http://www.runoob.com/jquery/jquery-tutorial.html">
-                        <h4>Spring教程</h4>
-                        <img class="codeicon codeicon-36" height="36" width="36" src="http://static.runoob.com/images/icon/jquery.png">
-                        <strong></strong>
-                    </a>
-                    <a class="item-top item-1" href="http://www.runoob.com/jquery/jquery-tutorial.html">
-                        <h4>Java笔试题库</h4>
-                        <img class="codeicon codeicon-36" height="36" width="36" src="http://static.runoob.com/images/icon/jquery.png">
-                        <strong></strong>
-                    </a>
-                </div>
-                <div class="codelist codelist-desktop cate5">
-                    <h2><i class="fa fa-list"></i> 数据库教程</h2>
-                    <a class="item-top item-1" href="/Javascript/10.html">
-                        <h4>SQL语言教程</h4>
-                        <img class="codeicon codeicon-36" height="36" width="36" src="http://static.runoob.com/images/icon/js.png">
-                        <strong>目前最流行的服务器端编程语言</strong>
-                    </a>
-                    <a class="item-top item-1" href="http://www.runoob.com/jquery/jquery-tutorial.html">
-                        <h4>MySQL教程</h4>
-                        <img class="codeicon codeicon-36" height="36" width="36" src="http://static.runoob.com/images/icon/jquery.png">
-                        <strong></strong>
-                    </a>
-                </div>
-                <div class="codelist codelist-mobile">
-
-                    <h2><i class="fa fa-list"></i> HTML / CSS</h2>
-
-
-                    <a class="item-top item-1" href="/HTML/1.html">
-                        <h4>HTML</h4>
-                    </a>
-
-                    <a class="item-top item-1" href="/HTML/1.html">
-                        <h4>HTML5</h4>
-                    </a>
-
-                    <a class="item-top item-1" href="http://www.runoob.com/css/css-tutorial.html">
-                        <h4>CSS</h4>
-                    </a>
-
-                    <a class="item-top item-1" href="http://www.runoob.com/css3/css3-tutorial.html">
-                        <h4>CSS3</h4>
-                    </a>
-
-                    <a class="item-top item-1" href="http://www.runoob.com/bootstrap/bootstrap-tutorial.html">
-                        <h4>Bootstrap</h4>
-                    </a>
-
-                    <a class="item-top item-1" href="http://www.runoob.com/foundation/foundation-tutorial.html">
-                        <h4>Foundation</h4>
-                    </a>
-                </div>
-                <div class="codelist codelist-mobile">
-
-                    <h2><i class="fa fa-list"></i> JavaScript</h2>
-
-
-                    <a class="item-top item-1" href="http://www.runoob.com/js/js-tutorial.html">
-                        <h4>JavaScript</h4>
-                    </a>
-
-                    <a class="item-top item-1" href="http://www.runoob.com/htmldom/htmldom-tutorial.html">
-                        <h4>HTML DOM</h4>
-                    </a>
-
-                    <a class="item-top item-1" href="http://www.runoob.com/jquery/jquery-tutorial.html">
-                        <h4>jQuery</h4>
-                    </a>
-
-                    <a class="item-top item-1" href="http://www.runoob.com/angularjs/angularjs-tutorial.html">
-                        <h4>AngularJS</h4>
-                    </a>
-
-                    <a class="item-top item-1" href="http://www.runoob.com/react/react-tutorial.html">
-                        <h4>React</h4>
-                    </a>
-
-                    <a class="item-top item-1" href="http://www.runoob.com/jqueryui/jqueryui-tutorial.html">
-                        <h4>jQuery UI</h4>
-                    </a>
-
-                    <a class="item-top item-1" href="http://www.runoob.com/jeasyui/jqueryeasyui-tutorial.html">
-                        <h4>jQuery EasyUI</h4>
-                    </a>
-
-                    <a class="item-top item-1" href="http://www.runoob.com/nodejs/nodejs-tutorial.html">
-                        <h4>Node.js</h4>
-                    </a>
-
-                    <a class="item-top item-1" href="http://www.runoob.com/ajax/ajax-tutorial.html">
-                        <h4>AJAX</h4>
-                    </a>
-
-                    <a class="item-top item-1" href="http://www.runoob.com/json/json-tutorial.html">
-                        <h4>JSON</h4>
-                    </a>
-
-                    <a class="item-top item-1" href="http://www.runoob.com/highcharts/highcharts-tutorial.html">
-                        <h4>Highcharts</h4>
-                    </a>
-
-                    <a class="item-top item-1" href="http://www.runoob.com/googleapi/google-maps-basic.html">
-                        <h4>Google 地图</h4>
-                    </a>
-                </div>
-                
-            </div>
-        </div>
-    </div>
-
-    <!-- 底部 -->
-
-
-    <div id="footer" class="mar-t50">
-        <div class="w3cschoolcc-block">
-            <div class="w3cschoolcc cf">
-                
-            </div>
-        </div>
-        <div class="w-1000 copyright">
-            Copyright © 2013-2016    <strong><a href="http://www.runoob.com/" target="_blank">霹雳猿教程</a></strong>&nbsp;
-            <strong><a href="http://www.runoob.com/" target="_blank">runoob.com</a></strong> All Rights Reserved. 备案号：闽ICP备15012807号-1
-        </div>
-    </div>
-    <script src="http://www.runoob.com/wp-content/themes/runoob/assets/js/main.js?v=1.02"></script>
-</body>
-</html>
+</div>
+@section scripts{
+<script src="~/js/main.js"></script>
+}

@@ -16,9 +16,11 @@ namespace SchoolOffline.Controllers
     {
         private QuestionService questionService = new QuestionService();
         private QuestionContentService questionContentServie = new QuestionContentService();
+        private QuestionTypeRelationService relationService = new QuestionTypeRelationService();
         // GET: /<controller>/
         public IActionResult Index()
         {
+            QuestionAdminModel model = new QuestionAdminModel();
             StringBuilder sbHtml = new StringBuilder();
             List<Question> questionList = questionService.QueryBySql("select type,title,id from question order  by type ,CreateTime desc");
             List<string> typeList = new List<string>();
@@ -44,7 +46,9 @@ namespace SchoolOffline.Controllers
                 sbHtml.AppendFormat("</li>");
             }
             ViewData["html"] = sbHtml.ToString();
-            return View();
+            model.html = sbHtml.ToString();
+            model.relationList = relationService.GetAll();
+            return View(model);
         }
 
         public JsonResult CreateQuestion(string type,string title,string desc,string content)

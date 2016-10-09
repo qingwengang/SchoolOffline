@@ -1,8 +1,8 @@
-﻿@*
+﻿@using SchoolOffline.Models;
+@*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@{
-}
+@model QuestionAdminModel
 <link href="~/css/jquery.treeview.css" rel="stylesheet" />
 <link href="~/css/screen.css" rel="stylesheet" />
 <script src="http://code.jquery.com/jquery-latest.js"></script>
@@ -16,13 +16,15 @@
 <div style="width:2400px; height:auto;float:left;">
     <div style="width:200px; height:950px; float:left; display:inline;overflow: scroll">
         <ul id="tree" class="filetree">
-            @Html.Raw(@ViewData["html"])
+            @Html.Raw(Model.html)
         </ul>
     </div>
     <div id="middleDiv" style="width:1200px;top:0px; height:950px; float:left; display:inline;overflow: scroll">
         type:<select id="selAddType">
-            <option value="HTML">HTML</option>
-            <option value="JavaScript">JavaScript</option>
+            @foreach (var item in Model.relationList)
+            {
+                <option value="@item.QuestionType">@item.QuestionType</option>
+            }
             </select>
         <br />
         Title:<input type="text" id="txtTitle" /><br />

@@ -22,5 +22,12 @@ namespace SchoolOffline.Service
             }
             return string.Empty;
         }
+        public List<QuestionTypeRelation> GetAll()
+        {
+            MySqlConnection con = GetConnection();
+            String sql = "select * from QuestionTypeRelation";
+            var descList = con.Query<QuestionTypeRelation>(sql).ToList<QuestionTypeRelation>();
+            return descList;
+        }
     }
 }

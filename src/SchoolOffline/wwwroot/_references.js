@@ -1458,6 +1458,7 @@
 /// <reference path="js/jquery.cookie.js" />
 /// <reference path="js/jquery.treeview.edit.js" />
 /// <reference path="js/jquery.treeview.js" />
+/// <reference path="js/main.js" />
 /// <reference path="js/site.js" />
 /// <reference path="lib/bootstrap/dist/js/bootstrap.js" />
 /// <reference path="lib/jquery/dist/jquery.js" />
