@@ -3,12 +3,8 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.aa | 霹雳猿教程</title>
-    <link rel="canonical" href="@ViewBag.canonical">
-    <meta name="keywords" content="@ViewBag.aa">
-    <meta name="description" content="@ViewBag.bb">
+    @RenderSection("Header", required: false)
     <link href="../css/style.css" rel="stylesheet" />
     <link  rel="stylesheet" href="~/css/style.css" rel="stylesheet" media="all">
     @*<link rel="stylesheet" href="http://www.runoob.com/wp-content/themes/runoob/style.css?v=1.02" type="text/css" media="all">*@
@@ -109,7 +105,7 @@
     <div id="footer" class="mar-t50"> 
         <div class="w3cschoolcc-block">
             <div class="w3cschoolcc cf">
-                @Html.Raw( ViewData["tuijianmenuHtml"])
+                @Html.Raw(ViewBag.tuijianmenuHtml)
 </div>
         </div>
     <div class="w-1000 copyright"> Copyright © 2016 <strong><a href="http://www.piliyuan.com/" target="_blank">霹雳猿教程</a></strong>&nbsp; <strong><a href="http://www.piliyuan.com/" target="_blank">piliyuan.com</a></strong> All Rights Reserved. 备案号：闽ICP备15012807号-1 </div> </div>

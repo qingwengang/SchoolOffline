@@ -135,7 +135,7 @@ namespace DoctorOffline.Controllers
             try
             {
                 SchoolContent schoolContent = new SchoolContentService().GetByMuluId(muluId);
-                schoolContent.Titles = title;
+                //schoolContent.Titles = title;
                 schoolContent.Content = content;
                 new SchoolContentService().Save(schoolContent);
             }catch(Exception e)
@@ -183,6 +183,12 @@ namespace DoctorOffline.Controllers
 
         public IActionResult CompareShow(long muluId)
         {
+            SchoolContent content = new SchoolContentService().GetByMuluId(muluId);
+            SchoolMulu mulu = muluService.GetByMuluId(muluId);
+            ViewData["title"] = mulu.Name;
+            ViewData["content"] = content.Content;
+            ViewData["outcontent"] = content.OutContent;
+            //ViewData
             ViewData["muluId"] = muluId;
             return View();
         }

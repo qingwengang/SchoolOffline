@@ -11,5 +11,7 @@ namespace SchoolOffline.Models
         public int currentPage { get; set; }
         public int pageCount { get; set; }
         public List<Question> questionList { get; set; }
+        public string questionTypeDesc { get; set; }
+        public string canonical { get; set; }
     }
 }

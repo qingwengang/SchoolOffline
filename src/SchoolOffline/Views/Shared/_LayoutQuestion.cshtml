@@ -1,8 +1,9 @@
 ﻿@{
     Layout = "_LayoutOnline";
 } 
-
-
+@section Header{
+    @RenderSection("Header", required: false)
+    }
 <div class="container main">
     <div class="row">
         @RenderBody()  

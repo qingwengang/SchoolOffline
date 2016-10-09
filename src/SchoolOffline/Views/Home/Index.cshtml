@@ -1,6 +1,14 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using SchoolOffline.Models;
+@{
     Layout = "_LayoutOnline";
+    ViewBag.tuijianmenuHtml = Model.tuijianmenuHtml;
+}
+@model CourseDetailModel
+@section Header{
+<title>@Model.title | 霹雳猿教程</title>
+<link rel="canonical" href="@Model.canonical">
+<meta name="keywords" content="@Model.title">
+<meta name="description" content="@Model.desc">
 }
 <style type="text/css">
     .green {
@@ -38,7 +46,7 @@
         <div class="col left-column">
             <div class="sidebar-box gallery-list"> 
             <div class="design" id="leftcolumn"> 
-                @Html.Raw(ViewData["menuHtml"])
+                @Html.Raw(Model.menuHtml)
                 </div> 
             </div>
         </div>
@@ -46,22 +54,22 @@
             <div class="article">
                 <div class="article-body"> 
                     <div class="article-intro" id="content"> 
-                        @if (!string.IsNullOrEmpty(ViewData["lastPageHref"].ToString()))
+                        @if (!string.IsNullOrEmpty(Model.lastPageHref))
                         {
-                            @Html.Raw("上一章节：" + ViewData["lastPageHref"] + "<br>")
+                            @Html.Raw("上一章节：" + Model.lastPageHref + "<br>")
                         }
-                        @if (!string.IsNullOrEmpty(ViewData["nextPageHref"].ToString()))
+                        @if (!string.IsNullOrEmpty(Model.nextPageHref))
                         {
-                            @Html.Raw("下一章节：" + ViewData["nextPageHref"] + "<br>")
+                            @Html.Raw("下一章节：" + Model.nextPageHref + "<br>")
                         }
                         <hr />
-                        @Html.Raw(ViewData["content"]) <hr />
-                        @if(!string.IsNullOrEmpty(ViewData["lastPageHref"].ToString())){ 
-                            @Html.Raw("上一章节："+ ViewData["lastPageHref"]+"<br>")
+                        @Html.Raw(Model.content) <hr />
+                        @if(!string.IsNullOrEmpty(Model.lastPageHref)){ 
+                            @Html.Raw("上一章节："+ Model.lastPageHref + "<br>")
                         }
-                        @if (!string.IsNullOrEmpty(ViewData["nextPageHref"].ToString()))
+                        @if (!string.IsNullOrEmpty(Model.nextPageHref))
                         {
-                            @Html.Raw("下一章节：" + ViewData["nextPageHref"] + "<br>")
+                            @Html.Raw("下一章节：" + Model.nextPageHref + "<br>")
                         }
                     </div> 
                 </div>
@@ -85,7 +93,7 @@
         </div>
     </div>
 </div>
-<input type="hidden" id="pageId" value="@ViewData["pageId"]" />
+<input type="hidden" id="pageId" value="@Model.pageId" />
 @section Scripts{
     <script type="text/javascript">
         $(document).ready(function () {

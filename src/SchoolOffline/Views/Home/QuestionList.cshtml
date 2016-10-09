@@ -1,12 +1,16 @@
 ﻿@model QuestionPageModel
 @using SchoolOffline.Models;
 @{
-    ViewData["Title"] = "Home Page";
     Layout = "_LayoutQuestion";
+}
+@section Header{
+    <title>@Model.questionTypeDesc| 霹雳猿教程</title>
+    <link rel="canonical" href="@Model.canonical">
+    <meta name="keywords" content="@Model.questionTypeDesc">
+    <meta name="description" content="@Model.questionTypeDesc| 霹雳猿教程 | 最全的IT教程和IT笔试题库">
 }
 
 <div class="col middle-column big-middle-column">
-
     @foreach (var item in Model.questionList)
     {
         <div class="archive-list">

@@ -232,13 +232,7 @@ namespace SchoolOffline.Controllers
             }
             return sbHtml.ToString();
         }
-        public string setSortNum(int sortNum, long currentCourseId)
-        {
-            Course course = courseService.GetById(currentCourseId);
-            course.SortNum = sortNum;
-            courseService.Update(course);
-            return "success";
-        }
+        
         public void InitMenuAll()
         {
             List<String> types = new BaseSchoolService().GetDistinct("select DISTINCT typename as col from course ");

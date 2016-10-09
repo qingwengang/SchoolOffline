@@ -69,5 +69,12 @@ namespace SchoolOffline.Controllers
             }
             return "success";
         }
+        public string setSortNum(int sortNum, long currentCourseId)
+        {
+            Course course = courseService.GetById(currentCourseId);
+            course.SortNum = sortNum;
+            courseService.Update(course);
+            return "success";
+        }
     }
 }

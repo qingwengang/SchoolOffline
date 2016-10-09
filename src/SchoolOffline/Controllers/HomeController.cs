@@ -23,6 +23,7 @@ namespace SchoolOffline.Controllers
         private TiyContentService tiycontentService = new TiyContentService();
         private QuestionService questionService = new QuestionService();
         private QuestionContentService questionContentService = new QuestionContentService();
+        private QuestionTypeRelationService questionTypeRelationService = new QuestionTypeRelationService();
         /// <summary>
         /// 课程详细页面
         /// </summary>
@@ -31,6 +32,7 @@ namespace SchoolOffline.Controllers
         /// <returns></returns>
         public IActionResult Index(string type,long id)
         {
+            CourseDetailModel model = new CourseDetailModel();
             if (String.IsNullOrEmpty(type))
             {
                 type = "HTML";
@@ -40,22 +42,31 @@ namespace SchoolOffline.Controllers
                 id = 1;
             }
             Course course = new CourseService().GetById(id);
-            ViewData["content"] = course.Content;
+            //ViewData["content"] = course.Content;
+            model.content = course.Content;
             Menu menu = new MenuService().GetMenuByTypeName(course.TypeName);
-            ViewData["menuHtml"] = menu!=null?menu.Content:"";
+            //ViewData["menuHtml"] = menu!=null?menu.Content:"";
+            model.menuHtml= menu != null ? menu.Content : "";
             Menu menutuijian = new MenuService().GetMenuByTypeName("tuijian");
-            ViewData["tuijianmenuHtml"] = menutuijian.Content;
-            ViewData["lastPageHref"] = OnlinePageHelper.GeneratPageHref(type, course.LastPage);
-            ViewData["nextPageHref"] = OnlinePageHelper.GeneratPageHref(type, course.NextPage);
-            ViewBag.aa = course.Title;
+            //ViewData["tuijianmenuHtml"] = menutuijian.Content;
+            model.tuijianmenuHtml= menutuijian.Content;
+            //ViewData["lastPageHref"] = OnlinePageHelper.GeneratPageHref(type, course.LastPage);
+            //ViewData["nextPageHref"] = OnlinePageHelper.GeneratPageHref(type, course.NextPage);
+            model.lastPageHref= OnlinePageHelper.GeneratPageHref(type, course.LastPage);
+            model.nextPageHref= OnlinePageHelper.GeneratPageHref(type, course.NextPage);
+            //ViewBag.aa = course.Title;
+            model.title = course.Title;
             StringBuilder sbDesc = new StringBuilder();
             sbDesc.Append(course.Title).Append(",").Append(course.MuluName).Append(",").Append(course.TypeName).Append(",").Append("霹雳猿教程");
             StringBuilder sbCanonical = new StringBuilder();
             sbCanonical.AppendFormat("{0}/{1}/{2}.html", OnlineConfig.HomeUrl, course.TypeName, course.Id);
-            ViewBag.bb = sbDesc.ToString();
-            ViewBag.canonical = sbCanonical.ToString();
-            ViewData["pageId"] = id;
-            return View();
+            //ViewBag.bb = sbDesc.ToString();
+            //ViewBag.canonical = sbCanonical.ToString();
+            model.desc = sbDesc.ToString();
+            model.canonical = sbCanonical.ToString();
+            //ViewData["pageId"] = id;
+            model.pageId = id;
+            return View(model);
         }
         /// <summary>
         /// 在线测试页面
@@ -71,15 +82,30 @@ namespace SchoolOffline.Controllers
         public IActionResult QuestionList(string type,int page)
         {
             QuestionPageModel pageDo = questionService.GetQuestionPage(type, page);
+            pageDo.questionTypeDesc = questionTypeRelationService.GetTypeDesc(type);
             ViewData["url"] = GetPageUrl(type, pageDo.pageCount, page);
+            pageDo.canonical = string.Format("{0}/QuestionList/{1}/{2}.html", OnlineConfig.HomeUrl, type, page);
+            Menu menutuijian = new MenuService().GetMenuByTypeName("tuijian");
+            ViewData["tuijianmenuHtml"] = menutuijian.Content;
             return View(pageDo);
         }
 
         public IActionResult Question(long rootId,int pageId)
         {
-            var question = questionContentService.GetContent(rootId, pageId);
-            QuestionModel model = new QuestionModel { questionContent = question };
-            ViewData["url"] = GetQuestionPageUrl(rootId, question.PageCount, pageId);
+            var questioncontent = questionContentService.GetContent(rootId, pageId);
+            QuestionModel model = new QuestionModel { questionContent = questioncontent };
+            ViewData["url"] = GetQuestionPageUrl(rootId, questioncontent.PageCount, pageId);
+            var questionList = questionService.QueryBySql(string.Format("select * from question where id={0}", rootId));
+            if(questionList!=null && questionList.Count > 0)
+            {
+                var question = questionList.FirstOrDefault();
+                model.title = question.Title;
+                model.type = question.Type;
+            }
+            model.canonical = string.Format("{0}/Question/{1}/{2}.html", OnlineConfig.HomeUrl,rootId,pageId);
+            model.questionTypeDesc = questionTypeRelationService.GetTypeDesc(model.type);
+            Menu menutuijian = new MenuService().GetMenuByTypeName("tuijian");
+            ViewData["tuijianmenuHtml"] = menutuijian.Content;
             return View(model);
         }
         

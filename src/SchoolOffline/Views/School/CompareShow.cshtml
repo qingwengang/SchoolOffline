@@ -1,12 +1,9 @@
-﻿
-
-<link href="~/css/jquery.treeview.css" rel="stylesheet" />
+﻿<link href="~/css/jquery.treeview.css" rel="stylesheet" />
 <link href="~/css/screen.css" rel="stylesheet" />
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="~/js/jquery.cookie.js"></script>
 <script src="~/js/jquery.treeview.js"></script>
 <script src="~/js/jquery.treeview.edit.js"></script>
-
 <link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
 <script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="jqueryui/style.css">
@@ -25,14 +22,14 @@
 </style>
 <div style="width:2400px; height:auto;float:left;">
         <div style="width:800px; height:1000px; float:left; display:inline;overflow: scroll">
-            标题：<input type="text" id="txtTitle" style="width:500px;" /><br />
-            <textarea name="content" id="container"></textarea>
+            标题：<input type="text" id="txtTitle" value="@ViewData["title"]"  style="width:500px;" /><br />
+            <textarea name="content" id="container">@ViewData["content"]</textarea>
             <input type="button" value="fldsjldfjds" onclick="dui()" />
             <input type="button" value="修改" onclick="Save()" />
         </div>
         <div style="width:800px; height:1000px; float:left; display:inline;overflow: scroll">
             标题：<input type="text" style="width:500px;" /><br />
-            <textarea name="content" id="outcontainer"></textarea>
+            <textarea name="content" id="outcontainer">@ViewData["outcontent"]</textarea>
         </div>
     </div>
 <br />
@@ -58,7 +55,6 @@
                 $("#ulHrefs").html(data.hs);
             }
         })
-
     }
     function Save() {
         var content = UE.getEditor('container').getContent();
@@ -72,5 +68,6 @@
             }
         })
     }
+    dui();
     
 </script>

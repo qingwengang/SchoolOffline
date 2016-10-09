@@ -35,25 +35,7 @@
             @Html.Raw(@ViewData["html"])
         </ul>
         <br />
-        <select id="sel">
-            @foreach (var item in typeList)
-            {
-                <option value="@item">@item</option>
-            }
-            <option value="DIY">DIY</option>
-            <option value="tuijian">tuijian</option>
-            <option value="ALL">ALL</option>
-        </select>
-        <br />
-        <input type="button" value="静态页面初始化" onclick="InitStaticPage();" /><br />
-        <input type="button" value="菜单初始化" onclick="InitMenu();" />
-        <input type="button" value="一切初始化" onclick="InitAllOnline();" />
-        <input type="button" value="页面导航初始化" onclick="InitPageHref();"/>
-        <br />
-        <ul id="muluList"></ul>
-        <br/>
-        <input type="text" id="txtSortNum" />
-        <input type="button" value="设置sortnum" onclick="setSortNum();" />
+        
     </div>
     <div id="middleDiv"  style="width:300px;top:0px; height:950px; float:left; display:inline;overflow: scroll">
         <ul id="ulHrefs"></ul>
@@ -68,14 +50,30 @@
         </ul>
         <input type="button" value="推送" onclick="Pass();" />
         <input type="button" value="无条件推送" onclick="PassNoReason();" />
-        <br />
-        
-        
+        <hr />
+        <ul id="muluList"></ul>
+        <input type="text" id="txtSortNum" />
+        <input type="button" value="设置sortnum" onclick="setSortNum();" />
         <hr />
         <a href="/HTML/1.html" target="_blank">Online页面</a>
-        <a href="/School/DIYEdit?type=HTML" target="_blank">添加DIY实例</a><br />
+        <a href="/School/DIYEdit?type=HTML" target="_blank">添加DIY实例</a>
         <a href="/DIY/1.html" target="_blank">DIY</a>&nbsp;&nbsp;&nbsp;<a href="/Mulu/Index" target="_blank">目录编辑</a><br />
         <a href="/QuestionAdmin" target="_blank">添加笔试题</a>
+        <hr />
+        <select id="sel">
+            @foreach (var item in typeList)
+            {
+                <option value="@item">@item</option>
+            }
+            <option value="DIY">DIY</option>
+            <option value="tuijian">tuijian</option>
+            <option value="ALL">ALL</option>
+        </select>
+        <br />
+        <input type="button" value="静态页面初始化" onclick="InitStaticPage();" />
+        <input type="button" value="菜单初始化" onclick="InitMenu();" /><br />
+        <input type="button" value="一切初始化" onclick="InitAllOnline();" />
+        <input type="button" value="页面导航初始化" onclick="InitPageHref();" />
     </div>
     @*<div class="fixed_div">
         
@@ -233,7 +231,7 @@
     function InitPageHref() {
         var selectType = $("#sel").val();
         $.ajax({
-            url: "/Init/InitPageHref",
+            url: "/OnlinePageManage/InitPageHref",
             type: "GET",
             data: { type: selectType },
             success: function (data) {
@@ -267,7 +265,7 @@
         var sortNum = $("#txtSortNum").val();
         var currentCourseId = $("#currentCourseId").val();
         $.ajax({
-            url: "/School/setSortNum",
+            url: "/OnlinePageManage/setSortNum",
             type: "GET",
             data: { sortNum: sortNum, currentCourseId:currentCourseId },
             success: function (data) {

@@ -1,13 +1,18 @@
 ﻿@model QuestionModel
 @using SchoolOffline.Models;
 @{
-    ViewData["Title"] = "Home Page";
     Layout = "_LayoutQuestion";
+}
+@section Header{
+    <title>@Model.title| 霹雳猿教程</title>
+    <link rel="canonical" href="@Model.canonical">
+    <meta name="keywords" content="@Model.title">
+    <meta name="description" content="@Model.title| 霹雳猿教程 | 最全的IT教程和IT笔试题库">
 }
 <div class="col middle-column big-middle-column">
     <div class="article">
         <div class="article-heading">
-            <h2>这里是标题</h2>				<h3><em>分类</em> <a href="/w3cnote/w3cnote_genre/net-2" title="互联网">互联网</a> </h3>
+            <h2>@Model.title</h2>				<h3><em>分类</em> <a  style="text-decoration:underline" href="/QuestionList/@Model.type/1.html" title="@Model.questionTypeDesc">@Model.questionTypeDesc</a> </h3>
         </div>
         <div class="article-body">
             <div class="article-intro">
@@ -15,7 +20,6 @@
             </div>
         </div>
     </div>
-
     <div class="article">
         <div class="archive-list-item">
             <div id="wp_page_numbers">
