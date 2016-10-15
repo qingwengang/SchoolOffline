@@ -52,6 +52,7 @@
         <select id="sel">
             <option value="HTML">HTML</option>
             <option value="CSS">CSS</option>
+            <option value="JQUERY">JQUERY</option>
         </select>
         &nbsp;&nbsp;&nbsp;<a href="/DIY/1.html" target="_blank" title="在线测试">在线测试</a>
         <br />
@@ -166,7 +167,7 @@ function getContent(id) {
             $("#txtCourseTitle").val(data.courseTitle);
             $("#TestCode").val(data.content);
             var ue = UE.getEditor('container');
-            ue.setContent("<a target=\"_blank\" href=\"/DIY/" + id + ".html\" class=\"tryitbtn\">在线测试 »</a>");
+            ue.setContent("<a target=\"_blank\" href=\"http://www.piliyuan.com/DIY/" + id + ".html\" class=\"tryitbtn\">在线测试 »</a>");
         }
     })
 }

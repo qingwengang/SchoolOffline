@@ -1,0 +1,34 @@
+﻿@model QuestionModel
+@using SchoolOffline.Models;
+@{
+    Layout = "_LayoutQuestion";
+}
+@section Header{
+    <title>@Model.title| 霹雳猿教程</title>
+    <link rel="canonical" href="@Model.canonical">
+    <meta name="keywords" content="@Model.title">
+    <meta name="description" content="@Model.title| 霹雳猿教程 | 最全的IT教程和IT笔试题库">
+}
+<div class="col middle-column big-middle-column">
+    <div class="article">
+        <div class="article-heading">
+            <h2>@Model.title</h2>				<h3><em>分类</em> <a  style="text-decoration:underline" href="/QuestionList/@Model.type/1.html" title="@Model.questionTypeDesc">@Model.questionTypeDesc</a> </h3>
+        </div>
+        <div class="article-body">
+            <div class="article-intro">
+                @Html.Raw(Model.questionContent.Content)
+            </div>
+        </div>
+    </div>
+    <div class="article">
+        <div class="archive-list-item">
+            <div id="wp_page_numbers">
+                <ul>
+                    @Html.Raw(ViewData["url"])
+                </ul>
+                <div style="float: none; clear: both;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+        

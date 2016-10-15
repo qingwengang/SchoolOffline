@@ -1,0 +1,38 @@
+﻿@model QuestionPageModel
+@using SchoolOffline.Models;
+@{
+    Layout = "_LayoutQuestion";
+}
+@section Header{
+    <title>@Model.questionTypeDesc| 霹雳猿教程</title>
+    <link rel="canonical" href="@Model.canonical">
+    <meta name="keywords" content="@Model.questionTypeDesc">
+    <meta name="description" content="@Model.questionTypeDesc| 霹雳猿教程 | 最全的IT教程和IT笔试题库">
+}
+
+<div class="col middle-column big-middle-column">
+    @foreach (var item in Model.questionList)
+    {
+        <div class="archive-list">
+            <div class="archive-list-item">
+                <div class="post-intro">
+                    <h2><a href="/Question/@item.Id/1.html" rel="bookmark" title="@item.Title">@item.Title</a> <i class="fa fa-external-link"></i></h2>
+                    <p>
+                        @item.Des
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="article">
+        <div class="archive-list-item">
+            <div id="wp_page_numbers">
+                <ul>
+                    @Html.Raw(ViewData["url"])
+                </ul>
+                <div style="float: none; clear: both;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+

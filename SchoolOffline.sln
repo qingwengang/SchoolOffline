@@ -12,6 +12,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SchoolOffline", "src\SchoolOffline\SchoolOffline.xproj", "{03174940-6CCF-4E24-8CE8-02A86486C302}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Dao", "Dao\Dao.xproj", "{CA7DE402-3B45-4183-8F77-D0E50CC2EEFF}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SchoolOnline", "src\SchoolOnline\SchoolOnline.xproj", "{74F52D52-8813-4E69-964C-97371EAD8F86}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,11 +26,21 @@ Global
 		{03174940-6CCF-4E24-8CE8-02A86486C302}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03174940-6CCF-4E24-8CE8-02A86486C302}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03174940-6CCF-4E24-8CE8-02A86486C302}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA7DE402-3B45-4183-8F77-D0E50CC2EEFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA7DE402-3B45-4183-8F77-D0E50CC2EEFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA7DE402-3B45-4183-8F77-D0E50CC2EEFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA7DE402-3B45-4183-8F77-D0E50CC2EEFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74F52D52-8813-4E69-964C-97371EAD8F86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74F52D52-8813-4E69-964C-97371EAD8F86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74F52D52-8813-4E69-964C-97371EAD8F86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74F52D52-8813-4E69-964C-97371EAD8F86}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{03174940-6CCF-4E24-8CE8-02A86486C302} = {5B89A01A-1375-491E-9A49-3C1E962A70FC}
+		{CA7DE402-3B45-4183-8F77-D0E50CC2EEFF} = {5B89A01A-1375-491E-9A49-3C1E962A70FC}
+		{74F52D52-8813-4E69-964C-97371EAD8F86} = {5B89A01A-1375-491E-9A49-3C1E962A70FC}
 	EndGlobalSection
 EndGlobal

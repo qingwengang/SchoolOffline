@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @RenderSection("Header", required: false)
+    <link href="../css/style.css" rel="stylesheet" />
+    <link  rel="stylesheet" href="~/css/style.css" rel="stylesheet" media="all">
+    @*<link rel="stylesheet" href="http://www.runoob.com/wp-content/themes/runoob/style.css?v=1.02" type="text/css" media="all">*@
+    <link rel="stylesheet" href="http://apps.bdimg.com/libs/fontawesome/4.2.0/css/font-awesome.min.css" media="all">
+    <link href="//cdn.bootcss.com/SyntaxHighlighter/3.0.83/styles/shCoreDefault.css" rel="stylesheet" />
+    <script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
+    @RenderSection("HeaderJs",required:false)
+    <style id="table">
+        #preview table.noBorderTable td, #preview table.noBorderTable th, #preview table.noBorderTable caption {
+            border: 1px dashed #ddd !important;
+        }
+
+        #preview table.sortEnabled tr.firstRow th, #preview table.sortEnabled tr.firstRow td {
+            padding-right: 20px;
+            background-repeat: no-repeat;
+            background-position: center right;
+            background-image: url(../../themes/default/images/sortable.png);
+        }
+
+            #preview table.sortEnabled tr.firstRow th:hover, #preview table.sortEnabled tr.firstRow td:hover {
+                background-color: #EEE;
+            }
+
+        #preview table {
+            margin-bottom: 10px;
+            border-collapse: collapse;
+            display: table;
+        }
+
+        #preview td, #preview th {
+            background: white;
+            padding: 5px 10px;
+            border: 1px solid #DDD;
+        }
+
+        #preview caption {
+            border: 1px dashed #DDD;
+            border-bottom: 0;
+            padding: 3px;
+            text-align: center;
+        }
+
+        #preview th {
+            border-top: 1px solid #BBB;
+            background: #F7F7F7;
+        }
+
+        #preview table tr.firstRow th {
+            border-top: 2px solid #BBB;
+            background: #F7F7F7;
+        }
+
+        #preview tr.ue-table-interlace-color-single td {
+            background: #fcfcfc;
+        }
+
+        #preview tr.ue-table-interlace-color-double td {
+            background: #f7faff;
+        }
+
+        #preview td p {
+            margin: 0;
+            padding: 0;
+        }
+        .selected{
+            font-weight: bold; color: rgb(255, 255, 255); background-color: rgb(150, 185, 125);
+        }
+    </style>
+</head>
+<body>
+    <div class="container logo-search">
+        <div class="row">
+            <div class="col logo">
+                <h1><a href="/">霹雳猿教程 -- 成就你的IT梦！最全的编程学习资料库！打造一站式编程学习网！</a></h1>
+            </div>
+        </div>
+    </div>
+    <div class="container navigation">
+        <div class="row">
+            <div class="col nav">
+                <ul class="pc-nav">
+                    <li><a href="/">首页</a></li>
+                    <li><a href="/HTML/1.html">HTML</a></li>
+                    <li><a href="/CSS/8.html">CSS</a></li>
+                </ul>
+                <ul class="mobile-nav">
+                    <li><a href="/">首页</a></li>
+                    <li><a href="/HTML/1.html">HTML</a></li>
+                    <li><a href="/CSS/8.html">CSS</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    @RenderBody()
+    <div id="footer" class="mar-t50"> 
+        <div class="w3cschoolcc-block">
+            <div class="w3cschoolcc cf">
+                @Html.Raw(ViewBag.tuijianmenuHtml)
+</div>
+        </div>
+    <div class="w-1000 copyright"> Copyright © 2016 <strong><a href="http://www.piliyuan.com/" target="_blank">霹雳猿教程</a></strong>&nbsp; <strong><a href="http://www.piliyuan.com/" target="_blank">piliyuan.com</a></strong> All Rights Reserved. 备案号：闽ICP备15012807号-1 </div> </div>
+</body>
+@RenderSection("scripts", required: false)
+</html>

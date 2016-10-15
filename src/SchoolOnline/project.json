@@ -1,4 +1,4 @@
-{
+﻿{
   "dependencies": {
     "Microsoft.NETCore.App": {
       "version": "1.0.0",
@@ -6,7 +6,6 @@
     },
     "SapientGuardian.MySql.Data": "6.9.8-rc2-007",
     "Dapper": "1.50.0-rc2b",
-    "Microsoft.ApplicationInsights.AspNetCore": "1.0.0",
     "Microsoft.AspNetCore.Diagnostics": "1.0.0",
     "Microsoft.AspNetCore.Mvc": "1.0.0",
     "Microsoft.AspNetCore.Razor.Tools": {
@@ -23,7 +22,6 @@
     "Microsoft.Extensions.Logging.Debug": "1.0.0",
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0",
-    "Microsoft.AspNetCore.Http.Extensions": "1.0.0",
     "Dao": "1.0.0-*"
   },
 
