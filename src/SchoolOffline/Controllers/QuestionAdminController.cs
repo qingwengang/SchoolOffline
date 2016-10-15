@@ -57,7 +57,7 @@ namespace SchoolOffline.Controllers
             long rootId=questionService.Add(question);
             if (rootId > 0)
             {
-                List<string> contentList = content.Split(new string[] { "<hr>","<hr/>" }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                List<string> contentList = content.Split(new string[] { "卿文刚" }, StringSplitOptions.RemoveEmptyEntries).ToList();
                 for(int i = 1; i <= contentList.Count; i++)
                 {
                     QuestionContent questionContent = new QuestionContent { RootId = rootId, Content = contentList[i - 1], PageCount = contentList.Count, PageId = i };
