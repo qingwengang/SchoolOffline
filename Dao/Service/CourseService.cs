@@ -35,6 +35,13 @@ namespace SchoolOffline.Service
             var muluList = con.Query<Course>(sql).ToList<Course>();
             return muluList;
         }
+        public Course GetMinCourseByType(string typeName)
+        {
+            string sql = string.Format("select * from course where typeName='{0}' order by sortnum limit 0,1", typeName);
+            MySqlConnection con = GetConnection();
+            var muluList = con.Query<Course>(sql).ToList<Course>();
+            return muluList.FirstOrDefault();
+        }
         public List<Course> GetCourseByTypeName(string typeName)
         {
             MySqlConnection con = GetConnection();

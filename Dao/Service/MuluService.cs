@@ -34,5 +34,9 @@ namespace SchoolOffline.Service
             MySqlConnection con = GetConnection();
             con.Execute(String.Format(@"insert into mulu (typename,muluname,sortnum) values('{0}','{1}',{2})",mulu.TypeName,mulu.MuluName,mulu.SortNum));
         }
+        public List<string> GetDistinctTypeName()
+        {
+            return GetDistinct("select distinct TypeName as col from Mulu order by TypeName");
+        }
     }
 }

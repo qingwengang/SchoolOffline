@@ -11,7 +11,7 @@ namespace SchoolOffline.Service
 {
     public class QuestionService : BaseSchoolService
     {
-        private int pageSize = 1;
+        private int pageSize = 10;
         public long Add(Question question)
         {
             long id = 0;

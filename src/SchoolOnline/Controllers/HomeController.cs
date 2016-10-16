@@ -86,7 +86,11 @@ namespace SchoolOffline.Controllers
             ViewData["url"] = GetPageUrl(type, pageDo.pageCount, page);
             pageDo.canonical = string.Format("{0}/QuestionList/{1}/{2}.html", OnlineConfig.HomeUrl, type, page);
             Menu menutuijian = new MenuService().GetMenuByTypeName("tuijian");
+            Menu menuquestion = new MenuService().GetMenuByTypeName("questionmenu");
+            Menu menuquestioncourse = new MenuService().GetMenuByTypeName("questioncoursemenu");
             ViewData["tuijianmenuHtml"] = menutuijian.Content;
+            ViewData["questionmenu"] = menuquestion.Content;
+            ViewData["menuquestioncourse"] = menuquestioncourse.Content;
             return View(pageDo);
         }
 
@@ -105,7 +109,11 @@ namespace SchoolOffline.Controllers
             model.canonical = string.Format("{0}/Question/{1}/{2}.html", OnlineConfig.HomeUrl,rootId,pageId);
             model.questionTypeDesc = questionTypeRelationService.GetTypeDesc(model.type);
             Menu menutuijian = new MenuService().GetMenuByTypeName("tuijian");
+            Menu menuquestion = new MenuService().GetMenuByTypeName("questionmenu");
+            Menu menuquestioncourse = new MenuService().GetMenuByTypeName("questioncoursemenu");
             ViewData["tuijianmenuHtml"] = menutuijian.Content;
+            ViewData["questionmenu"] = menuquestion.Content;
+            ViewData["menuquestioncourse"] = menuquestioncourse.Content;
             return View(model);
         }
         

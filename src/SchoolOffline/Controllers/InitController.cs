@@ -20,6 +20,7 @@ namespace SchoolOffline.Controllers
     {   
         private QuestionService questionService = new QuestionService();
         private QuestionContentService questionContentService = new QuestionContentService();
+        private QuestionTypeRelationService questionTypeRelationService = new QuestionTypeRelationService();
         private CourseService courseService = new CourseService();
         private MenuService menuService = new MenuService();
         private TiyContentService tiyService = new TiyContentService();
@@ -169,6 +170,13 @@ namespace SchoolOffline.Controllers
                 if (type == "tuijian")
                 {
                     menuContent = InitTuijian();
+                } else if (type=="questionmenu")
+                {
+                    menuContent = InitQuestionMenu();
+                }
+                else if (type == "questioncoursemenu")
+                {
+                    menuContent = InitQuestionCourseMenu();
                 }
                 else
                 {
@@ -232,6 +240,33 @@ namespace SchoolOffline.Controllers
             }
             return sbHtml.ToString();
         }
+        private string InitQuestionMenu()
+        {
+            List<QuestionTypeRelation> relationList = questionTypeRelationService.GetAll();
+            StringBuilder sbHtml = new StringBuilder();
+            foreach(var item in relationList)
+            {
+                sbHtml.AppendFormat("<a href=\"/QuestionList/{0}/1.html\" target =\"_blank\" title=\"{1}\">{1}</a>", item.QuestionType, item.QuestionTypeDesc);
+            }
+            return sbHtml.ToString();
+        }
+        private string InitQuestionCourseMenu()
+        {
+            StringBuilder sbhtml = new StringBuilder();
+            List<string> muluTypeList=new MuluService().GetDistinctTypeName();
+            foreach(var muluType in muluTypeList)
+            {
+                if (muluType != "AboutUs")
+                {
+                    var course = courseService.GetMinCourseByType(muluType);
+                    if (course != null)
+                    {
+                        sbhtml.AppendFormat("<a href=\"/{0}/{1}.html\" title=\"{0}教程\">{0} 教程</a>", muluType, course.Id);
+                    }
+                }
+            }
+            return sbhtml.ToString();
+        }
         
         public void InitMenuAll()
         {
@@ -241,7 +276,10 @@ namespace SchoolOffline.Controllers
                 string s = InitMenu(type);
             }
             InitMenu("tuijian");
+            InitMenu("questionmenu");
+            InitMenu("questioncoursemenu");
         }
+
         public string InitAllOnline(string type)
         {
             string result = string.Empty;
