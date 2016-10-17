@@ -21,7 +21,9 @@ namespace SchoolOffline.Controllers
             StringBuilder sbhtml = new StringBuilder();
             foreach(var item in list)
             {
-                sbhtml.AppendFormat("<p><a title=\"霹雳猿教程-{1}教程-{0}\" href=\"http://www.piliyuan.com/{1}/{2}.html\" target=\"_blank\">霹雳猿教程-{1}教程-{0}</a></p>", item.Title, type, item.Id);
+                sbhtml.Append("<p><a title=\"霹雳猿教程\" href=\"http://www.piliyuan.com\" target=\"_blank\">霹雳猿教程_<a>");
+                sbhtml.AppendFormat("<a title=\"{1}教程-{0}\" href=\"http://www.piliyuan.com/{1}/{2}.html\" target=\"_blank\">霹雳猿教程-{1}教程-{0}</a>", item.Title, type, item.Id);
+                sbhtml.AppendFormat("<p>");
             }
             return sbhtml.ToString();
         }
