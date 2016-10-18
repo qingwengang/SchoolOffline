@@ -2,22 +2,33 @@
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    List<String> typeList = (List<String>)ViewData["typeList"];
 }
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 
-typename:<input type="text" id="txtTitle" /><br />
-<input value="获取链接信息" type="button" onclick="getUrl()" /><br />
-<textarea style="width:500px;height:200px;" id="txtUrl"></textarea>
-<script type="text/javascript">
-    function getUrl() {
-        var type = $("#txtTitle").val();
-        $.ajax({
-            url: "/blog/GetPageUrl",
-            type: "GET",
-            data: { type: type },
-            success: function (data) {
-                $("#txtUrl").val(data);
+typename:<input type="text" id="txtTitle" />
+        <select id="sel">
+            @foreach (var item in typeList)
+                    {
+                <option value="@item">@item</option>
             }
-        })
-    }
-</script>
+        </select>
+    <br />
+    <input value="获取链接信息" type="button" onclick="getUrl()" />
+    <br />
+    <textarea style="width:500px;height:200px;" id="txtUrl"></textarea><br />
+    <div id="result"></div>
+    <script type="text/javascript">
+        function getUrl() {
+            var type = $("#sel").val();
+            $.ajax({
+                url: "/blog/GetPageUrl",
+                type: "GET",
+                data: { type: type },
+                success: function (data) {
+                    $("#txtUrl").val(data);
+                    $("#result").html(data);
+                }
+            })
+        }
+    </script>
