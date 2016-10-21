@@ -19,5 +19,6 @@ namespace SchoolOffline.Models
         public string tuijianmenuHtml { get; set; }
         public string desc { get; set; }
         public string canonical { get; set; }
+        public string tuijian { get; set; }
     }
 }

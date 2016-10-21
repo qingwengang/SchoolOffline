@@ -40,7 +40,7 @@ namespace SchoolOffline.Controllers
         }
         public string ReplaceStatic()
         {
-            FileTool.RenameStaticFolder();
+            //FileTool.RenameStaticFolder();
             return "success";
         }
 
@@ -103,7 +103,7 @@ namespace SchoolOffline.Controllers
             InitStaticPageSuper();
             InitQuestionListStaticPageAll();
             InitQuestionStaticPageAll();
-            FileTool.RenameStaticFolder();
+            //FileTool.RenameStaticFolder();
             return "success";
         }
         /// <summary>

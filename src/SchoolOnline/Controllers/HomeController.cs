@@ -13,6 +13,7 @@ using System.IO;
 using SchoolOffline.Configs;
 using SchoolOffline.Util;
 using SchoolOffline.Models;
+using Dao.Service;
 
 namespace SchoolOffline.Controllers
 {
@@ -24,6 +25,7 @@ namespace SchoolOffline.Controllers
         private QuestionService questionService = new QuestionService();
         private QuestionContentService questionContentService = new QuestionContentService();
         private QuestionTypeRelationService questionTypeRelationService = new QuestionTypeRelationService();
+        private MuluExtendService extendService = new MuluExtendService();
         /// <summary>
         /// 课程详细页面
         /// </summary>
@@ -64,6 +66,8 @@ namespace SchoolOffline.Controllers
             //ViewBag.canonical = sbCanonical.ToString();
             model.desc = sbDesc.ToString();
             model.canonical = sbCanonical.ToString();
+            var ext= extendService.Get(type, "shuji");
+            model.tuijian = ext!=null ? ext.Content : "";
             //ViewData["pageId"] = id;
             model.pageId = id;
             return View(model);

@@ -18,6 +18,13 @@ namespace SchoolOffline.Service
             var muluList = con.Query<Mulu>(sql).ToList<Mulu>();
             return muluList;
         }
+        public List<Mulu> GetByTypeName(string type)
+        {
+            MySqlConnection con = GetConnection();
+            String sql = string.Format("select * from Mulu where typename='{0}' order by TypeName,SortNum",type);
+            var muluList = con.Query<Mulu>(sql).ToList<Mulu>();
+            return muluList;
+        }
         public Mulu GetByMuluId(long muluId)
         {
             MySqlConnection con = GetConnection();

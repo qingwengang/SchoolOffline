@@ -25,6 +25,9 @@
         position: fixed;
         top: 20px;
     }
+    .selectedClass{
+        background-color: #8e5fa2;
+    }
 </style>
 <div style="width:2400px; height:auto;float:left;">
     <div style="width:200px; height:950px; float:left; display:inline;overflow: scroll">
@@ -44,6 +47,10 @@
         <input type="button" value="对比" onclick="compare();" /><br />
         <input type="button" value="保存" onclick="Save();" />&nbsp;&nbsp;&nbsp;&nbsp;
         <input type="button" value="完成" onclick="Complete();" />
+        <input type="button" value="文本框" onclick="ShowTxt();" />
+        <input type="button" value="隐藏" onclick="HidTxt();" />
+        <br />
+        <textarea style="width:280px;height:200px;display:none;" id="txtArea"></textarea>
         <hr />
         <ul id="treeType" class="filetree">
             @Html.Raw(@ViewData["typeHtml"])
@@ -78,7 +85,7 @@
     @*<div class="fixed_div">
         
     </div>*@
-    <div style="width:700px; height:900px; float:left; display:inline">
+    <div style="width:700px; height:950px; float:left; display:inline;overflow: scroll">
         标题：<input type="text" id="txtTitle" style="width:500px;" /><br />
         <textarea name="content" id="container">
         </textarea>
@@ -305,5 +312,11 @@
         var url = searchType == "baidu" ? "https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=0&rsv_idx=1&tn=baidu&wd=" + searchText : "http://cn.bing.com/search?q=" + searchText;
         $("#ifw").attr("src", url);
         $("#ifw").show();
+    }
+    function ShowTxt() {
+        $("#txtArea").show();
+    }
+    function HidTxt() {
+        $("#txtArea").hide();
     }
 </script>

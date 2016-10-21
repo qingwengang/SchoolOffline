@@ -6,170 +6,437 @@
 </h3>
 <hr />
 <div class="row">
-    <div class="col-md-12">
-        <div class="tabbable-line boxless tabbable-reversed">
-            <div class="tab-content">
-                <div class="tab-pane active" id="tab_0">
-                    <div class="portlet box green">
-                        <div class="portlet-title">
-                            <div class="caption">
-                                <i class="fa fa-gift"></i>目录编辑
+    <div class="col-md-5 ">
+        <div class="row">
+            <div class="tabbable-line boxless tabbable-reversed">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab_0">
+                        <div class="portlet box green">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="fa fa-gift"></i>目录编辑
+                                </div>
+                                <div class="tools">
+                                    <a href="javascript:;" class="collapse" data-original-title="" title="">
+                                    </a>
+                                    <a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title="">
+                                    </a>
+                                    <a href="javascript:;" class="reload" data-original-title="" title="">
+                                    </a>
+                                    <a href="javascript:;" class="remove" data-original-title="" title="">
+                                    </a>
+                                </div>
                             </div>
-                            <div class="tools">
-                                <a href="javascript:;" class="collapse" data-original-title="" title="">
-                                </a>
-                                <a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title="">
-                                </a>
-                                <a href="javascript:;" class="reload" data-original-title="" title="">
-                                </a>
-                                <a href="javascript:;" class="remove" data-original-title="" title="">
-                                </a>
+                            <div class="portlet-body form">
+                                <!-- BEGIN FORM-->
+                                <form action="#" class="form-horizontal">
+                                    <div class="form-actions">
+                                        <div class="row">
+                                            <label class="col-md-3 control-label">TYPENAME</label>
+                                            <div class="col-md-4">
+                                                <select id="delType" class="form-control" name="select" onchange="getMulu(this.options[this.options.selectedIndex].value)"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-body">
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">TYPENAME</label>
+                                            <div class="col-md-4">
+                                                <input type="text" id="txtTypeName" class="form-control input-circle" placeholder="Enter text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-body">
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">MuluName</label>
+                                            <div class="col-md-4">
+                                                <input type="text" id="txtMuluName" class="form-control input-circle" placeholder="Enter text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-body">
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">SortNum</label>
+                                            <div class="col-md-4">
+                                                <input type="text" id="txtSortNum" class="form-control input-circle" placeholder="Enter text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-actions">
+                                        <div class="row">
+                                            <div class="col-md-offset-3 col-md-9">
+                                                <input type="button" value="提交添加" onclick="Add();" class="btn btn-circle green" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <!-- END FORM-->
                             </div>
-                        </div>
-                        <div class="portlet-body form">
-                            <!-- BEGIN FORM-->
-                            <form action="#" class="form-horizontal">
-                                <div class="form-actions">
-                                    <div class="row">
-                                        <label class="col-md-3 control-label">TYPENAME</label>
-                                        <div class="col-md-4">
-                                            <select id="delType" class="form-control" name="select">
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-body">
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">TYPENAME</label>
-                                        <div class="col-md-4">
-                                            <input type="text" id="txtTypeName" class="form-control input-circle" placeholder="Enter text">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-body">
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">MuluName</label>
-                                        <div class="col-md-4">
-                                            <input type="text" id="txtMuluName" class="form-control input-circle" placeholder="Enter text">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-body">
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">SortNum</label>
-                                        <div class="col-md-4">
-                                            <input type="text" id="txtSortNum" class="form-control input-circle" placeholder="Enter text">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-actions">
-                                    <div class="row">
-                                        <div class="col-md-offset-3 col-md-9">
-                                            <input type="button" value="提交添加" onclick="Add();" class="btn btn-circle green" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                            <!-- END FORM-->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-6">
-        <!-- BEGIN SAMPLE TABLE PORTLET-->
-        <div class="portlet box red">
-            <div class="portlet-title">
-                <div class="caption">
-                    <i class="fa fa-cogs"></i>列表
+        <div class="row">
+            <!-- BEGIN SAMPLE TABLE PORTLET-->
+            <div class="portlet box red">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-cogs"></i>列表
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="collapse" data-original-title="" title="">
+                        </a>
+                        <a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title="">
+                        </a>
+                        <a href="javascript:;" class="reload" data-original-title="" title="">
+                        </a>
+                        <a href="javascript:;" class="remove" data-original-title="" title="">
+                        </a>
+                    </div>
                 </div>
-                <div class="tools">
-                    <a href="javascript:;" class="collapse" data-original-title="" title="">
-                    </a>
-                    <a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title="">
-                    </a>
-                    <a href="javascript:;" class="reload" data-original-title="" title="">
-                    </a>
-                    <a href="javascript:;" class="remove" data-original-title="" title="">
-                    </a>
-                </div>
-            </div>
-            <div class="portlet-body">
-                <div class="table-scrollable">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>
-                                    typename
-                                </th>
-                                <th>
-                                    muluname
-                                </th>
-                                <th>
-                                    sortnum
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbMulu">
-                            
-                        </tbody>
-                    </table>
+                <div class="portlet-body">
+                    <div class="table-scrollable">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        typename
+                                    </th>
+                                    <th>
+                                        muluname
+                                    </th>
+                                    <th>
+                                        sortnum
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbMulu"></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
+            <!-- END SAMPLE TABLE PORTLET-->
         </div>
-        <!-- END SAMPLE TABLE PORTLET-->
     </div>
-    
+    <div class="col-md-3 ">
+        <div class="row">
+            <!-- BEGIN SAMPLE TABLE PORTLET-->
+            <div class="portlet box red">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-cogs"></i>页面列表
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="collapse" data-original-title="" title="">
+                        </a>
+                        <a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title="">
+                        </a>
+                        <a href="javascript:;" class="reload" data-original-title="" title="">
+                        </a>
+                        <a href="javascript:;" class="remove" data-original-title="" title="">
+                        </a>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="table-scrollable">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        标题
+                                    </th>
+                                    <th>
+                                        SortNum
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblCourseDraft"></tbody>
+                        </table>
+                    </div>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" id="txtTitleName" class="form-control input-circle" placeholder="Enter text">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" id="txtDraftSortNum" class="form-control input-circle" placeholder="Enter text">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <input type="button" value="提交添加" onclick="AddDraft();" class="btn btn-circle green" />
+                            </div>
+                            <div class="col-md-4">
+                                <input type="button" value="修改" onclick="UpdateDraft();" class="btn btn-circle green" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END SAMPLE TABLE PORTLET-->
+        </div>
+    </div>
+    <div class="col-md-3 ">
+        <div class="row">
+            <!-- BEGIN SAMPLE TABLE PORTLET-->
+            <div class="portlet box red">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-cogs"></i>每页小标题列表
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="collapse" data-original-title="" title="">
+                        </a>
+                        <a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title="">
+                        </a>
+                        <a href="javascript:;" class="reload" data-original-title="" title="">
+                        </a>
+                        <a href="javascript:;" class="remove" data-original-title="" title="">
+                        </a>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="table-scrollable">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        标题
+                                    </th>
+                                    <th>
+                                        SortNum
+                                    </th>
+                                    <th>
+                                        修改
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblCourseTitle"></tbody>
+                        </table>
+                    </div>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <input type="text" id="txtTitle" class="form-control input-circle" placeholder="Enter text">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" id="txtTitleSortNum" class="form-control input-circle" placeholder="Enter text">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <input type="button" value="提交添加" onclick="AddTitle();" class="btn btn-circle green" />
+                            </div>
+                            <div class="col-md-4">
+                                <input type="button" value="修改" onclick="UpdateTitle();" class="btn btn-circle green" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END SAMPLE TABLE PORTLET-->
+        </div>
+    </div>
 </div>
-@section Scripts{
-<script type="text/javascript">
-    function init() {
-        $.ajax({
-            type: "post",
-            url: "GetMuluType",
-            dataType: "json",
-            success: function (data) {
-                var optionStr = "<option value=\"Other\" selected>其他</option>";
-                $.each(data, function (n, value) { optionStr += "<option value=\""+value+"\">" + value + "</option>" });
-                $("#delType").html(optionStr);
-                
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:1050px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="divTitle">
+                    
+                </h4>
+            </div>
+            <div class="modal-body">
+                <textarea name="content" style="width:1000px;" id="container"></textarea>
+                <br />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    关闭
+                </button>
+                <button type="button" class="btn btn-primary" onclick="EditTitleContent();">
+                    提交更改
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<input type="hidden" id="currentTypeName" />
+<input type="hidden" id="currentMuluName" />
+<input typue="hidden" id="currentDraftId" />
+<input type="hidden" id="currentTitleId" />
+<input type="hidden" id="currentEditTitleId" />
+<script src="~/editor/ueditor.config.js"></script>
+<script src="~/editor/ueditor.all.js"></script>
+    @section Scripts{
+        <script type="text/javascript">
+            var ue = UE.getEditor('container');
+            function init() {
+                $.ajax({
+                    type: "post",
+                    url: "GetMuluType",
+                    dataType: "json",
+                    success: function (data) {
+                        var optionStr = "<option value=\"Other\" selected>其他</option>";
+                        $.each(data, function (n, value) { optionStr += "<option value=\"" + value + "\">" + value + "</option>" });
+                        $("#delType").html(optionStr);
+
+                    }
+                })
+                getMulu('');
             }
-        })
-        getMulu();
-    }
-    function getMulu() {
-        $.ajax({
-            type: "post",
-            url: "GetMulu",
-            dataType: "json",
-            success: function (data) {
-                var tableHtml = "";
-                $.each(data, function (n, value) { tableHtml += "<tr><td>" + value.typeName + "</td><td>" + value.muluName + "</td><td>" + value.sortNum + "</td></tr>" })
-                $("#tbMulu").html(tableHtml);
+            function getMulu(type) {
+                $.ajax({
+                    type: "get",
+                    url: "GetMulu",
+                    data: { type: type },
+                    dataType: "json",
+                    success: function (data) {
+                        var tableHtml = "";
+                        $.each(data, function (n, value) { tableHtml += "<tr><td>" + value.typeName + "</td><td><a onclick=getCourseDraft('"+value.typeName+"','" + value.muluName + "')>" + value.muluName + "</a></td><td>" + value.sortNum + "</td></tr>" })
+                        $("#tbMulu").html(tableHtml);
+                    }
+                })
             }
-        })
-    }
-    function Add() {
-        var selType = $("#delType").val();
-        var typeName = $("#txtTypeName").val();
-        var muluName = $("#txtMuluName").val();
-        var sortNum = $("#txtSortNum").val();
-        if (selType != "Other") {
-            typeName = selType;
-        }
-        $.ajax({
-            type: "post",
-            url: "AddMulu",
-            data:{typeName:typeName,muluName:muluName,sortNum:sortNum},
-            success: function (data) {
-                alert(data);
-                init();
+            function getCourseDraft(typeName, muluName) {
+                $("#currentTypeName").val(typeName);
+                $("#currentMuluName").val(muluName);
+                $.ajax({
+                    type: "get",
+                    url: "GetCourseDraftByMuluName",
+                    data: { muluName: muluName },
+                    dataType: "json",
+                    success: function (data) {
+                        var tableHtml = "";
+                        $.each(data, function (n, value) { tableHtml += "<tr><td><a onclick=getCourseTitle('"+value.id+"','"+value.title+"',"+value.sortNum+")>"+value.title+"</a></td><td>"+value.sortNum+"</td></tr>" });
+                        $("#tblCourseDraft").html(tableHtml);
+                    }
+                })
             }
-        })
+            function UpdateDraft() {
+                var draftId = $("#currentDraftId").val();
+                var title=$("#txtTitleName").val();
+                var sortNum=$("#txtDraftSortNum").val();
+                $.ajax({
+                    type: "get",
+                    url: "UpdateCourseDraft",
+                    data: { draftId: draftId, title: title, sortNum: sortNum },
+                    success: function (data) {
+                        var currentTypeName=$("#currentTypeName").val();
+                        var currentMuluName=$("#currentMuluName").val();
+                        getCourseDraft(currentTypeName, currentMuluName);
+                    }
+                })
+            }
+            function getCourseTitle(draftId,title,sortNum) {
+                $("#currentDraftId").val(draftId);
+                $("#txtTitleName").val(title);
+                $("#txtDraftSortNum").val(sortNum);
+                $.ajax({
+                    type: "get",
+                    url: "GetCourseTitleList",
+                    data: { draftId: draftId },
+                    dataType: "json",
+                    success: function (data) {
+                        var tableHtml = "";
+                        $.each(data, function (n, value) { tableHtml += "<tr><td><a onclick=SetTitle("+value.id+",'"+value.titleName+"','"+value.sortNum+"')>" + value.titleName + "<a></td><td>"+value.sortNum+"</td><td><button  onclick=\"Edit("+value.id+")\">Edit</button></td></tr>" });
+                        $("#tblCourseTitle").html(tableHtml);
+                    }
+                })
+            }
+            function SetTitle(titleId, titleName, sortNum) {
+                $("#currentTitleId").val(titleId);
+                $("#txtTitle").val(titleName);
+                $("#txtTitleSortNum").val(sortNum);
+            }
+            function UpdateTitle() {
+                var currentTitleId = $("#currentTitleId").val();
+                var title = $("#txtTitle").val();
+                var sortNum = $("#txtTitleSortNum").val();
+                $.ajax({
+                    type: "get",
+                    url: "UpdateCourseTitle",
+                    data: { id: currentTitleId, titleName: title, sortNum: sortNum },
+                    success: function (data) {
+                        var currentDraftId=$("#currentDraftId").val();
+                        var txtTitleName=$("#txtTitleName").val();
+                        var sortNum = $("#txtDraftSortNum").val();
+                        getCourseTitle(currentDraftId, txtTitleName, sortNum);
+                    }
+                })
+            }
+            function AddDraft() {
+                var currentTypeName = $("#currentTypeName").val();
+                var currentMuluName = $("#currentMuluName").val();
+                var title = $("#txtTitleName").val();
+                $.ajax({
+                    type: "get",
+                    url: "CreateCourseDraft",
+                    data: { typeName: currentTypeName, muluName: currentMuluName, title: title },
+                    success: function (data) {
+                        getCourseDraft(currentTypeName, currentMuluName);
+                    }
+                })
+            }
+            function AddTitle() {
+                var draftId = $("#currentDraftId").val();
+                var title = $("#txtTitle").val();
+                $.ajax({
+                    type: "get",
+                    url: "CreateCourseTitle",
+                    data: { draftId: draftId, title: title},
+                    success: function (data) {
+                        getCourseTitle(draftId);
+                    }
+                })
+            }
+            function Add() {
+                var selType = $("#delType").val();
+                var typeName = $("#txtTypeName").val();
+                var muluName = $("#txtMuluName").val();
+                var sortNum = $("#txtSortNum").val();
+                if (selType != "Other") {
+                    typeName = selType;
+                }
+                $.ajax({
+                    type: "post",
+                    url: "AddMulu",
+                    data: { typeName: typeName, muluName: muluName, sortNum: sortNum },
+                    success: function (data) {
+                        alert(data);
+                        init();
+                    }
+                })
+            }
+            function Edit(titleId) {
+                $.ajax({
+                    type: "get",
+                    url: "GetCourseTitle",
+                    data: { id:titleId },
+                    success: function (data) {
+                        $("#divTitle").html(data.titleName)
+                        ue.setContent(data.content);
+                    }
+                })
+                $('#myModal').modal('show');
+                $("#currentEditTitleId").val(titleId);
+            }
+            function EditTitleContent() {
+                var titleId = $("#currentEditTitleId").val();
+                var content = ue.getContent();
+                $.ajax({
+                    type: "get",
+                    url: "EditCourseTitleContent",
+                    data: { titleId: titleId ,content:content},
+                    success: function (data) {
+                        alert(data);
+                    }
+                })
+            }
+            init();
+        </script>
     }
-    init();
-</script>
-}

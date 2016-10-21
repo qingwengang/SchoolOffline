@@ -99,7 +99,7 @@ namespace SchoolOffline
                     defaults: new { controller = "SuperPage"});
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=SuperPage}/{action=Index}");
+                    template: "{controller=school}/{action=Index}");
             });
         }
     }
