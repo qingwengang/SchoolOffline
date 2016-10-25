@@ -7,6 +7,7 @@ using SchoolOffline.Service;
 using SchoolOffline.Entity;
 using Dao.Service;
 using Dao.Entity;
+using System.Text;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -20,6 +21,30 @@ namespace SchoolOffline.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
+            return View();
+        }
+        public IActionResult EditTitleContent(long titleId)
+        {
+            ViewData["titleId"] = titleId;
+            CourseTitle courseTitle = titleService.GetByTitleId(titleId);
+            ViewData["content"] = courseTitle.Content;
+            return View();
+        }
+        public IActionResult EditDraft(long draftId)
+        {
+            var titleList=titleService.GetByDraftId(draftId);
+            var draft = draftService.GetById(draftId);
+            StringBuilder sbcontent = new StringBuilder();
+            foreach(var title in titleList)
+            {
+                if (!string.IsNullOrEmpty(title.Content.Trim()))
+                {
+                    sbcontent.AppendFormat("<h2>{0}</h2>{1}<hr>", title.TitleName, title.Content);
+                }
+            }
+            ViewData["content"] = sbcontent.ToString();
+            ViewData["title"] = draft.Title;
+            ViewData["draftid"] = draftId;
             return View();
         }
 

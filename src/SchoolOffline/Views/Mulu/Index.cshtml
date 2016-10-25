@@ -149,6 +149,9 @@
                                     <th>
                                         SortNum
                                     </th>
+                                    <th>
+                                        操作
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody id="tblCourseDraft"></tbody>
@@ -312,7 +315,7 @@
                     dataType: "json",
                     success: function (data) {
                         var tableHtml = "";
-                        $.each(data, function (n, value) { tableHtml += "<tr><td><a onclick=getCourseTitle('"+value.id+"','"+value.title+"',"+value.sortNum+")>"+value.title+"</a></td><td>"+value.sortNum+"</td></tr>" });
+                        $.each(data, function (n, value) { tableHtml += "<tr><td><a onclick=getCourseTitle('" + value.id + "','" + value.title + "'," + value.sortNum + ")>" + value.title + "</a></td><td>" + value.sortNum + "</td><td><a href='editdraft?draftid="+value.id+"' target='_blank'>查看</a></td></tr>" });
                         $("#tblCourseDraft").html(tableHtml);
                     }
                 })
@@ -343,7 +346,7 @@
                     dataType: "json",
                     success: function (data) {
                         var tableHtml = "";
-                        $.each(data, function (n, value) { tableHtml += "<tr><td><a onclick=SetTitle("+value.id+",'"+value.titleName+"','"+value.sortNum+"')>" + value.titleName + "<a></td><td>"+value.sortNum+"</td><td><button  onclick=\"Edit("+value.id+")\">Edit</button></td></tr>" });
+                        $.each(data, function (n, value) { tableHtml += "<tr><td><a onclick=SetTitle(" + value.id + ",'" + value.titleName + "','" + value.sortNum + "')>" + value.titleName + "<a></td><td>" + value.sortNum + "</td><td><button  onclick=\"Edit(" + value.id + ")\">Edit</button><a target='_blank' href=\"EditTitleContent?titleId="+value.id+"\">页面修改</a></td></tr>" });
                         $("#tblCourseTitle").html(tableHtml);
                     }
                 })
@@ -414,7 +417,7 @@
             }
             function Edit(titleId) {
                 $.ajax({
-                    type: "get",
+                    type: "post",
                     url: "GetCourseTitle",
                     data: { id:titleId },
                     success: function (data) {
@@ -429,7 +432,7 @@
                 var titleId = $("#currentEditTitleId").val();
                 var content = ue.getContent();
                 $.ajax({
-                    type: "get",
+                    type: "post",
                     url: "EditCourseTitleContent",
                     data: { titleId: titleId ,content:content},
                     success: function (data) {

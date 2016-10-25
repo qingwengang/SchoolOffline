@@ -14,6 +14,7 @@ namespace SchoolOffline.Entity
         public string Content { get; set; }
         public int SortNum { get; set; }
         public long OuterId { get; set; }
+        public long DraftId { get; set; }
         public string LastPage { get; set; }
         public string NextPage { get; set; }
 

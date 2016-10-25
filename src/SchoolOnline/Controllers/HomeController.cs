@@ -45,7 +45,7 @@ namespace SchoolOffline.Controllers
             }
             Course course = new CourseService().GetById(id);
             //ViewData["content"] = course.Content;
-            model.content = course.Content;
+            model.content = course.DraftId>0?"<h1>"+course.Title+"</h1>"+course.Content: course.Content;
             Menu menu = new MenuService().GetMenuByTypeName(course.TypeName);
             //ViewData["menuHtml"] = menu!=null?menu.Content:"";
             model.menuHtml= menu != null ? menu.Content : "";

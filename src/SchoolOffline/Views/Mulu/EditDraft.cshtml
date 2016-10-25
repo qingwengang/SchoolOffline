@@ -1,0 +1,27 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+标题：<input type="text" id="txtTitle" value="@ViewData["title"]"/>
+<textarea name="content" id="container">@ViewData["content"]</textarea>
+<br />
+<input type="button" value="推送" onclick="Push()" />
+<input type="hidden" id="draftid" value="@ViewData["draftid"]" />
+<script src="~/editor/ueditor.config.js"></script>
+<script src="~/editor/ueditor.all.js"></script>
+<script type="text/javascript">
+    var ue = UE.getEditor('container');
+    function Push() {
+        var draftId = $("#draftid").val();
+        $.ajax({
+            type: "get",
+            url: "/Course/Push",
+            data: { draftId: draftId },
+            success: function (data) {
+                alert(data);
+            }
+        })
+    }
+</script>

@@ -7,6 +7,8 @@ using SchoolOffline.Service;
 using DoctorOffline.Service;
 using SchoolOffline.Entity;
 using DoctorOffline.Entity;
+using Dao.Service;
+using System.Text;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -22,6 +24,8 @@ namespace SchoolOffline.Controllers
         private TiyContentService tiycontentService = new TiyContentService();
         private SchoolContentService contentService = new SchoolContentService();
         private SchoolMuluService muluService = new SchoolMuluService();
+        private CourseTitleService titleService = new CourseTitleService();
+        private CourseDraftService draftService = new CourseDraftService();
         #endregion
         /// <summary>
         /// 推送数据到线上
@@ -58,6 +62,44 @@ namespace SchoolOffline.Controllers
             catch (Exception e)
             {
                 return Json("fail");
+            }
+            return Json("success");
+        }
+        public JsonResult Push(long draftId)
+        {
+            var titleList = titleService.GetByDraftId(draftId);
+            var draft = draftService.GetById(draftId);
+            StringBuilder sbcontent = new StringBuilder();
+            foreach (var title in titleList)
+            {
+                if (!string.IsNullOrEmpty(title.Content.Trim()))
+                {
+                    sbcontent.AppendFormat("<h2>{0}</h2>{1}<hr>", title.TitleName, title.Content);
+                }
+            }
+            List<Course> courseList = courseService.QueryBySql("select * from course where draftid=" + draftId);
+            if(courseList!=null && courseList.Count > 0)
+            {
+                var course = courseList.FirstOrDefault();
+                course.Content = sbcontent.ToString();
+                course.MuluName = draft.MuluName;
+                course.Title = draft.Title;
+                course.TypeName = draft.TypeName;
+                new CourseService().Update(course);
+            }
+            else
+            {
+                int maxSortNum = courseService.GetMaxSortNumByMuluName(draft.MuluName);
+                Course course = new Course
+                {
+                    Content = sbcontent.ToString(),
+                    DraftId = draftId,
+                    MuluName = draft.MuluName,
+                    Title = draft.Title,
+                    TypeName = draft.TypeName,
+                    SortNum=maxSortNum+1
+                };
+                new CourseService().Add(course);
             }
             return Json("success");
         }

@@ -1,0 +1,40 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<textarea name="content" id="container">@ViewData["content"]</textarea>
+
+<button value="122" onclick="EditTitleContent();">修改</button><br />
+<textarea style="width:1000px;height:300px;"></textarea>
+<input type="hidden" id="currentEditTitleId" value="@ViewData["titleId"]" />
+<script src="~/editor/ueditor.config.js"></script>
+<script src="~/editor/ueditor.all.js"></script>
+<script type="text/javascript">
+    var ue = UE.getEditor('container');
+    function Edit() {
+        var currentEditTitleId = $("#currentEditTitleId").val();
+        var ue = UE.getEditor('container');
+        $.ajax({
+            type: "post",
+            url: "GetCourseTitle",
+            data: { id: currentEditTitleId },
+            success: function (data) {
+                ue.setContent(data.content);
+            }
+        })
+    }
+    function EditTitleContent() {
+        var titleId = $("#currentEditTitleId").val();
+        var content = ue.getContent();
+        $.ajax({
+            type: "post",
+            url: "EditCourseTitleContent",
+            data: { titleId: titleId, content: content },
+            success: function (data) {
+                alert(data);
+            }
+        })
+    }
+</script>

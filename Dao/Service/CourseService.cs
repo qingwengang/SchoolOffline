@@ -14,8 +14,8 @@ namespace SchoolOffline.Service
         public void Add(Course course)
         {
             MySqlConnection con = GetConnection();
-            con.Execute(String.Format(@"insert into course (typename,muluname,title,content,sortnum,outerid)
-                                    values('{0}','{1}','{2}','{3}',{4},{5})",course.TypeName,course.MuluName,course.Title,course.Content,course.SortNum,course.OuterId));
+            con.Execute(String.Format(@"insert into course (typename,muluname,title,content,sortnum,outerid,draftid)
+                                    values('{0}','{1}','{2}','{3}',{4},{5},{6})",course.TypeName,course.MuluName,course.Title,course.Content,course.SortNum,course.OuterId,course.DraftId));
         }
 
         public Course GetById(long id)
