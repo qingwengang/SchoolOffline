@@ -68,5 +68,23 @@ namespace SchoolOffline.Util
             sw.Dispose();
             fs.Dispose();
         }
+        public static string Read(string path)
+        {
+            string result="";
+            string[] arr=File.ReadAllLines(path, Encoding.GetEncoding("UTF-8"));
+            foreach(string item in arr)
+            {
+                result += item + "<br>";
+            }
+            
+            //FileStream fs = new FileStream(path, FileMode.Open);
+            //using (StreamReader streamReader = new StreamReader(fs, Encoding.GetEncoding("UTF-8")))
+            //{
+            //    string text = streamReader.ReadToEnd();
+            //    streamReader.Dispose();
+            //    result = text;
+            //}
+            return result;
+        }
     }
 }
