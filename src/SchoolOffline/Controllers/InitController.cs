@@ -299,5 +299,45 @@ namespace SchoolOffline.Controllers
             return "success";
         }
         #endregion
+
+        public string InitSiteMap()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("<?xml version=\"1.0\" encoding=\"utf - 8\"?>\r\n");
+            sb.Append("<urlset>\r\n");
+            var list = courseService.GetAllForSiteMap();
+            foreach(var item in list)
+            {
+                sb.Append("<url>\r\n");
+                sb.AppendFormat("<loc>http://www.piliyuan.com/{0}/{1}.html</loc>\r\n", item.TypeName, item.Id);
+                sb.AppendFormat("<lastmod>{0}</lastmod>\r\n", item.Lastmod.ToString("yyyy-MM-dd"));
+                sb.Append("<changefreq>daily</changefreq>\r\n");
+                sb.Append("<priority>0.8</priority>\r\n");
+                sb.Append("</url>\r\n");
+            }
+            var tiylist = tiycontentService.GetAllForSiteMap();
+            foreach(var item in tiylist)
+            {
+                sb.Append("<url>\r\n");
+                sb.AppendFormat("<loc>http://www.piliyuan.com/DIY/{0}.html</loc>\r\n", item.Id);
+                sb.AppendFormat("<lastmod>{0}</lastmod>\r\n", item.LastMod.ToString("yyyy-MM-dd"));
+                sb.Append("<changefreq>daily</changefreq>\r\n");
+                sb.Append("<priority>0.8</priority>\r\n");
+                sb.Append("</url>\r\n");
+            }
+            var questionlist = questionContentService.GetAllForSiteMap();
+            foreach (var item in questionlist)
+            {
+                sb.Append("<url>\r\n");
+                sb.AppendFormat("<loc>http://www.piliyuan.com/Question/{0}/{1}.html</loc>\r\n", item.col1,item.col2);
+                sb.AppendFormat("<lastmod>{0}</lastmod>\r\n", item.lastmod.ToString("yyyy-MM-dd"));
+                sb.Append("<changefreq>daily</changefreq>\r\n");
+                sb.Append("<priority>0.8</priority>\r\n");
+                sb.Append("</url>\r\n");
+            }
+            sb.Append("</urlset>\r\n");
+            FileTool.WriteWithHouzui("sitemap.xml", sb.ToString());
+            return "success";
+        }
     }
 }

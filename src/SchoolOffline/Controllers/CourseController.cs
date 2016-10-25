@@ -85,7 +85,7 @@ namespace SchoolOffline.Controllers
                 course.MuluName = draft.MuluName;
                 course.Title = draft.Title;
                 course.TypeName = draft.TypeName;
-                new CourseService().Update(course);
+                new CourseService().Update(course, true);
             }
             else
             {
@@ -110,7 +110,7 @@ namespace SchoolOffline.Controllers
             {
                 var course = courseList.FirstOrDefault();
                 course.Content = content;
-                courseService.Update(course);
+                courseService.Update(course, true);
                 return Json("success");
             }
             return Json("fial");

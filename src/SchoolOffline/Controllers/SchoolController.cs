@@ -225,7 +225,7 @@ namespace DoctorOffline.Controllers
         {
             Course course = new Course(typename, muluname, title, content, sortnum);
             course.Id = id;
-            courseService.Update(course);
+            courseService.Update(course,true);
             return "success";
         }
         public JsonResult GetCourse(long id)

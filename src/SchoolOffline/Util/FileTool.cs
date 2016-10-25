@@ -37,6 +37,19 @@ namespace SchoolOffline.Util
             sw.Dispose();
             fs.Dispose();
         }
+        public static void WriteWithHouzui(string pageName, string content)
+        {
+            String dicPath = String.Format(staticPath);
+            if (!Directory.Exists(dicPath))
+            {
+                Directory.CreateDirectory(dicPath);
+            }
+            FileStream fs = new FileStream(String.Format("{0}\\{1}", staticPath, pageName), FileMode.Create);
+            StreamWriter sw = new StreamWriter(fs, Encoding.UTF8);
+            sw.Write(content);
+            sw.Dispose();
+            fs.Dispose();
+        }
         //public static void RenameStaticFolder()
         //{
         //    String dicPath = String.Format(staticPath);

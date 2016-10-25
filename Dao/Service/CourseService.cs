@@ -14,8 +14,8 @@ namespace SchoolOffline.Service
         public void Add(Course course)
         {
             MySqlConnection con = GetConnection();
-            con.Execute(String.Format(@"insert into course (typename,muluname,title,content,sortnum,outerid,draftid)
-                                    values('{0}','{1}','{2}','{3}',{4},{5},{6})",course.TypeName,course.MuluName,course.Title,course.Content,course.SortNum,course.OuterId,course.DraftId));
+            con.Execute(String.Format(@"insert into course (typename,muluname,title,content,sortnum,outerid,draftid,lastmod)
+                                    values('{0}','{1}','{2}','{3}',{4},{5},{6},now())",course.TypeName,course.MuluName,course.Title,course.Content,course.SortNum,course.OuterId,course.DraftId));
         }
 
         public Course GetById(long id)
@@ -71,11 +71,20 @@ namespace SchoolOffline.Service
                             where mulu.id = {0} order by course.SortNum", muluId);
             return con.Query<CourseSortModel>(sql).ToList<CourseSortModel>();
         }
-        public void Update(Course course)
+        public void Update(Course course,bool ifUpdatetime=false)
         {
             MySqlConnection con = GetConnection();
-            string sql = string.Format(@"update course set typename='{0}',MuluName='{1}',Title='{2}',Content='{3}',SortNum='{4}'
-                                where id = {5}", course.TypeName, course.MuluName, course.Title, course.Content, course.SortNum,course.Id);
+            string sql = string.Empty;
+            if (ifUpdatetime)
+            {
+                sql = string.Format(@"update course set typename='{0}',MuluName='{1}',Title='{2}',Content='{3}',SortNum='{4}',lastmod=now()
+                                where id = {5}", course.TypeName, course.MuluName, course.Title, course.Content, course.SortNum, course.Id);
+            }
+            else
+            {
+                sql = string.Format(@"update course set typename='{0}',MuluName='{1}',Title='{2}',Content='{3}',SortNum='{4}'
+                                where id = {5}", course.TypeName, course.MuluName, course.Title, course.Content, course.SortNum, course.Id);
+            }
             con.Execute(sql);
         }
         public void UpdatePageHref(Course course)
@@ -89,6 +98,12 @@ namespace SchoolOffline.Service
         {
             MySqlConnection con = GetConnection();
             return con.Query<CourseSortModel>(sql).ToList<CourseSortModel>();
+        }
+
+        public List<Course> GetAllForSiteMap()
+        {
+            string sql = "select id,typename,title,lastmod,'' as muluname,'' as content,0 as sortnum,0 as outerid,'' as lastpage,'' as nextpage,0 as draftid from course";
+            return QueryBySql(sql);
         }
     }
 }

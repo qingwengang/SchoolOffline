@@ -33,7 +33,7 @@ namespace SchoolOffline.Service
         public string Add(TiyContent content)
         {
             MySqlConnection con = GetConnection();
-            con.Execute(String.Format(@"insert into tiycontent(title,content,coursetitle,type) VALUES('{0}','{1}','{2}','{3}')",content.Title,content.Content,content.CourseTitle,content.Type));
+            con.Execute(String.Format(@"insert into tiycontent(title,content,coursetitle,type,lastmod) VALUES('{0}','{1}','{2}','{3}',now())",content.Title,content.Content,content.CourseTitle,content.Type));
             string sql = "select max(id) as col from tiycontent";
             List<string> ls = GetDistinct(sql);
             if(ls!=null && ls.Count > 0)
@@ -45,8 +45,14 @@ namespace SchoolOffline.Service
         public void Update(TiyContent content)
         {
             MySqlConnection con = GetConnection();
-            var sql = string.Format("update tiycontent set title='{0}',CourseTitle='{1}',Content='{2}',type='{4}' where id={3}", content.Title, content.CourseTitle, content.Content, content.Id,content.Type);
+            var sql = string.Format("update tiycontent set title='{0}',CourseTitle='{1}',Content='{2}',type='{4}',lastmod=now() where id={3}", content.Title, content.CourseTitle, content.Content, content.Id,content.Type);
             con.Execute(sql);
+        }
+        public List<TiyContent> GetAllForSiteMap()
+        {
+            string sql = "select id,title,'' as content,coursetitle,'' as type,lastmod from tiycontent";
+            MySqlConnection con = GetConnection();
+            return con.Query<TiyContent>(sql).ToList<TiyContent>();
         }
     }
 }

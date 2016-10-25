@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using Dao.Model;
+using Dapper;
 using DoctorOffline.Service;
 using MySql.Data.MySqlClient;
 using SchoolOffline.Configs;
@@ -42,6 +43,13 @@ namespace SchoolOffline.Service
         {
             MySqlConnection con = GetConnection();
             var muluList = con.Query<QuestionContent>(sql).ToList<QuestionContent>();
+            return muluList;
+        }
+        public List<SiteMapModel> GetAllForSiteMap()
+        {
+            string sql = "select question.createtime as lastmod,questioncontent.rootid as col1,questioncontent.pageid as col2 from question inner join questioncontent on question.id=questioncontent.RootId";
+            MySqlConnection con = GetConnection();
+            var muluList = con.Query<SiteMapModel>(sql).ToList<SiteMapModel>();
             return muluList;
         }
     }

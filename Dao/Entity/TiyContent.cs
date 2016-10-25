@@ -12,6 +12,7 @@ namespace SchoolOffline.Entity
         public string Content { get; set; }
         public string CourseTitle { get; set; }
         public string Type { get; set; }
+        public DateTime LastMod { get; set; }
         public TiyContent() { }
         public TiyContent(string title,string courseTitle,string content,string type)
         {

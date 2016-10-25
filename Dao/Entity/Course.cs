@@ -17,7 +17,7 @@ namespace SchoolOffline.Entity
         public long DraftId { get; set; }
         public string LastPage { get; set; }
         public string NextPage { get; set; }
-
+        public DateTime Lastmod { get; set; }
         public Course() { }
 
         public Course(string typeName,string muluName,string title,string content,int sortNum)
