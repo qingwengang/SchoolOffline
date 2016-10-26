@@ -12,5 +12,6 @@ namespace Dao.Entity
         public string TitleName { get; set; }
         public string Content { get; set; }
         public int SortNum { get; set; }
+        public DateTime LastMod { get; set; }
     }
 }

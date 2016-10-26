@@ -89,7 +89,6 @@ namespace SchoolOffline.Util
             {
                 result += item + "<br>";
             }
-            
             //FileStream fs = new FileStream(path, FileMode.Open);
             //using (StreamReader streamReader = new StreamReader(fs, Encoding.GetEncoding("UTF-8")))
             //{

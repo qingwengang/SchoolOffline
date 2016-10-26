@@ -303,8 +303,11 @@ namespace SchoolOffline.Controllers
         public string InitSiteMap()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("<?xml version=\"1.0\" encoding=\"utf - 8\"?>\r\n");
+            sb.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n");
             sb.Append("<urlset>\r\n");
+            StringBuilder sbgoogle = new StringBuilder();
+            sbgoogle.Append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n");
+            sbgoogle.Append("<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"> \r\n");
             var list = courseService.GetAllForSiteMap();
             foreach(var item in list)
             {
@@ -314,6 +317,9 @@ namespace SchoolOffline.Controllers
                 sb.Append("<changefreq>daily</changefreq>\r\n");
                 sb.Append("<priority>0.8</priority>\r\n");
                 sb.Append("</url>\r\n");
+                sbgoogle.Append("<url>\r\n");
+                sbgoogle.AppendFormat("<loc>http://www.piliyuan.com/{0}/{1}.html</loc>\r\n", item.TypeName, item.Id);
+                sbgoogle.Append("</url>\r\n");
             }
             var tiylist = tiycontentService.GetAllForSiteMap();
             foreach(var item in tiylist)
@@ -324,6 +330,9 @@ namespace SchoolOffline.Controllers
                 sb.Append("<changefreq>daily</changefreq>\r\n");
                 sb.Append("<priority>0.8</priority>\r\n");
                 sb.Append("</url>\r\n");
+                sbgoogle.Append("<url>\r\n");
+                sbgoogle.AppendFormat("<loc>http://www.piliyuan.com/DIY/{0}.html</loc>\r\n", item.Id);
+                sbgoogle.Append("</url>\r\n");
             }
             var questionlist = questionContentService.GetAllForSiteMap();
             foreach (var item in questionlist)
@@ -334,9 +343,14 @@ namespace SchoolOffline.Controllers
                 sb.Append("<changefreq>daily</changefreq>\r\n");
                 sb.Append("<priority>0.8</priority>\r\n");
                 sb.Append("</url>\r\n");
+                sbgoogle.Append("<url>\r\n");
+                sbgoogle.AppendFormat("<loc>http://www.piliyuan.com/Question/{0}/{1}.html</loc>\r\n", item.col1, item.col2);
+                sbgoogle.Append("</url>\r\n");
             }
             sb.Append("</urlset>\r\n");
-            FileTool.WriteWithHouzui("sitemap.xml", sb.ToString());
+            sbgoogle.Append("</urlset>\r\n");
+            FileTool.WriteWithHouzui("sitemap.txt", sb.ToString());
+            FileTool.WriteWithHouzui("sitemapgoogle.txt", sbgoogle.ToString());
             return "success";
         }
     }
