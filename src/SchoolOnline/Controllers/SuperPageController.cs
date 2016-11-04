@@ -31,5 +31,9 @@ namespace SchoolOffline.Controllers
             ViewData["b"] = config.pageUrl;
             return View();
         }
+        public IActionResult IndexNew()
+        {
+            return View();
+        }
     }
 }

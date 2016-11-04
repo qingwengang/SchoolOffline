@@ -188,9 +188,9 @@ namespace SchoolOffline.Controllers
                         if (muluName != course.MuluName)
                         {
                             muluName = course.MuluName;
-                            sbHtml.AppendFormat("<h2 class=\"left\"><span class=\"left_h2\">{0}</span></h2>", muluName);
+                            //sbHtml.AppendFormat("<h2 class=\"left\"><span class=\"left_h2\">{0}</span></h2>", muluName);
                         }
-                        sbHtml.Append(String.Format("<a target=\"_top\" title=\"{0}\" id=\"{1}\" href=\"/{2}/{1}.html\">{0}</a>", course.Title, course.Id, type));
+                        sbHtml.Append(String.Format("<li><a target=\"_top\" title=\"{0}\" id=\"{1}\" href=\"/{2}/{1}.html\">{0}</a></li>", course.Title, course.Id, type));
                     }
                     menuContent = sbHtml.ToString();
                 }

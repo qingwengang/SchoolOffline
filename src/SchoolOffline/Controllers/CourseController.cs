@@ -72,9 +72,9 @@ namespace SchoolOffline.Controllers
             StringBuilder sbcontent = new StringBuilder();
             foreach (var title in titleList)
             {
-                if (!string.IsNullOrEmpty(title.Content.Trim()))
+                if (!string.IsNullOrEmpty(title.Content.Trim().TrimEnd("<p><br/></p>".ToCharArray())))
                 {
-                    sbcontent.AppendFormat("<h2>{0}</h2>{1}<hr>", title.TitleName, title.Content);
+                    sbcontent.AppendFormat("<h2>{0}</h2>{1}<hr>", title.TitleName, title.Content.TrimEnd().TrimEnd("<p><br/></p>".ToCharArray()));
                 }
             }
             List<Course> courseList = courseService.QueryBySql("select * from course where draftid=" + draftId);

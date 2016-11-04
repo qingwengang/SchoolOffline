@@ -78,7 +78,7 @@ namespace SchoolOnline
                 routes.MapRoute(
                     name: "us_english_products",
                     template: "{type}/{id}.html",
-                    defaults: new { controller = "Home", action = "Index" },
+                    defaults: new { controller = "Home", action = "Detail" },
                     constraints: new { id = new IntRouteConstraint() });
                 routes.MapRoute(
                     name: "index",

@@ -14,6 +14,8 @@ namespace SchoolOffline.Models
         public string menuHtml { get; set; }
         public string lastPageHref { get; set; }
         public string nextPageHref { get; set; }
+        public string lastPageHref1 { get; set; }
+        public string nextPageHref1 { get; set; }
         public long pageId { get; set; }
         public string content { get; set; }
         public string tuijianmenuHtml { get; set; }

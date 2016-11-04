@@ -1,0 +1,53 @@
+﻿@using SchoolOffline.Models;
+@{
+    Layout = "_LayoutOnlineNew";
+}
+
+
+<div class="row middle-content">
+            <aside class="col-sm-2 no-padding-column">
+                <div class="collapse navbar-nav navbar-collapse navbar-collapse-2 left-menu " id="left-menu">
+                    <ul class="level1 nav nav-list primary">
+                        @Html.Raw(Model.menuHtml)
+                    </ul>
+                </div>
+            </aside>
+            <div class="col-sm-7 ">
+                <ul class="pager">
+                    <li class="pervious" id="divPrev1">
+                        @Html.Raw(Model.lastPageHref)
+                    </li>
+                    <li class="next" id="divNext1">
+                        @Html.Raw(Model.nextPageHref)
+                    </li>
+                </ul>
+                @Html.Raw(Model.content) 
+                <ul class="pager">
+                    <li class="pervious" id="divPrev2">
+                        @Html.Raw(Model.lastPageHref1)
+                    </li>
+                    <li class="next" id="divNext2">
+                        @Html.Raw(Model.nextPageHref1)
+                    </li>
+                </ul>
+            </div>
+           
+        </div>
+
+@section Scripts{
+<script type="text/javascript">
+    $(document).ready(function () {
+        var path = $(location).attr('pathname');
+        $('#left-menu ul li a[href="' + path + '"]').addClass('active');
+    });
+    function _dmBootstrap(file) {
+        var _dma = document.createElement('script');
+        _dma.type = 'text/javascript';
+        _dma.async = true;
+        _dma.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + file;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(_dma);
+    }
+    function _dmFollowup(file) { if (typeof DMAds === 'undefined') _dmBootstrap('cdn2.DeveloperMedia.com/a.min.js'); }
+    (function () { _dmBootstrap('cdn1.DeveloperMedia.com/a.min.js'); setTimeout(_dmFollowup, 2000); })();
+</script>
+    }

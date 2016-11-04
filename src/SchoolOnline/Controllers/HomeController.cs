@@ -120,6 +120,41 @@ namespace SchoolOffline.Controllers
             ViewData["menuquestioncourse"] = menuquestioncourse.Content;
             return View(model);
         }
+
+        public IActionResult Detail(string type,long id)
+        {
+            CourseDetailModel model = new CourseDetailModel();
+            if (String.IsNullOrEmpty(type))
+            {
+                type = "HTML";
+            }
+            if (id <= 0)
+            {
+                id = 1;
+            }
+            Course course = new CourseService().GetById(id);
+            model.content = course.DraftId > 0 ? "<h1>" + course.Title + "</h1>" + course.Content : course.Content;
+            Menu menu = new MenuService().GetMenuByTypeName(course.TypeName);
+            model.menuHtml = menu != null ? menu.Content : "";
+            Menu menutuijian = new MenuService().GetMenuByTypeName("tuijian");
+            model.tuijianmenuHtml = menutuijian.Content;
+            model.lastPageHref = OnlinePageHelper.GeneratPageHref(type, course.LastPage,"上一章节：");
+            model.nextPageHref = OnlinePageHelper.GeneratPageHref(type, course.NextPage,"下一章节：");
+            model.lastPageHref1 = model.lastPageHref.Replace("ctl00_lnkPrev1", "ctl00_lnkPrev2");
+            model.nextPageHref1 = model.nextPageHref.Replace("ctl00_lnkNext1", "ctl00_lnkNext2");
+            model.title = course.Title;
+            StringBuilder sbDesc = new StringBuilder();
+            sbDesc.Append(course.Title).Append(",").Append(course.MuluName).Append(",").Append(course.TypeName).Append(",").Append("霹雳猿教程");
+            StringBuilder sbCanonical = new StringBuilder();
+            sbCanonical.AppendFormat("{0}/{1}/{2}.html", OnlineConfig.HomeUrl, course.TypeName, course.Id);
+            model.desc = sbDesc.ToString();
+            model.canonical = sbCanonical.ToString();
+            var ext = extendService.Get(type, "shuji");
+            model.tuijian = ext != null ? ext.Content : "";
+            model.pageId = id;
+            return View(model);
+            return View();
+        }
         
         public IActionResult Error()
         {
