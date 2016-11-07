@@ -20,7 +20,7 @@ namespace SchoolOffline.Controllers
             config = option.Value;
         }
         // GET: /<controller>/
-        public IActionResult Index()
+        public IActionResult IndexOld()
         {
             Menu menutuijian = new MenuService().GetMenuByTypeName("tuijian");
             ViewData["tuijianmenuHtml"] = menutuijian.Content;
@@ -31,7 +31,7 @@ namespace SchoolOffline.Controllers
             ViewData["b"] = config.pageUrl;
             return View();
         }
-        public IActionResult IndexNew()
+        public IActionResult Index()
         {
             return View();
         }

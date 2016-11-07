@@ -149,6 +149,7 @@ namespace SchoolOffline.Controllers
             sbCanonical.AppendFormat("{0}/{1}/{2}.html", OnlineConfig.HomeUrl, course.TypeName, course.Id);
             model.desc = sbDesc.ToString();
             model.canonical = sbCanonical.ToString();
+            model.currentMenu = "menu"+type.ToLower();
             var ext = extendService.Get(type, "shuji");
             model.tuijian = ext != null ? ext.Content : "";
             model.pageId = id;

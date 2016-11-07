@@ -2,8 +2,12 @@
 @{
     Layout = "_LayoutOnlineNew";
 }
-
-
+@section Header{
+    <title>@Model.title | 霹雳猿教程</title>
+    <link rel="canonical" href="@Model.canonical">
+    <meta name="keywords" content="@Model.title">
+    <meta name="description" content="@Model.desc">
+}
 <div class="row middle-content">
             <aside class="col-sm-2 no-padding-column">
                 <div class="collapse navbar-nav navbar-collapse navbar-collapse-2 left-menu " id="left-menu">
@@ -31,9 +35,8 @@
                     </li>
                 </ul>
             </div>
-           
         </div>
-
+    <input type="hidden" id="currentMenu" value="@Model.currentMenu" />
 @section Scripts{
 <script type="text/javascript">
     $(document).ready(function () {

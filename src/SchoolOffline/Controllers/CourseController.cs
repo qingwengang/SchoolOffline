@@ -74,7 +74,7 @@ namespace SchoolOffline.Controllers
             {
                 if (!string.IsNullOrEmpty(title.Content.Trim().TrimEnd("<p><br/></p>".ToCharArray())))
                 {
-                    sbcontent.AppendFormat("<h2>{0}</h2>{1}<hr>", title.TitleName, title.Content.TrimEnd().TrimEnd("<p><br/></p>".ToCharArray()));
+                    sbcontent.AppendFormat("<h2>{0}</h2>{1}<hr>", title.TitleName, title.Content.TrimEnd());
                 }
             }
             List<Course> courseList = courseService.QueryBySql("select * from course where draftid=" + draftId);

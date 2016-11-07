@@ -138,7 +138,7 @@ namespace SchoolOffline.Controllers
                     List<Course> courseList = new CourseService().GetCourseByTypeName(type);
                     foreach (var item in courseList)
                     {
-                        string url = String.Format(config.pageUrl + "Home/Index?type={0}&id={1}", type, item.Id);
+                        string url = String.Format(config.pageUrl + "Home/Detail?type={0}&id={1}", type, item.Id);
                         string responseBodyAsText = HttpTool.GetHtmlContent(url);
                         FileTool.Write(type, item.Id, responseBodyAsText);
                     }

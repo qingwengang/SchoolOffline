@@ -11,14 +11,12 @@
         Entity Framework Architecture
     </title>
     <link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    <link href="http://www.entityframeworktutorial.net/App_Themes/css/app-1.0.css" rel="stylesheet">
-    <link href="http://www.entityframeworktutorial.net/App_Themes/css/home.css" rel="stylesheet">
-    @*<link rel="stylesheet" type="text/css" href="http://www.entityframeworktutorial.net/App_Themes/css/csharp.css">*@
+    <link href="~/css/entity/app-1.0.css" rel="stylesheet" />
+    <link href="~/css/entity/home.css" rel="stylesheet" />
+
     <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
     <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <meta id="ctl00_head_metaKeyword" name="keyword" content="Entity Framework Tutorial, Entity Framework Architecture, Entity Framework">
-    <meta name="description" content="This page gives the overview of Entity Framework Architecture.">
     @RenderSection("HeaderJs", required: false)
     <style type="text/css">
         div[id^="div-gpt-ad-"], .adsbygoogle {
@@ -325,9 +323,9 @@
             <div id="menuContainer" class="affix-top">
                 <div class="collapse navbar-collapse" id="topMenu">
                     <ul class="nav navbar-nav ">
-                        <li><a href="/">首页</a></li>
-                        <li class="active"><a href="/HTML/1.html">HTML</a></li>
-                        <li><a href="/JavaScript/30.html">JavaScript</a></li>
+                        <li id="menuhome"><a href="/">首页</a></li>
+                        <li id="menuhtml"><a href="/HTML/1.html">HTML</a></li>
+                        <li id="menujavascript"><a href="/JavaScript/30.html">JavaScript</a></li>
                     </ul>
                 </div>
             </div>
@@ -338,6 +336,10 @@
                     offset: {
                         top: $('#header').height()
                     }
+                });
+                $(document).ready(function () {
+                    var currentMenu=$("#currentMenu").val();
+                    $("#" + currentMenu).addClass("active");
                 });
         </script>
     </header>
@@ -362,4 +364,5 @@
     </div>
 </body>
 @RenderSection("scripts", required: false)
+
 </html>
