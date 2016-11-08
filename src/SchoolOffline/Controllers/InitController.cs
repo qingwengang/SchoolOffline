@@ -353,5 +353,10 @@ namespace SchoolOffline.Controllers
             FileTool.WriteWithHouzui("sitemapgoogle.txt", sbgoogle.ToString());
             return "success";
         }
+
+        public string InitComment(string type,int count)
+        {
+
+        }
     }
 }
