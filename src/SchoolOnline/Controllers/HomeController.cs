@@ -68,6 +68,7 @@ namespace SchoolOffline.Controllers
             model.canonical = sbCanonical.ToString();
             var ext= extendService.Get(type, "shuji");
             model.tuijian = ext!=null ? ext.Content : "";
+            model.comment = course.Comment;
             //ViewData["pageId"] = id;
             model.pageId = id;
             return View(model);
@@ -153,8 +154,8 @@ namespace SchoolOffline.Controllers
             var ext = extendService.Get(type, "shuji");
             model.tuijian = ext != null ? ext.Content : "";
             model.pageId = id;
+            model.comment = course.Comment;
             return View(model);
-            return View();
         }
         
         public IActionResult Error()

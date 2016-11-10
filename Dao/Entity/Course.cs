@@ -18,6 +18,7 @@ namespace SchoolOffline.Entity
         public string LastPage { get; set; }
         public string NextPage { get; set; }
         public DateTime Lastmod { get; set; }
+        public string Comment { get; set; }
         public Course() { }
 
         public Course(string typeName,string muluName,string title,string content,int sortNum)

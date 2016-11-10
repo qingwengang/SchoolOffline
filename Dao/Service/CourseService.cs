@@ -23,11 +23,11 @@ namespace SchoolOffline.Service
             string sql = string.Empty;
             if (ifUpdatetime)
             {
-                sql = "update course set typename=@TypeName,MuluName=@MuluName,Title=@Title,Content=@Content,SortNum=@SortNum,lastmod=now() where id = @Id";
+                sql = "update course set typename=@TypeName,MuluName=@MuluName,Title=@Title,Content=@Content,SortNum=@SortNum,comment=@Comment,lastmod=now() where id = @Id";
             }
             else
             {
-                sql = "update course set typename=@TypeName,MuluName=@MuluName,Title=@Title,Content=@Content,SortNum=@SortNum where id = @Id";
+                sql = "update course set typename=@TypeName,MuluName=@MuluName,Title=@Title,Content=@Content,comment=@Comment,SortNum=@SortNum where id = @Id";
             }
             con.Execute(sql,course);
         }

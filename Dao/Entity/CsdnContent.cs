@@ -11,5 +11,7 @@ namespace Dao.Entity
         public long MuluId { get; set; }
         public string Content { get; set; }
         public string Type { get; set; }
+        public int Flag { get; set; }
+        public long CourseId { get; set; }
     }
 }

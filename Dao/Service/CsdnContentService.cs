@@ -18,5 +18,20 @@ namespace Dao.Service
             var muluList = con.Query<CsdnContent>(sql).ToList<CsdnContent>();
             return muluList;
         }
+        public List<CsdnContent> GetContentByCourseId(long courseId)
+        {
+            string sql = string.Format("select * from csdncontent where courseid={0} order by id desc LIMIT 0,10", courseId);
+            MySqlConnection con = GetConnection();
+            var muluList = con.Query<CsdnContent>(sql).ToList<CsdnContent>();
+            return muluList;
+        }
+        public void Update(CsdnContent content)
+        {
+            MySqlConnection con = GetConnection();
+            string sql = string.Format(@"update csdncontent set flag={0},courseid={1}
+                                where id = {2}", content.Flag,content.CourseId,content.Id);
+            con.Execute(sql);
+        }
+
     }
 }

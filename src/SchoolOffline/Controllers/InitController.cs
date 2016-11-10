@@ -11,6 +11,7 @@ using SchoolOffline.Entity;
 using DoctorOffline.Service;
 using System.Text;
 using SchoolOffline.Models;
+using Dao.Service;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -28,6 +29,7 @@ namespace SchoolOffline.Controllers
         private TiyContentService tiycontentService = new TiyContentService();
         private SchoolContentService contentService = new SchoolContentService();
         private SchoolMuluService muluService = new SchoolMuluService();
+        private CsdnContentService csdnContentService = new CsdnContentService();
         public ApplicationConfiguration config;
         public InitController(IOptions<ApplicationConfiguration> option)
         {
@@ -356,7 +358,33 @@ namespace SchoolOffline.Controllers
 
         public string InitComment(string type,int count)
         {
-
+            var courseList=courseService.GetCourseByTypeName(type);
+            int getContentCount = count * courseList.Count;
+            var contentList = csdnContentService.GetContent(type, getContentCount);
+            for(int i = 0; i < contentList.Count; i++)
+            {
+                int k = i % courseList.Count;
+                contentList[i].CourseId = courseList[k].Id;
+                contentList[i].Flag = 1;
+                csdnContentService.Update(contentList[i]);
+            }
+            foreach(var item in courseList)
+            {
+                InitCommentForCourse(item);
+            }
+            return "success";
+        }
+        private void InitCommentForCourse(Course course)
+        {
+            var contentList = csdnContentService.GetContentByCourseId(course.Id);
+            StringBuilder sb = new StringBuilder();
+            foreach(var item in contentList)
+            {
+                sb.AppendFormat("<li class=\"ds-post\"><div class=\"ds-post-self\" data-source=\"duoshuo\"><div class=\"ds-avatar\"><img src=\"http://static.duoshuo.com/images/noavatar_default.png\"></div><div class=\"ds-comment-body\"><div class=\"ds-comment-header\">{0}</div><p>{1}</p><div class=\"ds-comment-footer ds-comment-actions\"><span class=\"ds-time\" datetime=\"2016-11-08T09:28:04+08:00\" title=\"2016年11月8日 上午9:28:04\">{2}</span></div></div></div></li>", "卿文刚", item.Content, DateTime.Now.ToString("yyyy-MM-hh HH:mm:ss"));
+            }
+            course = courseService.GetById(course.Id);
+            course.Comment = sb.ToString();
+            courseService.Update(course, true);
         }
     }
 }
